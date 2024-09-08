@@ -7,16 +7,19 @@ import com.comic.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ControladorLogin {
 
+    @Autowired
     private ServicioLogin servicioLogin;
 
     @Autowired
@@ -25,12 +28,21 @@ public class ControladorLogin {
     }
 
     @RequestMapping("/login")
-    public ModelAndView irALogin() {
+    public ModelAndView irALogin(HttpServletRequest request) {
+        HttpSession session = request.getSession();
 
-        ModelMap modelo = new ModelMap();
-        modelo.put("datosLogin", new DatosLogin());
-        return new ModelAndView("login", modelo);
+        if (session.getAttribute("usuario") != null) {
+            return new ModelAndView("redirect:/home");
+        }
+        else {
+            ModelMap modelo = new ModelMap();
+            Usuario usuarioLogeado = new Usuario();
+            modelo.put("datosLogin", new DatosLogin());
+            modelo.put("usuario", usuarioLogeado);
+            return new ModelAndView("login", modelo);
+        }
     }
+
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
@@ -38,13 +50,17 @@ public class ControladorLogin {
 
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
         if (usuarioBuscado != null) {
+            HttpSession session = request.getSession();
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+            session.setAttribute("usuario", usuarioBuscado);
             return new ModelAndView("redirect:/home");
         } else {
             model.put("error", "Usuario o clave incorrecta");
         }
         return new ModelAndView("login", model);
     }
+
+
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
@@ -70,12 +86,22 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
-        return new ModelAndView("home");
+        return new ModelAndView("home2");
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
         return new ModelAndView("redirect:/login");
     }
-}
 
+
+
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // Obtener la sesión sin crear una nueva
+        if (session != null) {
+            session.invalidate(); // Invalidar la sesión actual
+        }
+        return new ModelAndView("redirect:/home"); // Redirigir a la página de inicio
+    }
+}
