@@ -43,6 +43,16 @@ public class ControladorLogin {
         }
     }
 
+    @RequestMapping( path = "/cuenta", method = RequestMethod.GET)
+    public ModelAndView irACuenta(HttpServletRequest request){
+        ModelMap modelo = new ModelMap();
+        HttpSession session = request.getSession();
+        Usuario datosUsuario=(Usuario)session.getAttribute("usuario");
+        modelo.put("datosUsuario",datosUsuario);
+        return new ModelAndView("usuario",modelo);
+
+    }
+
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {

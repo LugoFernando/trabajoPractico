@@ -35,7 +35,7 @@
                     </li>
 
                     <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" href="/mi-cuenta">Mi cuenta</a>
+                        <a class="nav-link" th:href="@{/cuenta}">Mi cuenta</a>
                     </li>
 
                     <!-- Opciones de iniciar/cerrar sesión -->

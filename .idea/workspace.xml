@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Primer Push">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/images/anime.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/images/dc.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/images/marvel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/presentacion/ControladorLoginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/comic/presentacion/ControladorLoginTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +22,15 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -44,11 +47,17 @@
     &quot;Maven.tallerwebi-base [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor&quot;: &quot;Run&quot;,
     &quot;Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gaston&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Taller/TrabajoPractico/src/main/webapp/WEB-INF/js&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/osmar/OneDrive/Escritorio/ptoyectoTallerfer/trabajoPractico&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;E:/Taller/TrabajoPractico/src/Main.java&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;CSS&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
