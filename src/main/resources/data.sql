@@ -1,2 +1,2 @@
 INSERT INTO Usuario(id, email, password, rol, activo) VALUES(null, 'test@unlam.edu.ar', 'test', 'ADMIN', true);
-INSERT INTO Publicaciones(id, nombre, descripcion, img, stock, precio,ID_USUARIO) VALUES(1, 'Bakugou Katsuki 15cm', 'Ta fachera - poco uso)? :D', "URL.URL", 1,600000,123);
+/*INSERT INTO Publicaciones(id, nombre, descripcion, img, stock, precio,ID_USUARIO) VALUES(1, 'Bakugou Katsuki 15cm', 'Ta fachera - poco uso)? :D', "URL.URL", 1,600000,123);*/

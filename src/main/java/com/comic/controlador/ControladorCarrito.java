@@ -2,17 +2,19 @@ package com.comic.controlador;
 
 import com.comic.servicios.ServicioCarrito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class ControladorCarrito {
 
-    @Autowired
     private ServicioCarrito servicioCarrito;
 
     @Autowired
@@ -20,16 +22,23 @@ public class ControladorCarrito {
         this.servicioCarrito = servicioCarrito;
     }
 
-    @RequestMapping("/carrito")
-    public ModelAndView contenidoCorrito(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    @RequestMapping("/agregarCarrito")
+    public ModelAndView agregarAlCarrito(HttpServletRequest request, @RequestParam("productoId") Integer productoId) {
+        ModelMap modelo = new ModelMap();
+        servicioCarrito.agregarAlCarrito(productoId);
 
-        if (session.getAttribute("usuario") != null) {
-            return new ModelAndView("redirect:/login");
-        }
-        else {
-            return null;
-        }
+        return new ModelAndView("carrito", modelo);
+
+    }
+
+    @RequestMapping("/carrito")
+    public ModelAndView contenidoCarrito(HttpServletRequest request) {
+        ModelMap modelo = new ModelMap();
+
+
+
+        return new ModelAndView("carrito", modelo);
+
     }
 
 }

@@ -1,20 +1,21 @@
 package com.comic.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Figura {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "estado")
     private String estado;
+    @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "fotoUrl")
     private String fotoUrl;
 
     public Long getId() {

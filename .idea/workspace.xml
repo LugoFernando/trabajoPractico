@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Primer Push">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorCarrito.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/servicios/ServicioCarrito.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/servicios/implementacion/ServicioCarritoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/repositorios/RepositorioCarrito.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/repositorios/implementacion/RepositorioCarritoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorCarrito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorCarrito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/entidades/Figura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/entidades/Figura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/servicios/ServicioCarrito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/servicios/ServicioCarrito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/servicios/implementacion/ServicioCarritoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/servicios/implementacion/ServicioCarritoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" afterDir="false" />
     </list>
@@ -21,8 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -34,12 +38,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/LugoFernando/trabajoPractico.git",
-    "accountId": "efb7798e-11ea-4085-990d-1f78f921ea37"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MeliAbi&quot;
   }
-}]]></component>
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/LugoFernando/trabajoPractico.git&quot;,
+    &quot;accountId&quot;: &quot;efb7798e-11ea-4085-990d-1f78f921ea37&quot;
+  }
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -52,33 +62,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.home2.html.executor": "Run",
-    "Maven.tallerwebi-base [clean].executor": "Run",
-    "Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor": "Run",
-    "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor": "Run",
-    "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Melina",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/tallerWebTP/trabajoPractico",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "E:/Taller/TrabajoPractico/src/Main.java",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.home2.html.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Melina&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/tallerWebTP/trabajoPractico&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;E:/Taller/TrabajoPractico/src/Main.java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "CSS"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;CSS&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.comic.servicios.implementacion" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\js" />
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf\layout" />
@@ -119,7 +133,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1725586039299</updated>
-      <workItem from="1726522693494" duration="6721000" />
+      <workItem from="1726522693494" duration="9214000" />
+      <workItem from="1726601456159" duration="889000" />
+      <workItem from="1726602367642" duration="2647000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Push">
       <option name="closed" value="true" />
