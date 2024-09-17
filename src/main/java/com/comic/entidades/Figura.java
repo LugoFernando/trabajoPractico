@@ -13,6 +13,7 @@ public class Figura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
+    private Double precio;
     private String estado;
     private String descripcion;
     private String fotoUrl;
@@ -56,4 +57,8 @@ public class Figura {
     public void setFotoUrl(String fotoUrl) {
         this.fotoUrl = fotoUrl;
     }
+
+    public Double getPrecio() {return precio;}
+
+    public void setPrecio(Double precio) {this.precio = precio;}
 }

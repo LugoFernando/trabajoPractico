@@ -1,0 +1,17 @@
+package com.comic.repositorios;
+
+import com.comic.entidades.Figura;
+
+import java.util.List;
+
+public interface FiguraRepositorio {
+
+
+    List<Figura> buscarTodo();
+
+    void guardar(Figura figura);
+
+    Figura buscarPorId(Long id);
+
+    void BorrarPorId(Long id);
+}

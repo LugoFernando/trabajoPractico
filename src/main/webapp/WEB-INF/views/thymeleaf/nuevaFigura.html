@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Figura</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- estilo -->
+</head>
+<body>
+<h1>Añadir Nueva Figura de Colección</h1>
+
+<!-- Formulario para añadir una nueva figura -->
+<form th:action="@{/figura/guardar}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="nombre">Nombre de la Figura:</label>
+        <input type="text" id="nombre" name="nombre" th:value="*{nombre}" required>
+    </div>
+
+    <div>
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" step="0.01" th:value="*{precio}" required>
+    </div>
+
+    <div>
+        <label for="estado">Estado:</label>
+        <select id="estado" name="estado" th:value="*{estado}" required>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Usado">Usado</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" th:text="*{descripcion}" required></textarea>
+    </div>
+
+    <div>
+        <label for="foto">Subir Foto:</label>
+        <input type="file" id="foto" name="foto" accept="image/*" required>
+    </div>
+
+    <div>
+        <button type="submit">Guardar Figura</button>
+    </div>
+</form>
+
+<div>
+    <a th:href="@{/figuras}">Volver a la lista de figuras</a>
+</div>
+
+</body>
+</html>
