@@ -1,6 +1,8 @@
 package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
+import com.comic.entidades.Figura;
+import com.comic.servicios.ServicioFigura;
 import com.comic.servicios.ServicioLogin;
 import com.comic.entidades.Usuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
