@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Primer Push">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/config/SpringWebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/config/SpringWebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,14 +19,16 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Melina" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,31 +45,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Maven.tallerwebi-base [clean].executor": "Run",
-    "Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor": "Run",
-    "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor": "Run",
-    "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/tallerWebTP/trabajoPractico",
-    "onboarding.tips.debug.path": "E:/Taller/TrabajoPractico/src/Main.java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Maven.tallerwebi-base [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;selgadis&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/tallerWebTP/trabajoPractico&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;E:/Taller/TrabajoPractico/src/Main.java&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "CSS"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;CSS&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\js" />
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf\layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\trabajoPractico\src\main\webapp\WEB-INF" />
+      <recent name="C:\trabajoPractico\src\main\webapp" />
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf" />
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf\site" />
     </key>
