@@ -1,6 +1,8 @@
 package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
+import com.comic.entidades.Figura;
+import com.comic.servicios.ServicioFigura;
 import com.comic.servicios.ServicioLogin;
 import com.comic.entidades.Usuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
@@ -24,9 +26,12 @@ public class ControladorLogin {
     private ServicioLogin servicioLogin;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin){
+    public ControladorLogin(ServicioLogin servicioLogin) {
         this.servicioLogin = servicioLogin;
     }
+
+
+
 
     @RequestMapping("/login")
     public ModelAndView irALogin(HttpServletRequest request) {
@@ -108,6 +113,7 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
+
         return new ModelAndView("home2");
     }
 
