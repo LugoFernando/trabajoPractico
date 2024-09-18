@@ -98,4 +98,6 @@ public class FiguraControlador {
     public Figura buscarFigura(@PathVariable Long id) {
         return figuraServicio.obtenerFiguraPorId(id);
     }
+
+    //notacion para hacer un commit
 }
