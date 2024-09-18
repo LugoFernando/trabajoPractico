@@ -27,15 +27,16 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.2.22.RELEASE</version>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version> <!-- Asegúrate de que tu versión sea la correcta -->
         </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version>
+            <version>8.0.28</version> <!-- Usa la versión adecuada -->
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -49,11 +50,6 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.hsqldb</groupId>

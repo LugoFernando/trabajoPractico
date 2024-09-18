@@ -2,59 +2,54 @@ package com.comic.repositorios.implementacion;
 
 import com.comic.entidades.Figura;
 import com.comic.repositorios.FiguraRepositorio;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository ("FiguraRepositorio")
 public class FiguraRepositorioImpl implements FiguraRepositorio {
 
-    private final JdbcTemplate jdbcTemplate;
+
+    private SessionFactory sessionFactory;
 
     @Autowired
-    public FiguraRepositorioImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public FiguraRepositorioImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-
-    private RowMapper<Figura> figuraRowMapper = new RowMapper<>() {
-
-        @Override
-        public Figura mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Figura figura = new Figura();
-            figura.setId(rs.getLong("id"));
-            figura.setNombre(rs.getString("nombre"));
-            figura.setPrecio(rs.getDouble("precio"));
-            figura.setEstado(rs.getString("estado"));
-            figura.setDescripcion(rs.getString("descripcion"));
-            figura.setFotoUrl(rs.getString("foto_url"));
-            return figura;
-        }
-    };
-
     @Override
+    @Transactional
     public List<Figura> buscarTodo() {
-        return jdbcTemplate.query("SELECT * FROM figuras", figuraRowMapper);
+        String hql = "SELECT f FROM Figura f";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        return query.getResultList();
     }
 
     @Override
+    @Transactional
     public void guardar(Figura figura) {
-        jdbcTemplate.update("INSERT INTO figuras (nombre, precio, estado, descripcion, foto_url) VALUES (?, ?, ?, ?, ?)",
-                figura.getNombre(), figura.getPrecio(), figura.getEstado(), figura.getDescripcion(), figura.getFotoUrl());
+        this.sessionFactory.getCurrentSession().save(figura);
     }
 
     @Override
+    @Transactional
     public Figura buscarPorId(Long id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM figuras WHERE id = ?", figuraRowMapper, id);
+        String hql = "SELECT f FROM Figura f WHERE f.id = ?1";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter(1, id);
+        return (Figura) query.getSingleResult();
     }
 
     @Override
+    @Transactional
     public void BorrarPorId(Long id) {
-        jdbcTemplate.update("DELETE FROM figuras WHERE id = ?", id);
+        Figura figura = buscarPorId(id);
+        if (figura != null) {
+            this.sessionFactory.getCurrentSession().delete(figura);
+        }
     }
 }

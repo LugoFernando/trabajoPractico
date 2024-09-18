@@ -4,19 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Primer Push">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/controlador/FiguraControlador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/repositorios/FiguraRepositorio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/repositorios/implementacion/FiguraRepositorioImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/servicios/FiguraServicio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/comic/servicios/implementacion/FiguraServicioImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/figuras.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/nuevaFigura.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/subirFigura.html" afterDir="false" />
+    <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Intento para subir fotos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/entidades/Figura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/entidades/Figura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/config/SpringWebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/config/SpringWebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/controlador/FiguraControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/controlador/FiguraControlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/repositorios/implementacion/FiguraRepositorioImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/repositorios/implementacion/FiguraRepositorioImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/images/anime.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/core/images/anime.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/images/dc.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/core/images/dc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/images/marvel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/core/images/marvel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/figuras.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/figuras.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/nuevaFigura.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/nuevaFigura.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,34 +51,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Maven.tallerwebi-base [clean].executor": "Run",
-    "Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor": "Run",
-    "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor": "Run",
-    "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Fernando",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/tallerWebTP/trabajoPractico",
-    "onboarding.tips.debug.path": "E:/Taller/TrabajoPractico/src/Main.java",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Maven.tallerwebi-base [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Fernando&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/tallerWebTP/trabajoPractico&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;E:/Taller/TrabajoPractico/src/Main.java&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "CSS"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;CSS&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\js" />
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf\layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Taller\TrabajoPractico\src\main\webapp\resources\core" />
+      <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF" />
+      <recent name="E:\Taller\TrabajoPractico\src\main\webapp\resources" />
+      <recent name="E:\Taller\TrabajoPractico\src\main\webapp" />
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf" />
-      <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf\site" />
     </key>
   </component>
   <component name="RunManager">
@@ -114,11 +116,20 @@
       <option name="project" value="LOCAL" />
       <updated>1725586478885</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Intento para subir fotos">
+      <option name="closed" value="true" />
+      <created>1726538188336</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726538188336</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primer Push" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primer Push" />
+    <MESSAGE value="Intento para subir fotos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Intento para subir fotos" />
   </component>
 </project>

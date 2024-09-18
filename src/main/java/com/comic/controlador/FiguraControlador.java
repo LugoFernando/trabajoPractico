@@ -8,10 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
+import java.util.List;
 
 
 @Controller
@@ -21,39 +18,55 @@ public class FiguraControlador {
     private FiguraServicio figuraServicio;
 
     @Autowired
-    public FiguraControlador(FiguraServicio figuraService) {
-        this.figuraServicio = figuraService;
+    public FiguraControlador(FiguraServicio figuraServicio) {
+        this.figuraServicio = figuraServicio;
     }
 
-    @GetMapping("/figuras")
+    // Página para listar todas las figuras
+    @GetMapping("/lista")
     public String listarFiguras(Model model) {
-        model.addAttribute("figuras", figuraServicio.listarFiguras());
+        List<Figura> figuras = figuraServicio.listarFiguras();
+        model.addAttribute("figuras", figuras);
         return "figuras";
     }
 
-    @GetMapping("/figura/nueva")
-    public String nuevaFigura(Model model) {
+    // Página para el formulario de nueva figura
+    @GetMapping("/nueva")
+    public String nuevaFiguraForm(Model model) {
         model.addAttribute("figura", new Figura());
         return "nuevaFigura";
     }
 
-    @PostMapping("/figura/guardar")
-    public String guardarFigura(@ModelAttribute Figura figura, @RequestParam("foto") MultipartFile foto) throws IOException {
-        // Guardar la foto en el servidor
-        if (!foto.isEmpty()) {
-            Path directorioFotos = Paths.get("src/main/resources/static/fotos");
-            String fotoNombre = foto.getOriginalFilename();
-            Path rutaFoto = directorioFotos.resolve(fotoNombre);
-            Files.copy(foto.getInputStream(), rutaFoto);
-            figura.setFotoUrl("/fotos/" + fotoNombre);
+    // Guardar una nueva figura
+    @PostMapping("/guardar")
+    public String guardarFigura(@ModelAttribute Figura figura, @RequestParam("file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            try {
+                // Asumiendo que quieres guardar la URL de la foto en el objeto
+                String fotoUrl = "resources/core/images" + file.getOriginalFilename();  // Modificar con tu ruta de almacenamiento
+                figura.setFotoUrl(fotoUrl);
+                // Guardar la foto físicamente
+                file.transferTo(new java.io.File(fotoUrl));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         figuraServicio.guardarFigura(figura);
-        return "redirect:/figuras";
+        return "redirect:/spring/lista";
     }
 
-    @GetMapping("/figura/eliminar/{id}")
+    // Eliminar una figura por ID
+    @GetMapping("/eliminar/{id}")
     public String eliminarFigura(@PathVariable Long id) {
         figuraServicio.eliminarFigura(id);
-        return "redirect:/figuras";
+        return "redirect:/spring/lista";
+    }
+
+    // Mostrar una figura específica por ID
+    @GetMapping("/detalle/{id}")
+    public String detalleFigura(@PathVariable Long id, Model model) {
+        Figura figura = figuraServicio.obtenerFiguraPorId(id);
+        model.addAttribute("figura", figura);
+        return "detalle-figura";
     }
 }
