@@ -35,6 +35,8 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
         this.sessionFactory.getCurrentSession().save(figura);
     }
 
+
+
     @Override
     @Transactional
     public Figura buscarPorId(Long id) {

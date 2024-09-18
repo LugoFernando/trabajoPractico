@@ -26,6 +26,13 @@
     <dependencies>
 
         <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version> <!-- Asegúrate de que tu versión sea la correcta -->
@@ -131,7 +138,11 @@
 
     <build>
 
+
+
+
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -141,6 +152,8 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
+
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -179,6 +192,8 @@
                     </webApp>
                 </configuration>
             </plugin>
+
+
 
         </plugins>
     </build>
