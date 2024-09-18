@@ -5,7 +5,10 @@
 </head>
 <body>
 <h1>Lista de Figuras de Colección</h1>
+<p>
 <a th:href="@{/nueva}">Agregar Nueva Figura</a>
+<p>
+<a th:href="@{/nueva2}">Agregar Nueva Figura Sin Foto</a>
 <table>
     <thead>
     <tr>
@@ -25,7 +28,7 @@
         <td th:text="${figura.descripcion}"></td>
         <td><img th:src="${figura.fotoUrl}" alt="Foto" width="100"></td>
         <td>
-            <a th:href="@{'/figura/eliminar/' + ${figura.id}}">Eliminar</a>
+            <a th:href="@{'/eliminar/' + ${figura.id}}">Eliminar</a>
         </td>
     </tr>
     </tbody>

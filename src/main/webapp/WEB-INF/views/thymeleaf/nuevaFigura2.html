@@ -9,8 +9,8 @@
 <body>
 <h1>Añadir Nueva Figura de Colección</h1>
 
-
-<form th:action="@{/guardar}" method="post" enctype="multipart/form-data">
+<!-- Formulario para añadir una nueva figura -->
+<form th:action="@{/guardarSinImagen}" method="post">
     <div>
         <label for="nombre">Nombre de la Figura:</label>
         <input type="text" id="nombre" name="nombre" th:value="*{nombre}" required>
@@ -32,11 +32,6 @@
     <div>
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" name="descripcion" th:text="*{descripcion}" required></textarea>
-    </div>
-
-    <div>
-        <label for="foto">Subir Foto:</label>
-        <input type="file" id="foto" name="foto" accept="image/*" required>
     </div>
 
     <div>
