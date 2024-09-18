@@ -10,7 +10,7 @@
 <h1>Añadir Nueva Figura de Colección</h1>
 
 <!-- Formulario para añadir una nueva figura -->
-<form th:action="@{/figura/guardar}" method="post" enctype="multipart/form-data">
+<form th:action="@{/guardar}" method="post" enctype="multipart/form-data">
     <div>
         <label for="nombre">Nombre de la Figura:</label>
         <input type="text" id="nombre" name="nombre" th:value="*{nombre}" required>
