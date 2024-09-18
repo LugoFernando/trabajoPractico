@@ -1,7 +1,9 @@
 package com.comic.repositorios;
 
 import com.comic.entidades.Usuario;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface RepositorioUsuario {
 
     Usuario buscarUsuario(String email, String password);

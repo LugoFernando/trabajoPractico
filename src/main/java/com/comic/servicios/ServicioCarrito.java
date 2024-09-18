@@ -6,4 +6,5 @@ import com.comic.entidades.Usuario;
 public interface ServicioCarrito {
 
     void agregarAlCarrito(Integer productoId);
+
 }
