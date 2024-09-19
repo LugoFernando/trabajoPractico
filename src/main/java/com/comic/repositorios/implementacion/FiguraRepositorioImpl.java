@@ -17,9 +17,7 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public FiguraRepositorioImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    public FiguraRepositorioImpl(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;}
 
     @Override
     @Transactional

@@ -8,7 +8,6 @@
 <p>
 <a th:href="@{/nueva}">Agregar Nueva Figura</a>
 <p>
-<a th:href="@{/nueva2}">Agregar Nueva Figura Sin Foto</a>
 <table>
     <thead>
     <tr>
@@ -26,12 +25,13 @@
         <td th:text="${figura.precio}"></td>
         <td th:text="${figura.estado}"></td>
         <td th:text="${figura.descripcion}"></td>
-        <td><img th:src="${figura.fotoUrl}" alt="Foto" width="100"></td>
+        <td><img th:src="'data:image/png;base64,' + ${figura.cadena()}" alt="Foto" width="100"></td> <!--investigar-->
         <td>
             <a th:href="@{'/eliminar/' + ${figura.id}}">Eliminar</a>
         </td>
     </tr>
     </tbody>
+    <a th:href="@{/home}">Volver Al Inicio</a>
 </table>
 </body>
 </html>

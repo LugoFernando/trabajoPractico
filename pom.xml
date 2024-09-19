@@ -25,18 +25,18 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.4</version>
-        </dependency>
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>commons-fileupload</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>commons-fileupload</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <version>1.4</version>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
 
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version> <!-- Asegúrate de que tu versión sea la correcta -->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-jdbc</artifactId>-->
+<!--            <version>${spring.version}</version> &lt;!&ndash; Asegúrate de que tu versión sea la correcta &ndash;&gt;-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>mysql</groupId>

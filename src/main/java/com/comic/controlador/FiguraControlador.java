@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 
@@ -25,7 +28,6 @@ public class FiguraControlador {
 
     @Autowired
     public FiguraControlador(FiguraServicio figuraServicio , ServicioLogin servicioLogin) {
-
         this.figuraServicio = figuraServicio;
         this.servicioLogin = servicioLogin;
     }
@@ -49,35 +51,27 @@ public class FiguraControlador {
 
     // Guardar una nueva figura
     @PostMapping("/guardar")
-    public String guardarFigura(@ModelAttribute Figura figura, @RequestParam("file") MultipartFile file) {
-        if (!file.isEmpty()) {
-            try {
-                // Guardar url
-                String fotoUrl = "src/main/resources/webapp/resources/core/images" + file.getOriginalFilename();
-                figura.setFotoUrl(fotoUrl);
-                // Guardar la foto físicamente
-                file.transferTo(new java.io.File(fotoUrl));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        figuraServicio.guardarFigura(figura);
+    public String guardarFigura(@ModelAttribute ("figura") Figura figura, @RequestParam("imagen") MultipartFile imagen) {
+        figuraServicio.guardarFigura(figura , imagen);
         return "redirect:/lista";
     }
 
 
-    @GetMapping("/nueva2")
-    public String nuevaFiguraForm2(Model model) {
-        model.addAttribute("figura", new Figura());
-        return "nuevaFigura2";
-    }
 
-    @PostMapping("/guardarSinImagen")
-    public String guardarFiguraSinImagen(@ModelAttribute Figura figura) {
-        // Guardar la figura sin modificar la foto
-        figuraServicio.guardarFigura(figura);
-        return "redirect:/lista";
-    }
+
+
+//    @GetMapping("/nueva2")
+//    public String nuevaFiguraForm2(Model model) {
+//        model.addAttribute("figura", new Figura());
+//        return "nuevaFigura2";
+//    }
+//
+////    @PostMapping("/guardarSinImagen")
+////    public String guardarFiguraSinImagen(@ModelAttribute Figura figura) {
+////        // Guardar la figura sin modificar la foto
+////        figuraServicio.guardarFigura(figura);
+////        return "redirect:/lista";
+////    }
 
     // Eliminar una figura por ID
     @GetMapping("/eliminar/{id}")
