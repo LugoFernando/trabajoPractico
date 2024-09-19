@@ -4,48 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva Figura</title>
-    <link rel="stylesheet" href="/css/styles.css"> <!-- estilo -->
+
 </head>
 <body>
-<h1>Añadir Nueva Figura de Colección</h1>
 
 
-<form th:action="@{/guardar}" method="post" enctype="multipart/form-data">
-    <div>
-        <label for="nombre">Nombre de la Figura:</label>
-        <input type="text" id="nombre" name="nombre" th:value="*{nombre}" required>
-    </div>
+<div class = "container">
+    <form action="#" th:action="@{/guardar}"  method="POST"  th:object="${figura}" enctype="multipart/form-data">
+        <h1>Añadir Nueva Figura de Colección</h1>
 
-    <div>
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" name="precio" step="0.01" th:value="*{precio}" required>
-    </div>
+            <label for="nombre">Nombre de la Figura:</label>
+            <input type="text" id="nombre" name="nombre" th:value="*{nombre}" required>
 
-    <div>
-        <label for="estado">Estado:</label>
-        <select id="estado" name="estado" th:value="*{estado}" required>
-            <option value="Nuevo">Nuevo</option>
-            <option value="Usado">Usado</option>
-        </select>
-    </div>
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" step="0.01" th:value="*{precio}" required>
 
-    <div>
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" name="descripcion" th:text="*{descripcion}" required></textarea>
-    </div>
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado" th:value="*{estado}" required>
+                <option value="Nuevo">Nuevo</option>
+                <option value="Usado">Usado</option>
+            </select>
 
-    <div>
-        <label for="foto">Subir Foto:</label>
-        <input type="file" id="foto" name="foto" accept="image/*" required>
-    </div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" th:text="*{descripcion}" required></textarea>
+
+            <label for="image">Subir Foto:</label>
+            <input th:field="*{imagen}" type="file" id="image" name="image" accept="image/*" class="form-control-file">
+
+
+            <button  id="btn-registrarme" type="submit">Guardar Figura</button>
+        <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}"></p>
+    </form>
 
     <div>
-        <button type="submit">Guardar Figura</button>
+        <a th:href="@{/figuras}">Volver a la lista de figuras</a>
     </div>
-</form>
-
-<div>
-    <a th:href="@{/figuras}">Volver a la lista de figuras</a>
 </div>
 
 </body>
