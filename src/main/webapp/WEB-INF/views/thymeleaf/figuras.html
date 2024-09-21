@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Figuras</title>
+</head>
+<body>
+<h1>Lista de Figuras de Colección</h1>
+<p>
+<a th:href="@{/nueva}">Agregar Nueva Figura</a>
+<p>
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Estado</th>
+        <th>Descripción</th>
+        <th>Foto</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="figura : ${figuras}">
+        <td th:text="${figura.nombre}"></td>
+        <td th:text="${figura.precio}"></td>
+        <td th:text="${figura.estado}"></td>
+        <td th:text="${figura.descripcion}"></td>
+        <td><img th:src="'data:image/png;base64,' + ${figura.cadena()}" alt="Foto" width="100"></td> <!--investigar-->
+        <td>
+            <a th:href="@{'/eliminar/' + ${figura.id}}">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+    <a th:href="@{/home}">Volver Al Inicio</a>
+</table>
+</body>
+</html>
