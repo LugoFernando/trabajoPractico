@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Primer Push">
+    <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Intento para subir fotos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/entidades/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/entidades/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/usuario.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/usuario.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,15 +44,26 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
+    "JUnit.LoginSelgaTest.devuelveMensajeDeErrorCuandoLasCredencialesNoSonCorrectas.executor": "Run",
+    "JUnit.LoginSelgaTest.pruebaElMetodoValidarLoginRedirigeAHomeCuandoLasCredencialesSonCorrectas.executor": "Run",
+    "JUnit.LoginSelgaTest.pruebaSiElMetodoRegistrarmeMuestraElMensajeDeErrorCuandoOcurreUnErrorAlRegistrar.executor": "Run",
+    "JUnit.LoginSelgaTest.pruebaSiElMetodoRegistrarmeMuestraElmensajeDeErrorCuandoSeIntentaRegistrarUnUsuarioConUnEmailExistente.executor": "Run",
+    "JUnit.LoginSelgaTest.pruebaSiLogoutInvalidaLaSesionCorrectamente.executor": "Run",
+    "JUnit.LoginSelgaTest.pruebaSiRegistrarmeRegistraCorrectamenteUnUsuarioNuevoYRedirigeAlaPaginaDeLogin.executor": "Run",
+    "JUnit.LoginSelgaTest.queCreeUnUsuarioCuandoNoHaySesionActiva.executor": "Run",
+    "JUnit.LoginSelgaTest.queRedirijaAHomeSiElUsuarioYaEstaLoqueado.executor": "Run",
+    "JUnit.LoginSelgaTest.queRedirijaALoginSiNoHayUsuarioRegistrado.executor": "Run",
     "Maven.tallerwebi-base [clean].executor": "Run",
+    "Maven.tallerwebi-base [jetty:run].executor": "Run",
     "Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor": "Run",
     "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor": "Run",
     "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "selgadis",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/imagenEnBase/tallerwebi-base",
-    "onboarding.tips.debug.path": "E:/Taller/TrabajoPractico/src/Main.java"
+    "last_opened_file_path": "C:/tallerWebTP/trabajoPractico",
+    "onboarding.tips.debug.path": "E:/Taller/TrabajoPractico/src/Main.java",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   },
   "keyToStringList": {
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
@@ -69,13 +77,94 @@
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf\layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\trabajoPractico\src\main\webapp\WEB-INF" />
-      <recent name="C:\trabajoPractico\src\main\webapp" />
+      <recent name="E:\Taller\TrabajoPractico\src\main\webapp\resources\core" />
+      <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF" />
+      <recent name="E:\Taller\TrabajoPractico\src\main\webapp\resources" />
+      <recent name="E:\Taller\TrabajoPractico\src\main\webapp" />
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf" />
-      <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf\site" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.LoginSelgaTest.pruebaSiLogoutInvalidaLaSesionCorrectamente">
+    <configuration name="LoginSelgaTest.devuelveMensajeDeErrorCuandoLasCredencialesNoSonCorrectas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tallerwebi-base" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.comic.controladorTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.comic.controladorTest" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.controladorTest.LoginSelgaTest" />
+      <option name="METHOD_NAME" value="devuelveMensajeDeErrorCuandoLasCredencialesNoSonCorrectas" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginSelgaTest.pruebaSiElMetodoRegistrarmeMuestraElMensajeDeErrorCuandoOcurreUnErrorAlRegistrar" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tallerwebi-base" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.comic.controladorTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.comic.controladorTest" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.controladorTest.LoginSelgaTest" />
+      <option name="METHOD_NAME" value="pruebaSiElMetodoRegistrarmeMuestraElMensajeDeErrorCuandoOcurreUnErrorAlRegistrar" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginSelgaTest.pruebaSiElMetodoRegistrarmeMuestraElmensajeDeErrorCuandoSeIntentaRegistrarUnUsuarioConUnEmailExistente" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tallerwebi-base" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.comic.controladorTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.comic.controladorTest" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.controladorTest.LoginSelgaTest" />
+      <option name="METHOD_NAME" value="pruebaSiElMetodoRegistrarmeMuestraElmensajeDeErrorCuandoSeIntentaRegistrarUnUsuarioConUnEmailExistente" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginSelgaTest.pruebaSiLogoutInvalidaLaSesionCorrectamente" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tallerwebi-base" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.comic.controladorTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.comic.controladorTest" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.controladorTest.LoginSelgaTest" />
+      <option name="METHOD_NAME" value="pruebaSiLogoutInvalidaLaSesionCorrectamente" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginSelgaTest.pruebaSiRegistrarmeRegistraCorrectamenteUnUsuarioNuevoYRedirigeAlaPaginaDeLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tallerwebi-base" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.comic.controladorTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.comic.controladorTest" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.controladorTest.LoginSelgaTest" />
+      <option name="METHOD_NAME" value="pruebaSiRegistrarmeRegistraCorrectamenteUnUsuarioNuevoYRedirigeAlaPaginaDeLogin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="trabajoPractico" />
       <method v="2">
@@ -89,6 +178,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LoginSelgaTest.pruebaSiLogoutInvalidaLaSesionCorrectamente" />
+        <item itemvalue="JUnit.LoginSelgaTest.pruebaSiElMetodoRegistrarmeMuestraElMensajeDeErrorCuandoOcurreUnErrorAlRegistrar" />
+        <item itemvalue="JUnit.LoginSelgaTest.pruebaSiElMetodoRegistrarmeMuestraElmensajeDeErrorCuandoSeIntentaRegistrarUnUsuarioConUnEmailExistente" />
+        <item itemvalue="JUnit.LoginSelgaTest.pruebaSiRegistrarmeRegistraCorrectamenteUnUsuarioNuevoYRedirigeAlaPaginaDeLogin" />
+        <item itemvalue="JUnit.LoginSelgaTest.devuelveMensajeDeErrorCuandoLasCredencialesNoSonCorrectas" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -107,11 +205,20 @@
       <option name="project" value="LOCAL" />
       <updated>1725586478885</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Intento para subir fotos">
+      <option name="closed" value="true" />
+      <created>1726538188336</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726538188336</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primer Push" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primer Push" />
+    <MESSAGE value="Intento para subir fotos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Intento para subir fotos" />
   </component>
 </project>
