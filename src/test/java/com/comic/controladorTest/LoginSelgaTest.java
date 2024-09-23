@@ -178,5 +178,22 @@ public class LoginSelgaTest {
         assertThat(modelAndView.getViewName(), is("redirect:/home"));
 
     }
+    @Test
+    public void muestraLaInformacionDelUsuarioAutentificadoyRedirigeACuenta(){
+
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+
+        ModelAndView modelAndView=controladorLogin.irACuenta(requestMock);
+
+
+        assertThat(modelAndView.getViewName(), is("usuario"));
+
+
+        assertThat(modelAndView.getModel().get("datosUsuario"), is(usuarioMock));
+
+
+    }
+
 
 }
