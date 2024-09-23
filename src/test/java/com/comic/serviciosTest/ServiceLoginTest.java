@@ -43,7 +43,7 @@ public class ServiceLoginTest {
         when(repositorioUsuarioMock.buscarUsuario("selgadis25@gmail.com", "123456"))
                 .thenReturn(usuarioMock);
 
-        // Llama al metodo que deseas probar
+        // Llama al método que deseas probar
         Usuario usuarioEncontrado = servicioLogin.consultarUsuario(datos.getEmail() ,datos.getPassword());
 
         // Verifica que el usuario encontrado sea igual al usuario mockeado
@@ -80,7 +80,6 @@ public class ServiceLoginTest {
         // Verifica que el método guardar no fue llamado
         verify(repositorioUsuarioMock, never()).guardar(any(Usuario.class));
     }
-
     @Test
     public void verificaQueRegistrarGuardaElUsuarioCuandoNoExiste() throws UsuarioExistente {
         when(repositorioUsuarioMock.buscarUsuario(usuarioMock.getEmail(), usuarioMock.getPassword()))
