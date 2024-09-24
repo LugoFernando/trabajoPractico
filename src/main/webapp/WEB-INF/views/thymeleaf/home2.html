@@ -44,6 +44,9 @@
                     <li class="nav-item" th:if="${session.usuario == null}">
                         <a class="nav-link" th:href="@{/}">Iniciar sesión</a>
                     </li>
+                    <li class="nav-item" th:if="${session.usuario == null}">
+                        <a class="nav-link" th:href="@{/registrarme}">Registrarme</a>
+                    </li>
                     <li class="nav-item" th:if="${session.usuario != null}">
 <!--                       <a class="nav-link" href="/logout">Cerrar sesión</a>-->
                         <a th:href="@{/logout}" class="nav-link">Cerrar sesión</a>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Taller Web I</title>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Tienda de Figuras</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class = "container">
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+
+            <form th:action="@{/registrarme}" method="POST" th:object="${nuevoUsuario}">
+                <input th:field="*{email}" id="email" type="email" class="form-control" required/>
+                <input th:field="*{password}" type="password" id="password" class="form-control" required/>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required/>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Registrarme</button>
+            </form>
+
+            <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger">
+                <p th:errors="*{email}">Error en el campo email</p>
+            </div>
+            <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger">
+                <p th:errors="*{password}">Error en el campo password</p>
+            </div>
+            <!--
+            <div th:if="${#fields.hasErrors('confirmPassword')}" class="alert alert-danger">
+                <p th:errors="*{confirmPassword}">Error en el campo confirmar contraseña</p>
+            </div>
+            -->
+
+            <a id="ir-a-login" href="login">Ya tengo una cuenta</a>
+        </div>
+    </div>
+</main>
+<!-- /.container -->
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>
