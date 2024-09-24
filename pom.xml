@@ -38,6 +38,13 @@
 <!--            <version>${spring.version}</version> &lt;!&ndash; Asegúrate de que tu versión sea la correcta &ndash;&gt;-->
 <!--        </dependency>-->
 
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version> <!-- Asegúrate de usar la última versión -->
+        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
