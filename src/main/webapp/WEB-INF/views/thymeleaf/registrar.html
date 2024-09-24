@@ -32,17 +32,7 @@
                 <button type="submit" class="btn btn-lg btn-primary btn-block">Registrarme</button>
             </form>
 
-            <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger">
-                <p th:errors="*{email}">Error en el campo email</p>
-            </div>
-            <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger">
-                <p th:errors="*{password}">Error en el campo password</p>
-            </div>
-            <!--
-            <div th:if="${#fields.hasErrors('confirmPassword')}" class="alert alert-danger">
-                <p th:errors="*{confirmPassword}">Error en el campo confirmar contraseña</p>
-            </div>
-            -->
+            <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}"> </p>
 
             <a id="ir-a-login" href="login">Ya tengo una cuenta</a>
         </div>
