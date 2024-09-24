@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Intento para subir fotos">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/registrar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorCarrito.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/comic/controlador/ControladorLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/repositorios/RepositorioCarrito.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/repositorios/implementacion/RepositorioCarritoImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/servicios/ServicioCarrito.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/comic/servicios/implementacion/ServicioCarritoImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/carrito.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/registrar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/registrar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/presentacion/ControladorLoginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/comic/presentacion/ControladorLoginTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,10 +72,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
-    "JUnit.ControladorLoginTest.debeRegistrarUnUsuarioNuevoMostrandoMensajeDeRegistroCorrecto.executor": "Debug",
+    "JUnit.ControladorLoginTest.debeRegistrarUnUsuarioNuevoMostrandoMensajeDeRegistroCorrecto.executor": "Run",
     "JUnit.ControladorLoginTest.errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError.executor": "Run",
     "JUnit.ControladorLoginTest.executor": "Run",
     "JUnit.ControladorLoginTest.registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin.executor": "Run",
+    "JUnit.ControladorLoginTest.registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError.executor": "Run",
     "JavaScript Debug.home2.html.executor": "Run",
     "Maven.tallerwebi-base [clean].executor": "Run",
     "Maven.tallerwebi-base [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
@@ -114,7 +122,7 @@
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ControladorLoginTest.debeRegistrarUnUsuarioNuevoMostrandoMensajeDeRegistroCorrecto">
+  <component name="RunManager" selected="JUnit.ControladorLoginTest.registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin">
     <configuration name="ControladorLoginTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tallerwebi-base" />
       <extension name="coverage">
@@ -178,6 +186,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ControladorLoginTest.registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tallerwebi-base" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.comic.presentacion.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.comic.presentacion" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.presentacion.ControladorLoginTest" />
+      <option name="METHOD_NAME" value="registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="trabajoPractico" />
       <method v="2">
@@ -191,43 +215,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="tallerwebi-base [jetty:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="cmdOptions" />
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="jetty:run" />
-              </list>
-            </option>
-            <option name="multimoduleDir" />
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="projectsCmdOptionValues">
-              <list />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ControladorLoginTest.debeRegistrarUnUsuarioNuevoMostrandoMensajeDeRegistroCorrecto" />
-        <item itemvalue="JUnit.ControladorLoginTest.errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError" />
         <item itemvalue="JUnit.ControladorLoginTest.registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin" />
+        <item itemvalue="JUnit.ControladorLoginTest.registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError" />
+        <item itemvalue="JUnit.ControladorLoginTest.errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError" />
+        <item itemvalue="JUnit.ControladorLoginTest.debeRegistrarUnUsuarioNuevoMostrandoMensajeDeRegistroCorrecto" />
         <item itemvalue="JUnit.ControladorLoginTest" />
-        <item itemvalue="Maven.tallerwebi-base [jetty:run]" />
       </list>
     </recent_temporary>
   </component>
@@ -253,7 +247,7 @@
       <workItem from="1726787115811" duration="2449000" />
       <workItem from="1726945782595" duration="1496000" />
       <workItem from="1727051359326" duration="7071000" />
-      <workItem from="1727137816893" duration="1658000" />
+      <workItem from="1727137816893" duration="4396000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Push">
       <option name="closed" value="true" />
@@ -292,5 +286,20 @@
     <MESSAGE value="Primer Push" />
     <MESSAGE value="Intento para subir fotos" />
     <option name="LAST_COMMIT_MESSAGE" value="Intento para subir fotos" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/com/comic/presentacion/ControladorLoginTest.java</url>
+          <line>71</line>
+          <properties class="com.comic.presentacion.ControladorLoginTest" method="registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -72,6 +72,12 @@ public class ControladorLogin {
     }
 
 
+    @RequestMapping(path = "/registrar", method = RequestMethod.GET)
+    public ModelAndView nuevoUsuario() {
+        ModelMap model = new ModelMap();
+        model.put("nuevoUsuario", new Usuario());
+        return new ModelAndView("registrar", model);
+    }
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("nuevoUsuario") Usuario usuario, HttpServletRequest request) {
@@ -83,28 +89,20 @@ public class ControladorLogin {
         // Validar si las contraseñas coinciden
         if (!usuario.getPassword().equals(confirmPassword)) {
             model.put("error", "Las contraseñas no coinciden");
-            return new ModelAndView("nuevo-usuario", model);
+            return new ModelAndView("registrar", model);
         }
 
         try {
             servicioLogin.registrar(usuario);
         } catch (UsuarioExistente e) {
             model.put("error", "El usuario ya existe");
-            return new ModelAndView("nuevo-usuario", model);
+            return new ModelAndView("registrar", model);
         } catch (Exception e) {
             model.put("error", "Error al registrar el nuevo usuario");
-            return new ModelAndView("nuevo-usuario", model);
+            return new ModelAndView("registrar", model);
         }
 
         return new ModelAndView("redirect:/login");
-    }
-
-
-    @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
-    public ModelAndView nuevoUsuario() {
-        ModelMap model = new ModelMap();
-        model.put("nuevoUsuario", new Usuario());
-        return new ModelAndView("nuevo-usuario", model);
     }
 
 
