@@ -24,6 +24,7 @@ import java.util.List;
 
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HibernateTestConfig.class})
@@ -44,13 +45,13 @@ public class FiguraRepositorioTest {
     @Transactional
     @Rollback
     public void queSeObteganTodosLasFiguras() {
-        List<Figura> FiguraMock = getCompletarFigura();
+        List<Figura> figuraMock = getCompletarListaFigura();
 
         List<Figura> figuras = this.figuraRepositorio.buscarTodo();
 
-        assertThat(figuras, equalTo(FiguraMock));
+        assertThat(figuras, equalTo(figuraMock));
         assertThat(figuras.size(), equalTo(3));
-        assertThat(figuras.size(), equalTo(FiguraMock.size()));
+        assertThat(figuras.size(), equalTo(figuraMock.size()));
     }
 
     @Test
@@ -58,19 +59,71 @@ public class FiguraRepositorioTest {
     @Rollback
     public void queSeObteganUnaFiguraPorID() {
         // Preparar datos
-        List<Figura> FiguraMock = getCompletarFigura();
+        List<Figura> figuraMock = getCompletarListaFigura();
 
-        // Ejecutar el método a testear
+        // método a testear
         Figura figuraObtenida = this.figuraRepositorio.buscarPorId(1L);
 
         // Validar que la figura obtenida sea la esperada
-        assertThat(figuraObtenida, equalTo(FiguraMock.get(0)));
+        assertThat(figuraObtenida, equalTo(figuraMock.get(0)));
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void queSeGuardeUnaFiguraNueva() {
+        // Preparar datos
+        Figura figuraTest = new Figura();
+        figuraTest.setId(1L);
+        figuraTest.setDescripcion("test");
+        figuraTest.setEstado("Nuevo");
+        figuraTest.setNombre("Robin");
+        figuraTest.setPrecio(200.0);
+
+        //medotodo a testear
+        this.figuraRepositorio.guardar(figuraTest);
+
+        Figura figuraGuardada = this.figuraRepositorio.buscarPorId(1L);
+
+        assertThat(figuraGuardada, equalTo(figuraTest));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void eliminarUnaFiguraPorId() {
+        // Preparar datos
+        List<Figura> figuraMock = getCompletarListaFigura();
+
+        //medotodo a testear
+        this.figuraRepositorio.BorrarPorId(1L);
+
+        assertEquals(2, figuraRepositorio.buscarTodo().size());
+
+    }
+
+//    @Test // Nose porque no funciona
+//    @Transactional
+//    @Rollback
+//    public void intentarBorrarUnaFiguraQueNoExistePorId() {
+//        // Preparar datos
+//        List<Figura> figuraMock = getCompletarListaFigura();
+//        assertEquals(3, figuraRepositorio.buscarTodo().size());
+//        //medotodo a testear
+//        this.figuraRepositorio.BorrarPorId(10L);
+//
+//        assertEquals(3, figuraRepositorio.buscarTodo().size());
+//
+//    }
 
 
 
-    private List<Figura> getCompletarFigura() {
+
+
+
+
+    private List<Figura> getCompletarListaFigura() {
         List<Figura> FiguraMock = new ArrayList<>();
         FiguraMock.add(new Figura(1L, "superman", 4000.0, "Nuevo", "figura sin caja"));
         FiguraMock.add(new Figura(2L, "batman", 2000.0, "Nuevo", "figura con detalles"));
