@@ -26,6 +26,7 @@ public class FiguraServicioImp implements FiguraServicio {
 
     @Override
     public List<Figura> listarFiguras() {
+
         return figuraRepositorio.buscarTodo();
     }
 
