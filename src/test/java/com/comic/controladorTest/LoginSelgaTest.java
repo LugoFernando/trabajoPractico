@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.doNothing;
 public class LoginSelgaTest {
@@ -124,10 +125,11 @@ public class LoginSelgaTest {
         usuario.setEmail("test@example.com");
         usuario.setPassword("123456"); // Establece otros atributos según sea necesario
         doNothing().when(servicioLoginMock).registrar(usuario);
+        when(requestMock.getParameter("confirmPassword")).thenReturn("123456");
 
 
         // Llamar al método del controlador
-        ModelAndView modelAndView = controladorLogin.registrarme(usuario);
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
 
         // Verificar que se redirige a la página de login
         assertThat(modelAndView.getViewName(), is("redirect:/login"));
@@ -141,9 +143,10 @@ public class LoginSelgaTest {
         Usuario usuario=new Usuario();
         usuario.setEmail("test@example.com");
         usuario.setPassword("123456");
+        when(requestMock.getParameter("confirmPassword")).thenReturn("123456");
 
         doThrow(new UsuarioExistente()).when(servicioLoginMock).registrar(usuario);
-        ModelAndView modelAndView=controladorLogin.registrarme(usuario);
+        ModelAndView modelAndView=controladorLogin.registrarme(usuario,requestMock);
 
         assertThat(modelAndView.getModel().get("error"),is("El usuario ya existe"));
     }
@@ -154,17 +157,13 @@ public class LoginSelgaTest {
         Usuario usuario = new Usuario();
         usuario.setEmail("test@example.com");
         usuario.setPassword("123456");
+        when(requestMock.getParameter("confirmPassword")).thenReturn("123456");
 
 
         doThrow(new RuntimeException("Error inesperado")).when(servicioLoginMock).registrar(usuario);
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
 
-
-        ModelAndView modelAndView = controladorLogin.registrarme(usuario);
-
-
-        assertThat(modelAndView.getViewName(), is("nuevo-usuario"));
-
-
+        assertThat(modelAndView.getViewName(), is("registrar"));
         assertThat(modelAndView.getModel().get("error"), is("Error al registrar el nuevo usuario"));
     }
 
@@ -192,6 +191,23 @@ public class LoginSelgaTest {
 
         assertThat(modelAndView.getModel().get("datosUsuario"), is(usuarioMock));
 
+
+    }
+
+    @Test
+    public void debeRegistrarUnUsuarioNuevoSinObtenerNingunError() {
+
+        //DADO -> BeforeEach +
+        Usuario usuario = new Usuario();
+        usuario.setEmail("melina@unlam.com");
+        usuario.setPassword("4321");
+        when(requestMock.getParameter("confirmPassword")).thenReturn("4321");
+
+        //CUANDO
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
+
+        //ENTONCES
+        assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/login"));
 
     }
 

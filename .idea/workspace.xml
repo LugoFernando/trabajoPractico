@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Intento para subir fotos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/serviciosTest/ServiceLoginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/comic/serviciosTest/ServiceLoginTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/controladorTest/LoginSelgaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/comic/controladorTest/LoginSelgaTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +50,7 @@
     "JUnit.FiguraRepositorioTest.queSeObteganTodosLosVehiculos.executor": "Run",
     "JUnit.FiguraRepositorioTest.queSeObteganUnaFiguraPorID.executor": "Run",
     "JUnit.LoginSelgaTest.devuelveMensajeDeErrorCuandoLasCredencialesNoSonCorrectas.executor": "Run",
+    "JUnit.LoginSelgaTest.executor": "Run",
     "JUnit.LoginSelgaTest.muestraLaInformacionDelUsuarioAutentificadoyRedirigeACuenta.executor": "Run",
     "JUnit.LoginSelgaTest.pruebaElMetodoValidarLoginRedirigeAHomeCuandoLasCredencialesSonCorrectas.executor": "Run",
     "JUnit.LoginSelgaTest.pruebaSiElMetodoRegistrarmeMuestraElMensajeDeErrorCuandoOcurreUnErrorAlRegistrar.executor": "Run",
@@ -99,7 +100,7 @@
       <recent name="E:\Taller\TrabajoPractico\src\main\webapp\WEB-INF\views\thymeleaf" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FiguraRepositorioTest.queSeObteganUnaFiguraPorID">
+  <component name="RunManager">
     <configuration name="FiguraRepositorioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tallerwebi-base" />
       <extension name="coverage">
