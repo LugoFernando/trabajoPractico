@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Intento para subir fotos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/controladorTest/LoginSelgaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/comic/controladorTest/LoginSelgaTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/nuevo-usuario.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/controladorTest/LoginSelgaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/comic/controladorTest/controladorLoginTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/integracion/ControladorLoginTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/presentacion/ControladorLoginTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +34,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "MeliAbi"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LugoFernando/trabajoPractico.git",
+    "accountId": "efb7798e-11ea-4085-990d-1f78f921ea37"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -45,12 +61,16 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
+    "JUnit.ControladorLoginTest.executor": "Debug",
+    "JUnit.ControladorLoginTest.registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin.executor": "Run",
     "JUnit.FiguraRepositorioTest.executor": "Run",
     "JUnit.FiguraRepositorioTest.queSeObteganTodosLasFiguras.executor": "Run",
     "JUnit.FiguraRepositorioTest.queSeObteganTodosLosVehiculos.executor": "Run",
     "JUnit.FiguraRepositorioTest.queSeObteganUnaFiguraPorID.executor": "Run",
     "JUnit.LoginSelgaTest.devuelveMensajeDeErrorCuandoLasCredencialesNoSonCorrectas.executor": "Run",
+    "JUnit.LoginSelgaTest.errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError.executor": "Run",
     "JUnit.LoginSelgaTest.executor": "Run",
+    "JUnit.LoginSelgaTest.loginConUsuarioYPasswordInorrectosDevuelveMensajeDeErrorRedirigiendoAlLogin.executor": "Run",
     "JUnit.LoginSelgaTest.muestraLaInformacionDelUsuarioAutentificadoyRedirigeACuenta.executor": "Run",
     "JUnit.LoginSelgaTest.pruebaElMetodoValidarLoginRedirigeAHomeCuandoLasCredencialesSonCorrectas.executor": "Run",
     "JUnit.LoginSelgaTest.pruebaSiElMetodoRegistrarmeMuestraElMensajeDeErrorCuandoOcurreUnErrorAlRegistrar.executor": "Run",
@@ -64,8 +84,11 @@
     "JUnit.ServiceLoginTest.registrar_DebeLanzarUsuarioExistenteSiYaExiste.executor": "Run",
     "JUnit.ServiceLoginTest.verificaQueCuandoSeProporcionaUnEmailyContraseñaNoválidosElMétodoDevuelveNull.executor": "Run",
     "JUnit.ServiceLoginTest.verificaQueCuandoSeProporcionaUnEmailyContraseñaválidosElMétodoDevuelveElUsuarioEsperado.executor": "Run",
+    "JUnit.controladorLoginTest.executor": "Run",
     "Maven.tallerwebi-base [clean].executor": "Run",
     "Maven.tallerwebi-base [jetty:run].executor": "Run",
+    "Maven.tallerwebi-base [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "Maven.tallerwebi-base [org.apache.maven.plugins:maven-clean-plugin:3.2.0:help].executor": "Run",
     "Maven.tallerwebi-base [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor": "Run",
     "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:run].executor": "Run",
     "Maven.tallerwebi-base [org.eclipse.jetty:jetty-maven-plugin:9.4.45.v20220203:stop].executor": "Run",
@@ -73,12 +96,16 @@
     "git-widget-placeholder": "Melina",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Melina/TallerWebProyecto/AAAAAAAAAA/trabajoPractico/src/test/java/com/comic",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "E:/Taller/TrabajoPractico/src/Main.java",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "build.tools"
+    "settings.editor.selected.configurable": "build.tools",
+    "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
@@ -101,48 +128,17 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="FiguraRepositorioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ControladorLoginTest.registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tallerwebi-base" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.comic.RepositorioTest.*" />
+          <option name="PATTERN" value="com.comic.presentacion.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.comic.RepositorioTest" />
-      <option name="MAIN_CLASS_NAME" value="com.comic.RepositorioTest.FiguraRepositorioTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FiguraRepositorioTest.queSeObteganTodosLasFiguras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tallerwebi-base" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.comic.RepositorioTest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.comic.RepositorioTest" />
-      <option name="MAIN_CLASS_NAME" value="com.comic.RepositorioTest.FiguraRepositorioTest" />
-      <option name="METHOD_NAME" value="queSeObteganTodosLasFiguras" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FiguraRepositorioTest.queSeObteganTodosLosVehiculos" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tallerwebi-base" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.comic.RepositorioTest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.comic.RepositorioTest" />
-      <option name="MAIN_CLASS_NAME" value="com.comic.RepositorioTest.FiguraRepositorioTest" />
-      <option name="METHOD_NAME" value="queSeObteganTodosLosVehiculos" />
+      <option name="PACKAGE_NAME" value="com.comic.presentacion" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.presentacion.ControladorLoginTest" />
+      <option name="METHOD_NAME" value="registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -164,17 +160,48 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServiceLoginTest.verificaQueRegistrarGuardaElUsuarioCuandoNoExiste" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="controladorLoginTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tallerwebi-base" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.comic.serviciosTest.*" />
+          <option name="PATTERN" value="com.comic.controladorTest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.comic.serviciosTest" />
-      <option name="MAIN_CLASS_NAME" value="com.comic.serviciosTest.ServiceLoginTest" />
-      <option name="METHOD_NAME" value="verificaQueRegistrarGuardaElUsuarioCuandoNoExiste" />
+      <option name="PACKAGE_NAME" value="com.comic.controladorTest" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.controladorTest.controladorLoginTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="controladorLoginTest.errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tallerwebi-base" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.comic.controladorTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.comic.controladorTest" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.controladorTest.controladorLoginTest" />
+      <option name="METHOD_NAME" value="errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="controladorLoginTest.loginConUsuarioYPasswordInorrectosDevuelveMensajeDeErrorRedirigiendoAlLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tallerwebi-base" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.comic.controladorTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.comic.controladorTest" />
+      <option name="MAIN_CLASS_NAME" value="com.comic.controladorTest.controladorLoginTest" />
+      <option name="METHOD_NAME" value="loginConUsuarioYPasswordInorrectosDevuelveMensajeDeErrorRedirigiendoAlLogin" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -195,13 +222,21 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.controladorLoginTest" />
+        <item itemvalue="JUnit.controladorLoginTest.errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError" />
+        <item itemvalue="JUnit.controladorLoginTest.loginConUsuarioYPasswordInorrectosDevuelveMensajeDeErrorRedirigiendoAlLogin" />
+        <item itemvalue="JUnit.ControladorLoginTest.registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin" />
         <item itemvalue="JUnit.FiguraRepositorioTest.queSeObteganUnaFiguraPorID" />
-        <item itemvalue="JUnit.FiguraRepositorioTest" />
-        <item itemvalue="JUnit.FiguraRepositorioTest.queSeObteganTodosLasFiguras" />
-        <item itemvalue="JUnit.FiguraRepositorioTest.queSeObteganTodosLosVehiculos" />
-        <item itemvalue="JUnit.ServiceLoginTest.verificaQueRegistrarGuardaElUsuarioCuandoNoExiste" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -211,6 +246,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1725586039299</updated>
+      <workItem from="1727474100799" duration="4254000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Push">
       <option name="closed" value="true" />
@@ -230,6 +266,9 @@
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primer Push" />

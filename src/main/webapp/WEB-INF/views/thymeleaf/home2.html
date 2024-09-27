@@ -28,7 +28,7 @@
                     </li>
 
                     <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" href="/mis-pedidos">Mis ventas</a>
+                        <a class="nav-link" href="/mis-ventas">Mis ventas</a>
                     </li>
 
                     <li class="nav-item" th:if="${session.usuario != null}">
@@ -55,7 +55,7 @@
                     <!-- Carrito -->
 
                     <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" th:href="#">
+                        <a class="nav-link" href="#">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </li>

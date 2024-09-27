@@ -16,8 +16,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.doNothing;
-public class LoginSelgaTest {
+
+public class controladorLoginTest {
 
     private ControladorLogin controladorLogin;
     private Usuario usuarioMock;
@@ -31,15 +31,66 @@ public class LoginSelgaTest {
         datosLoginMock = new DatosLogin("selgadis25.com", "123456");
         usuarioMock = mock(Usuario.class);
         when(usuarioMock.getEmail()).thenReturn("selgadis25.com");
+        when(usuarioMock.getPassword()).thenReturn("123456");
         requestMock = mock(HttpServletRequest.class);
         sessionMock = mock(HttpSession.class);
         servicioLoginMock = mock(ServicioLogin.class);
         controladorLogin = new ControladorLogin(servicioLoginMock);
     }
 
+    @Test
+    public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistente {
+
+        // ejecucion
+        Usuario usuario = new Usuario();
+        usuario.setEmail("melina@unlam.com");
+        usuario.setPassword("4321");
+        when(requestMock.getParameter("confirmPassword")).thenReturn("4321");
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
+
+        // validacion
+        assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/login"));
+        verify(servicioLoginMock, times(1)).registrar(usuario);
+    }
 
     @Test
-    public void queRedirijaAHomeSiElUsuarioYaEstaLoqueado(){
+    public void registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente {
+        // preparacion
+        //requestMock.setAttribute("confirmPassword",usuarioMock.getPassword());
+        Usuario usuario = new Usuario();
+        usuario.setEmail("melina@unlam.com");
+        usuario.setPassword("4321");
+        when(requestMock.getParameter("confirmPassword")).thenReturn("4321");
+        doThrow(UsuarioExistente.class).when(servicioLoginMock).registrar(usuario);
+
+        // ejecucion
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
+
+        // validacion
+        assertThat(modelAndView.getViewName(), equalToIgnoringCase("registrar"));
+        assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("El usuario ya existe"));
+    }
+
+    @Test
+    public void debeRegistrarUnUsuarioNuevoRedirigiendomeAlLogin() throws UsuarioExistente {
+
+        //DADO -> BeforeEach +
+        Usuario usuario = new Usuario();
+        usuario.setEmail("melina@unlam.com");
+        usuario.setPassword("4321");
+        when(requestMock.getParameter("confirmPassword")).thenReturn("4321");
+
+        //CUANDO
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
+
+        //ENTONCES
+        assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/login"));
+        assertThat(modelAndView.getViewName(), is("redirect:/login"));
+        verify(servicioLoginMock).registrar(usuario);
+    }
+
+    @Test
+    public void queRedirijaAHomeSiElUsuarioYaEstaLogueado(){
         when(requestMock.getSession()).thenReturn(sessionMock);//recupero la session
         when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
 
@@ -101,7 +152,7 @@ public class LoginSelgaTest {
     }
 
     @Test
-    public void devuelveMensajeDeErrorCuandoLasCredencialesNoSonCorrectas(){
+    public void loginConUsuarioYPasswordInorrectosDevuelveMensajeDeErrorRedirigiendoAlLogin(){
         // Configurar los mocks
         when(requestMock.getSession()).thenReturn(sessionMock);
 
@@ -117,38 +168,7 @@ public class LoginSelgaTest {
 
         // Verificar que el modelo contenga el mensaje de error esperado
         assertThat(modelAndView.getModel().get("error"), is("Usuario o clave incorrecta"));
-    }
-
-    @Test
-    public void pruebaSiRegistrarmeRegistraCorrectamenteUnUsuarioNuevoYRedirigeAlaPaginaDeLogin() throws UsuarioExistente {
-        Usuario usuario=new Usuario();
-        usuario.setEmail("test@example.com");
-        usuario.setPassword("123456"); // Establece otros atributos según sea necesario
-        doNothing().when(servicioLoginMock).registrar(usuario);
-        when(requestMock.getParameter("confirmPassword")).thenReturn("123456");
-
-
-        // Llamar al método del controlador
-        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
-
-        // Verificar que se redirige a la página de login
-        assertThat(modelAndView.getViewName(), is("redirect:/login"));
-
-        // Verificar que el método de registro fue llamado con el usuario correcto
-        verify(servicioLoginMock).registrar(usuario);
-    }
-
-    @Test
-    public void pruebaSiElMetodoRegistrarmeMuestraElmensajeDeErrorCuandoSeIntentaRegistrarUnUsuarioConUnEmailExistente() throws UsuarioExistente {
-        Usuario usuario=new Usuario();
-        usuario.setEmail("test@example.com");
-        usuario.setPassword("123456");
-        when(requestMock.getParameter("confirmPassword")).thenReturn("123456");
-
-        doThrow(new UsuarioExistente()).when(servicioLoginMock).registrar(usuario);
-        ModelAndView modelAndView=controladorLogin.registrarme(usuario,requestMock);
-
-        assertThat(modelAndView.getModel().get("error"),is("El usuario ya existe"));
+        verify(sessionMock, times(0)).setAttribute("ROL", "ADMIN");
     }
 
     @Test
