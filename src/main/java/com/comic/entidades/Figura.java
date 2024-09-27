@@ -24,6 +24,18 @@ public class Figura {
     @Lob
     private byte[] imagen;
 
+    public Figura(){
+    }
+
+    public Figura(Long id, String nombre, Double precio, String estado, String descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.estado = estado;
+        this.descripcion = descripcion;
+    }
+
+
     public Long getId() {
         return id;
     }
@@ -68,6 +80,8 @@ public class Figura {
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
+
+
     public String cadena(){
        return new String(this.imagen);
     }

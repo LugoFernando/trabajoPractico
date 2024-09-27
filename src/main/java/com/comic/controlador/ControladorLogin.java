@@ -24,9 +24,12 @@ public class ControladorLogin {
     private ServicioLogin servicioLogin;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin){
+    public ControladorLogin(ServicioLogin servicioLogin) {
         this.servicioLogin = servicioLogin;
     }
+
+
+
 
     @RequestMapping("/login")
     public ModelAndView irALogin(HttpServletRequest request) {
@@ -108,6 +111,7 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
+
         return new ModelAndView("home2");
     }
 
