@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7d46ebf3-cd86-405f-b469-7e6027ecdccc" name="Changes" comment="Intento para subir fotos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/home2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/thymeleaf/nuevo-usuario.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/controladorTest/LoginSelgaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/comic/controladorTest/controladorLoginTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/integracion/ControladorLoginTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/presentacion/ControladorLoginTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/comic/RepositorioTest/FiguraRepositorioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/comic/RepositorioTest/FiguraRepositorioTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +242,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1725586039299</updated>
-      <workItem from="1727474100799" duration="4254000" />
+      <workItem from="1727474100799" duration="6769000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Push">
       <option name="closed" value="true" />
