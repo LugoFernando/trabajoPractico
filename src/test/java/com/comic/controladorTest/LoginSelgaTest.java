@@ -127,7 +127,7 @@ public class LoginSelgaTest {
 
 
         // Llamar al método del controlador
-        ModelAndView modelAndView = controladorLogin.registrarme(usuario);
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
 
         // Verificar que se redirige a la página de login
         assertThat(modelAndView.getViewName(), is("redirect:/login"));
@@ -143,7 +143,7 @@ public class LoginSelgaTest {
         usuario.setPassword("123456");
 
         doThrow(new UsuarioExistente()).when(servicioLoginMock).registrar(usuario);
-        ModelAndView modelAndView=controladorLogin.registrarme(usuario);
+        ModelAndView modelAndView=controladorLogin.registrarme(usuario,requestMock);
 
         assertThat(modelAndView.getModel().get("error"),is("El usuario ya existe"));
     }
@@ -159,7 +159,7 @@ public class LoginSelgaTest {
         doThrow(new RuntimeException("Error inesperado")).when(servicioLoginMock).registrar(usuario);
 
 
-        ModelAndView modelAndView = controladorLogin.registrarme(usuario);
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
 
 
         assertThat(modelAndView.getViewName(), is("nuevo-usuario"));
