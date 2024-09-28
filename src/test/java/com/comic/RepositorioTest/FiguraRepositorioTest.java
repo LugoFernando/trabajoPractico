@@ -61,7 +61,7 @@ public class FiguraRepositorioTest {
         // Preparar datos
         List<Figura> figuraMock = getCompletarListaFigura();
 
-        // método a testear
+        // metodo a testear
         Figura figuraObtenida = this.figuraRepositorio.buscarPorId(1L);
 
         // Validar que la figura obtenida sea la esperada
