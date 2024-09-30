@@ -31,10 +31,18 @@
         </div>
     </div>
 
+    <!-- Preferencias del usuario -->
+    <div class="mb-3">
+        <label class="form-label fw-bold">Mis Preferencias:</label>
+        <ul class="list-group">
+            <li class="list-group-item" th:each="preferencia : *{preferenciasList}" th:text="${preferencia}"></li>
+        </ul>
+    </div>
+
     <!-- Botones -->
     <div class="d-flex justify-content-between mt-4">
         <a href="#" class="btn btn-primary w-45">Cambiar datos</a>
-        <a th:href="@{/home}"  class="btn btn-secondary w-45">Volver</a>
+        <a th:href="@{/home}" class="btn btn-secondary w-45">Volver</a>
     </div>
 </div>
 

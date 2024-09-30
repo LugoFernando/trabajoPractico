@@ -123,11 +123,15 @@ public class LoginSelgaTest {
         Usuario usuario=new Usuario();
         usuario.setEmail("test@example.com");
         usuario.setPassword("123456"); // Establece otros atributos según sea necesario
+        String validarContraseña="123456";
+        when(requestMock.getParameter("confirmPassword")).thenReturn(validarContraseña);//recupero la session
+       // when(sessionMock.get("confirmPassword")).thenReturn(validarContraseña);
+
         doNothing().when(servicioLoginMock).registrar(usuario);
 
 
         // Llamar al método del controlador
-        ModelAndView modelAndView = controladorLogin.registrarme(usuario);
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
 
         // Verificar que se redirige a la página de login
         assertThat(modelAndView.getViewName(), is("redirect:/login"));
@@ -141,28 +145,31 @@ public class LoginSelgaTest {
         Usuario usuario=new Usuario();
         usuario.setEmail("test@example.com");
         usuario.setPassword("123456");
-
+        String validarContraseña="123456";
+        when(requestMock.getParameter("confirmPassword")).thenReturn(validarContraseña);//recupero la session
         doThrow(new UsuarioExistente()).when(servicioLoginMock).registrar(usuario);
-        ModelAndView modelAndView=controladorLogin.registrarme(usuario);
+        ModelAndView modelAndView=controladorLogin.registrarme(usuario,requestMock);
 
         assertThat(modelAndView.getModel().get("error"),is("El usuario ya existe"));
     }
 
     @Test
     public void pruebaSiElMetodoRegistrarmeMuestraElMensajeDeErrorCuandoOcurreUnErrorAlRegistrar() throws UsuarioExistente {
-        // Crear un nuevo usuario para registrar
+        // Crear un nuevo usuario para registrar  Rehacer
         Usuario usuario = new Usuario();
         usuario.setEmail("test@example.com");
         usuario.setPassword("123456");
+        String validarContraseña="123456";
+        when(requestMock.getParameter("confirmPassword")).thenReturn(validarContraseña);//recupero la session
+//        when(requestMock.getParameter("confirmPassword")).thenReturn(validarContraseña); fijarse q el usuario  no exista
+
+        doThrow(new RuntimeException("error")).when(servicioLoginMock).registrar(usuario);
 
 
-        doThrow(new RuntimeException("Error inesperado")).when(servicioLoginMock).registrar(usuario);
+        ModelAndView modelAndView = controladorLogin.registrarme(usuario,requestMock);
 
 
-        ModelAndView modelAndView = controladorLogin.registrarme(usuario);
-
-
-        assertThat(modelAndView.getViewName(), is("nuevo-usuario"));
+        assertThat(modelAndView.getViewName(), is("registrar"));
 
 
         assertThat(modelAndView.getModel().get("error"), is("Error al registrar el nuevo usuario"));

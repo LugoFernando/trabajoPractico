@@ -6,14 +6,20 @@ import java.util.Base64;
 @Entity
 public class Figura {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "precio")
     private Double precio;
+    @Column(name = "estado")
     private String estado;
+    @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "fotoUrl")
+    private String fotoUrl;
 
     @Lob
     private byte[] imagen;
