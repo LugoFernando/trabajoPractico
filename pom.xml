@@ -20,15 +20,37 @@
         <hibernate.version>5.4.24.Final</hibernate.version>
         <playwright.version>1.36.0</playwright.version>
         <hsqldb.version>2.3.2</hsqldb.version>
+
     </properties>
 
     <dependencies>
 
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>commons-fileupload</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>commons-fileupload</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <version>1.4</version>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-jdbc</artifactId>-->
+<!--            <version>${spring.version}</version> &lt;!&ndash; Asegúrate de que tu versión sea la correcta &ndash;&gt;-->
+<!--        </dependency>-->
+
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version> <!-- Asegúrate de usar la última versión -->
+        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version>
+            <version>8.0.28</version> <!-- Usa la versión adecuada -->
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -42,11 +64,6 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.hsqldb</groupId>
@@ -124,9 +141,15 @@
         -->
     </dependencies>
 
+
+
     <build>
 
+
+
+
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -136,6 +159,8 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
+
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -174,6 +199,8 @@
                     </webApp>
                 </configuration>
             </plugin>
+
+
 
         </plugins>
     </build>

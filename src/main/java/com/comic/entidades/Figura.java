@@ -1,21 +1,40 @@
 package com.comic.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Base64;
 
 @Entity
 public class Figura {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "precio")
+    private Double precio;
+    @Column(name = "estado")
     private String estado;
+    @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "fotoUrl")
     private String fotoUrl;
+
+    @Lob
+    private byte[] imagen;
+
+    public Figura(){
+    }
+
+    public Figura(Long id, String nombre, Double precio, String estado, String descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.estado = estado;
+        this.descripcion = descripcion;
+    }
+
 
     public Long getId() {
         return id;
@@ -49,11 +68,23 @@ public class Figura {
         this.descripcion = descripcion;
     }
 
-    public String getFotoUrl() {
-        return fotoUrl;
+    public Double getPrecio() {return precio;}
+
+    public void setPrecio(Double precio) {this.precio = precio;}
+
+
+    public byte[] getImagen() {
+        return imagen;
     }
 
-    public void setFotoUrl(String fotoUrl) {
-        this.fotoUrl = fotoUrl;
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
+
+
+    public String cadena(){
+       return new String(this.imagen);
+    }
+
+
 }

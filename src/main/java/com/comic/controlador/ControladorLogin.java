@@ -9,6 +9,7 @@ import com.comic.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,28 +77,39 @@ public class ControladorLogin {
     }
 
 
+    @RequestMapping(path = "/registrar", method = RequestMethod.GET)
+    public ModelAndView nuevoUsuario() {
+        ModelMap model = new ModelMap();
+        model.put("nuevoUsuario", new Usuario());
+        return new ModelAndView("registrar", model);
+    }
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
-    public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
+    public ModelAndView registrarme(@ModelAttribute("nuevoUsuario") Usuario usuario, HttpServletRequest request) {
         ModelMap model = new ModelMap();
-        try{
-            servicioLogin.registrar(usuario);
-        } catch (UsuarioExistente e){
-            model.put("error", "El usuario ya existe");
-            return new ModelAndView("nuevo-usuario", model);
-        } catch (Exception e){
-            model.put("error", "Error al registrar el nuevo usuario");
-            return new ModelAndView("nuevo-usuario", model);
+
+        // Recuperar la confirmación de la contraseña del formulario
+        String confirmPassword = request.getParameter("confirmPassword");
+
+        // Validar si las contraseñas coinciden
+        if (!usuario.getPassword().equals(confirmPassword)) {
+            model.put("error", "Las contraseñas no coinciden");
+            return new ModelAndView("registrar", model);
         }
+
+        try {
+            servicioLogin.registrar(usuario);
+        } catch (UsuarioExistente e) {
+            model.put("error", "El usuario ya existe");
+            return new ModelAndView("registrar", model);
+        } catch (Exception e) {
+            model.put("error", "Error al registrar el nuevo usuario");
+            return new ModelAndView("registrar", model);
+        }
+
         return new ModelAndView("redirect:/login");
     }
 
-    @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
-    public ModelAndView nuevoUsuario() {
-        ModelMap model = new ModelMap();
-        model.put("usuario", new Usuario());
-        return new ModelAndView("nuevo-usuario", model);
-    }
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
