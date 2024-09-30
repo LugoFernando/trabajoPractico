@@ -1,9 +1,9 @@
 package com.comic.entidades;
+import com.comic.entidades.Preferencias;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -15,6 +15,12 @@ public class Usuario {
     private String password;
     private String rol;
     private Boolean activo = false;
+
+    @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
+    @CollectionTable(name = "usuario_preferencias", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name = "preferencia")
+    @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
+    private List<Preferencias> preferenciasList =new ArrayList<>();
 
 
     public Long getId() {
@@ -54,5 +60,13 @@ public class Usuario {
 
     public void activar() {
         activo = true;
+    }
+
+    public List<Preferencias> getPreferenciasList() {
+        return preferenciasList;
+    }
+
+    public void setPreferenciasList(List<Preferencias> preferenciasList) {
+        this.preferenciasList = preferenciasList;
     }
 }

@@ -11,24 +11,46 @@
 
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
-
 </head>
 
 <body>
-
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">Tienda de Figuras</a>
 </nav>
 
 <main role="main" class="container">
-
-    <div class = "container">
+    <div class="container">
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-
             <form th:action="@{/registrarme}" method="POST" th:object="${nuevoUsuario}">
-                <input th:field="*{email}" id="email" type="email" class="form-control" required/>
-                <input th:field="*{password}" type="password" id="password" class="form-control" required/>
-                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required/>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Ingrese su Email</label>
+                    <input th:field="*{email}" id="email" type="email" class="form-control" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Ingrese su Contraseña</label>
+                    <input th:field="*{password}" type="password" id="password" class="form-control" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Repita su Contraseña</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Elija sus Preferencias</label>
+                    <div th:each="preferencia : ${T(com.comic.entidades.Preferencias).values()}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:field="*{preferenciasList}"
+                                   th:value="${preferencia}" id="${preferencia.name()}"/>
+                            <label class="form-check-label" th:for="${preferencia.name()}">
+                                <span th:text="${preferencia.name()}">Preferencia</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-lg btn-primary btn-block">Registrarme</button>
             </form>
 
