@@ -25,6 +25,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HibernateTestConfig.class})
@@ -117,23 +118,53 @@ public class FiguraRepositorioTest {
 //
 //    }
 
+    @Test
+    @Transactional
+    public void darUnaListaBuscandoPorNombre() {
+        List<Figura> figuraMock = getCompletarListaFigura();
+        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("superman");
 
+        assertNotNull(figuras);
+        assertEquals(1, figuras.size());
+        assertEquals("superman", figuras.get(0).getNombre());
+    }
 
+    @Test
+    @Transactional
+    public void darUnaListaBuscandoConElPrecio() {
+        List<Figura> figuraMock = getCompletarListaFigura();
+        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("2000");
+
+        assertNotNull(figuras);
+        assertEquals(2, figuras.size());
+        assertEquals(2000.0, figuras.get(0).getPrecio());
+    }
+
+    @Test
+    @Transactional
+    public void darUnaListaBuscandoPorElDetalle() {
+        List<Figura> figuraMock = getCompletarListaFigura();
+        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("figura");
+
+        assertNotNull(figuras);
+        assertEquals(3, figuras.size());
+        assertEquals("figura sin caja", figuras.get(0).getDescripcion());
+    }
 
 
 
 
     private List<Figura> getCompletarListaFigura() {
-        List<Figura> FiguraMock = new ArrayList<>();
-        FiguraMock.add(new Figura(1L, "superman", 4000.0, "Nuevo", "figura sin caja"));
-        FiguraMock.add(new Figura(2L, "batman", 2000.0, "Nuevo", "figura con detalles"));
-        FiguraMock.add(new Figura(3L, "naruto", 5000.0, "Nuevo", "figura sin uso"));
+        List<Figura> figuraMock = new ArrayList<>();
+        figuraMock.add(new Figura(1L, "superman", 4000.0, "Nuevo", "figura sin caja"));
+        figuraMock.add(new Figura(2L, "batman", 2000.0, "Nuevo", "figura en bolsa"));
+        figuraMock.add(new Figura(3L, "naruto", 2000.0, "Nuevo", "figura sin uso"));
 
-        this.sessionFactory.getCurrentSession().save(FiguraMock.get(0));
-        this.sessionFactory.getCurrentSession().save(FiguraMock.get(1));
-        this.sessionFactory.getCurrentSession().save(FiguraMock.get(2));
+        this.sessionFactory.getCurrentSession().save(figuraMock.get(0));
+        this.sessionFactory.getCurrentSession().save(figuraMock.get(1));
+        this.sessionFactory.getCurrentSession().save(figuraMock.get(2));
 
-        return FiguraMock;
+        return figuraMock;
     }
 
 

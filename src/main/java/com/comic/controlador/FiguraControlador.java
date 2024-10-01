@@ -88,8 +88,42 @@ public class FiguraControlador {
         return "detalle-figura";
     }
 
-    @GetMapping("/buscar")
+    @GetMapping("/productos")
     public Figura buscarFigura(@PathVariable Long id) {
         return figuraServicio.obtenerFiguraPorId(id);
     }
+
+
+
+
+    @GetMapping("/limpiar")
+    public String listarTodasLasFiguras() {
+        return "listaDeProducto";
+    }
+
+
+
+    @RequestMapping(path = "/listaDeProducto", method = RequestMethod.GET)
+    public ModelAndView irAProductos(Model model, @RequestParam(value = "palabraBuscada", required = false) String palabraBuscada) {
+
+        List<Figura> figuras;
+
+        // Si el usuario ha ingresado una búsqueda
+        if (palabraBuscada != null && !palabraBuscada.isEmpty()) {
+            figuras = figuraServicio.buscarSegunTexto(palabraBuscada); // Buscar figuras que coincidan con la palabra
+            model.addAttribute("palabraBuscada", palabraBuscada); // Añadir la palabra al modelo
+        } else {
+            // Si no hay búsqueda, mostrar todas las figuras o un conjunto por defecto
+            figuras = figuraServicio.listarFiguras(); // Obtener todas las figuras
+        }
+
+        // Añadir la lista de figuras al modelo
+        model.addAttribute("figuras", figuras);
+
+        // Retornar la vista "listaDeProducto"
+        return new ModelAndView("listaDeProducto");
+    }
+
+
+
 }

@@ -51,7 +51,25 @@ public class FiguraServicioImp implements FiguraServicio {
 
     @Override
     public void eliminarFigura(Long id) {
+
         figuraRepositorio.BorrarPorId(id);
     }
 
+//    @Override  (ver si es mejor tener en el servicio o en el repo)
+//    public void eliminarFigura(Long id) {
+//        Figura figura = figuraRepositorio.buscarPorId(id); // Método que busca la figura por ID
+//        if (figura == null) {
+//            throw new FiguraNotFoundException("No se puede eliminar la figura, ya que no existe con el id: " + id);
+//        }
+//        figuraRepositorio.BorrarPorId(id); // Eliminar la figura si existe
+//    }
+
+
+    @Override
+    public List<Figura> buscarSegunTexto(String texto) {
+        if (texto != null && !texto.trim().isEmpty()) { //el segundo parametro es para que no cuente los espacios
+            return figuraRepositorio.darUnaListaBuscandoUnaPalabra(texto);
+        }
+        return figuraRepositorio.buscarTodo();
+    }
 }

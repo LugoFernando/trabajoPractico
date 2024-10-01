@@ -15,4 +15,6 @@ public interface FiguraServicio {
     Figura obtenerFiguraPorId(Long id);
 
     void eliminarFigura(Long id);
+
+    List<Figura> buscarSegunTexto(String texto);
 }

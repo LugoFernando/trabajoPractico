@@ -22,6 +22,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
 
+                    <li class="nav-item" th:if="${session.usuario == null}">
+                        <a class="nav-link" th:href="@{/listaDeProducto}">Productos</a>
+                    </li>
+
                     <!-- Opciones condicionales: si el cliente ha iniciado sesión -->
                     <li class="nav-item" th:if="${session.usuario != null}">
                         <a class="nav-link" href="/mis-pedidos">Mis compras</a>
@@ -47,6 +51,7 @@
                     <li class="nav-item" th:if="${session.usuario == null}">
                         <a class="nav-link" th:href="@{/registrar}">Registrarme</a>
                     </li>
+
                     <li class="nav-item" th:if="${session.usuario != null}">
 <!--                       <a class="nav-link" href="/logout">Cerrar sesión</a>-->
                         <a th:href="@{/logout}" class="nav-link">Cerrar sesión</a>
