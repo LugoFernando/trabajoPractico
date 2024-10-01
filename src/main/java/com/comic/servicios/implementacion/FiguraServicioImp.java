@@ -62,6 +62,7 @@ public class FiguraServicioImp implements FiguraServicio {
 //            throw new FiguraNotFoundException("No se puede eliminar la figura, ya que no existe con el id: " + id);
 //        }
 //        figuraRepositorio.BorrarPorId(id); // Eliminar la figura si existe
+        //hola
 //    }
 
 
