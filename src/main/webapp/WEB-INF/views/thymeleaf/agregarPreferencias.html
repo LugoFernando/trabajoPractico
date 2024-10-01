@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Preferencias</title>
+</head>
+<body>
+
+<!-- Formulario para agregar preferencias -->
+<form th:action="@{/guardar-preferencias}" method="post">
+    <div class="mb-3">
+        <label class="form-label fw-bold">Preferencias disponibles:</label>
+        <ul class="list-group">
+            <li class="list-group-item" th:each="preferencia : ${availablePreferencias}">
+                <input type="checkbox" th:name="'preferencias'" th:value="${preferencia}" />
+                <span th:text="${preferencia}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Preferencias</button>
+</form>
+
+</body>
+</html>

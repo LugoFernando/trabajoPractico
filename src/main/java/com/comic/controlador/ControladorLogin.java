@@ -2,6 +2,7 @@ package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
 import com.comic.entidades.Figura;
+import com.comic.entidades.Preferencias;
 import com.comic.servicios.ServicioFigura;
 import com.comic.servicios.ServicioLogin;
 import com.comic.entidades.Usuario;
@@ -10,14 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ControladorLogin {
@@ -58,6 +59,41 @@ public class ControladorLogin {
         return new ModelAndView("usuario",modelo);
 
     }
+    @RequestMapping(path = "/agregar-preferencias",method =RequestMethod.GET)//TESTEAR
+    public ModelAndView irAgregarPreferencias(HttpServletRequest request){
+        HttpSession session =request.getSession();
+        Usuario datos =(Usuario)session.getAttribute("usuario");
+        ModelMap modelo =new ModelMap();
+        // Obtiene la lista de preferencias del enum
+        List<Preferencias> allPreferencias = Arrays.asList(Preferencias.values());
+
+        // Filtra las preferencias que ya están en preferenciasList del usuario
+        List<Preferencias> availablePreferencias = allPreferencias.stream()
+                .filter(preferencia -> !datos.getPreferenciasList().contains(preferencia))
+                .collect(Collectors.toList());
+        modelo.put("datos",datos);
+        modelo.put("availablePreferencias", availablePreferencias);
+        return  new ModelAndView("agregarPreferencias",modelo);
+    }
+    @RequestMapping(path = "/guardar-preferencias", method = RequestMethod.POST)
+    public String guardarPreferencias(@RequestParam List<Preferencias> preferencias, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        // Agrega las preferencias seleccionadas a la lista del usuario
+        if (usuario != null && preferencias != null) {
+            for (Preferencias preferencia : preferencias) {
+                // Verifica si la preferencia ya está en la lista del usuario
+                if (!usuario.getPreferenciasList().contains(preferencia)) {
+                    usuario.getPreferenciasList().add(preferencia); // Aquí se agrega la preferencia
+                }
+            }
+        }
+
+        // Puedes redirigir a otra página después de guardar
+        return "redirect:/cuenta"; // O la página que desees
+    }
+
 
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
