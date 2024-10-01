@@ -75,6 +75,17 @@ public class ControladorLogin {
         modelo.put("availablePreferencias", availablePreferencias);
         return  new ModelAndView("agregarPreferencias",modelo);
     }
+
+    @RequestMapping(path = "quitar_Preferencias", method = RequestMethod.GET)
+    public ModelAndView irAQuitarPreferencias(HttpServletRequest request){
+            HttpSession session=request.getSession();
+            Usuario datos=(Usuario)session.getAttribute("usuario");
+            ModelMap modelo =new ModelMap();
+            modelo.put("datos",datos);
+
+        return new ModelAndView("quitarPreferencias",modelo);
+    }
+
     @RequestMapping(path = "/guardar-preferencias", method = RequestMethod.POST)
     public String guardarPreferencias(@RequestParam List<Preferencias> preferencias, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -93,6 +104,25 @@ public class ControladorLogin {
         // Puedes redirigir a otra página después de guardar
         return "redirect:/cuenta"; // O la página que desees
     }
+    @RequestMapping(path = "/guardar-preferencias-eliminadas", method = RequestMethod.POST)
+    public String guardarPreferenciasDespuesDeEliminar(@RequestParam List<Preferencias> preferencias, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        // Elimina las preferencias seleccionadas de la lista del usuario
+        if (usuario != null && preferencias != null) {
+            // Iteramos sobre la lista de preferencias a quitar
+            for (Preferencias preferencia : preferencias) {
+                // Verificamos si la preferencia está en la lista del usuario
+                if (usuario.getPreferenciasList().contains(preferencia)) {
+                    usuario.getPreferenciasList().remove(preferencia); // Aquí se elimina la preferencia
+                }
+            }
+        }
+
+        return "redirect:/cuenta"; // Redirige a la cuenta después de quitar las preferencias
+    }
+
 
 
 

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,20 +6,29 @@
 </head>
 <body>
 
-<!-- Formulario para agregar preferencias -->
-<form th:action="@{/guardar-preferencias}" method="post">
-    <div class="mb-3">
-        <label class="form-label fw-bold">Preferencias disponibles:</label>
-        <ul class="list-group">
-            <li class="list-group-item" th:each="preferencia : ${availablePreferencias}">
-                <input type="checkbox" th:name="'preferencias'" th:value="${preferencia}" />
-                <span th:text="${preferencia}"></span>
-            </li>
-        </ul>
-    </div>
+<!-- Verifica si hay preferencias disponibles -->
+<div th:if="${availablePreferencias == null or #lists.isEmpty(availablePreferencias)}">
+    <p>No hay más categorías para agregar.</p>
+    <a th:href="@{/cuenta}" class="btn btn-secondary">Volver a Cuenta</a>
+</div>
 
-    <button type="submit" class="btn btn-primary">Guardar Preferencias</button>
-</form>
+<!-- Si hay preferencias disponibles, muestra el formulario -->
+<div th:if="${availablePreferencias != null and !#lists.isEmpty(availablePreferencias)}">
+    <form th:action="@{/guardar-preferencias}" method="post">
+        <div class="mb-3">
+            <label class="form-label fw-bold">Preferencias disponibles:</label>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="preferencia : ${availablePreferencias}">
+                    <input type="checkbox" th:name="'preferencias'" th:value="${preferencia}" />
+                    <span th:text="${preferencia}"></span>
+                </li>
+            </ul>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Preferencias</button>
+    </form>
+</div>
 
 </body>
+</html>
+
 </html>

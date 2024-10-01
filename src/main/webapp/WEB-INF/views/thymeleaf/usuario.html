@@ -48,7 +48,7 @@
         <a th:href="@{/agregar-preferencias}" class="btn btn-primary w-45">Agregar Preferencias</a>
 
         <!-- Mostrar el botón "Quitar Preferencias" solo si la lista no está vacía o es distinta de null -->
-        <a th:if="${datosUsuario.preferenciasList != null and !datosUsuario.preferenciasList.isEmpty()}" th:href="@{/quitar-preferencias}" class="btn btn-danger w-45">Quitar Preferencias</a>
+        <a th:if="${datosUsuario.preferenciasList != null and !datosUsuario.preferenciasList.isEmpty()}" th:href="@{/quitar_Preferencias}" class="btn btn-danger w-45">Quitar Preferencias</a>
     </div>
 
     <!-- Botones -->
