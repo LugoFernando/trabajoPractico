@@ -1,7 +1,9 @@
 package com.comic.entidades;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @Entity
 public class Figura {
@@ -20,6 +22,14 @@ public class Figura {
     private String descripcion;
     @Column(name = "fotoUrl")
     private String fotoUrl;
+
+    @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
+    @CollectionTable(name = "figura_preferencias", joinColumns = @JoinColumn(name = "figura_id"))
+    @Column(name = "preferencia")
+    @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
+    private List<Preferencias> preferenciasList =new ArrayList<>();
+
+
 
     @Lob
     private byte[] imagen;
@@ -84,6 +94,14 @@ public class Figura {
 
     public String cadena(){
        return new String(this.imagen);
+    }
+
+    public List<Preferencias> getPreferenciasList() {
+        return preferenciasList;
+    }
+
+    public void setPreferenciasList(List<Preferencias> preferenciasList) {
+        this.preferenciasList = preferenciasList;
     }
 
 
