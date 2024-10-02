@@ -2,6 +2,7 @@ package com.comic.RepositorioTest;
 
 
 
+
 import com.comic.integracion.config.HibernateTestConfig;
 import com.comic.entidades.Figura;
 import com.comic.repositorios.FiguraRepositorio;
@@ -18,6 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,35 @@ public class FiguraRepositorioTest {
     @Test
     @Transactional
     @Rollback
+    public void queSeGuardeUnaFiguraNueva() {
+        // Preparar datos
+        Figura figuraTest = new Figura();
+        figuraTest.setId(1L);
+        figuraTest.setDescripcion("test");
+        figuraTest.setEstado("Nuevo");
+        figuraTest.setNombre("Robin");
+        figuraTest.setPrecio(200.0);
+
+        //medotodo a testear
+        this.figuraRepositorio.guardar(figuraTest);
+
+
+        String hql = "SELECT f FROM Figura f WHERE f.id = :id";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("id",1L);
+        Figura figuraObtenida = (Figura) query.getSingleResult();
+
+        assertThat(figuraObtenida, equalTo(figuraTest));
+
+        //Figura figuraGuardada = this.figuraRepositorio.buscarPorId(1L);
+
+        assertThat(figuraObtenida, equalTo(figuraTest));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
     public void queSeObteganTodosLasFiguras() {
         List<Figura> figuraMock = getCompletarListaFigura();
 
@@ -63,32 +94,13 @@ public class FiguraRepositorioTest {
         List<Figura> figuraMock = getCompletarListaFigura();
 
         // metodo a testear
-        Figura figuraObtenida = this.figuraRepositorio.buscarPorId(1L);
+        Figura figuraObtenida = this.figuraRepositorio.buscarPorId(3L);
 
         // Validar que la figura obtenida sea la esperada
-        assertThat(figuraObtenida, equalTo(figuraMock.get(0)));
+        assertThat(figuraObtenida, equalTo(figuraMock.get(2)));
     }
 
-    @Test
-    @Transactional
-    @Rollback
-    public void queSeGuardeUnaFiguraNueva() {
-        // Preparar datos
-        Figura figuraTest = new Figura();
-        figuraTest.setId(1L);
-        figuraTest.setDescripcion("test");
-        figuraTest.setEstado("Nuevo");
-        figuraTest.setNombre("Robin");
-        figuraTest.setPrecio(200.0);
 
-        //medotodo a testear
-        this.figuraRepositorio.guardar(figuraTest);
-
-        Figura figuraGuardada = this.figuraRepositorio.buscarPorId(1L);
-
-        assertThat(figuraGuardada, equalTo(figuraTest));
-
-    }
 
     @Test
     @Transactional
@@ -98,13 +110,53 @@ public class FiguraRepositorioTest {
         List<Figura> figuraMock = getCompletarListaFigura();
 
         //medotodo a testear
-        this.figuraRepositorio.BorrarPorId(1L);
+        this.figuraRepositorio.BorrarPorId(2L);
 
         assertEquals(2, figuraRepositorio.buscarTodo().size());
 
     }
 
-//    @Test // Nose porque no funciona
+
+
+    @Test
+    @Transactional
+    @Rollback
+
+    public void darUnaListaBuscandoPorNombre() {
+        List<Figura> figuraMock = getCompletarListaFigura();
+        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("superman");
+
+        assertNotNull(figuras);
+        assertEquals(1, figuras.size());
+        assertEquals("superman", figuras.get(0).getNombre());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void darUnaListaBuscandoConElPrecio() {
+        List<Figura> figuraMock = getCompletarListaFigura();
+        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("2000");
+
+        assertNotNull(figuras);
+        assertEquals(2, figuras.size());
+        assertEquals(2000.0, figuras.get(0).getPrecio());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void darUnaListaBuscandoPorElDetalle() {
+        List<Figura> figuraMock = getCompletarListaFigura();
+        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("figura");
+
+        assertNotNull(figuras);
+        assertEquals(3, figuras.size());
+        assertEquals("figura sin caja", figuras.get(0).getDescripcion());
+    }
+
+
+    //    @Test // Nose porque no funciona
 //    @Transactional
 //    @Rollback
 //    public void intentarBorrarUnaFiguraQueNoExistePorId() {
@@ -118,38 +170,8 @@ public class FiguraRepositorioTest {
 //
 //    }
 
-    @Test
-    @Transactional
-    public void darUnaListaBuscandoPorNombre() {
-        List<Figura> figuraMock = getCompletarListaFigura();
-        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("superman");
 
-        assertNotNull(figuras);
-        assertEquals(1, figuras.size());
-        assertEquals("superman", figuras.get(0).getNombre());
-    }
 
-    @Test
-    @Transactional
-    public void darUnaListaBuscandoConElPrecio() {
-        List<Figura> figuraMock = getCompletarListaFigura();
-        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("2000");
-
-        assertNotNull(figuras);
-        assertEquals(2, figuras.size());
-        assertEquals(2000.0, figuras.get(0).getPrecio());
-    }
-
-    @Test
-    @Transactional
-    public void darUnaListaBuscandoPorElDetalle() {
-        List<Figura> figuraMock = getCompletarListaFigura();
-        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("figura");
-
-        assertNotNull(figuras);
-        assertEquals(3, figuras.size());
-        assertEquals("figura sin caja", figuras.get(0).getDescripcion());
-    }
 
 
 
