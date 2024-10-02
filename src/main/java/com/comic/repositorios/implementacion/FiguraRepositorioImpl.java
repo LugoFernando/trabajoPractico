@@ -1,16 +1,13 @@
 package com.comic.repositorios.implementacion;
 
 import com.comic.entidades.Figura;
-import com.comic.entidades.Preferencias;
 import com.comic.repositorios.FiguraRepositorio;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.jaxb.cfg.spi.JaxbCfgEventTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository ("FiguraRepositorio")
@@ -57,45 +54,45 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
     }
 
 
-
-//    @Override
-//    @Transactional
-//    public List<Figura> darUnaListaBuscandoUnaPalabra(String palabra) {
-//        String hql = "SELECT f FROM Figura f WHERE CONCAT(f.nombre, f.precio, f.descripcion) LIKE :palabra";
-//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-//        query.setParameter("palabra", "%" + palabra + "%");
-//        return query.getResultList();
-//    }
+    @Override
+    @Transactional
+    public void actualizarFigura(Figura figura) {
+        String hql = "UPDATE Figura SET nombre = :nombre, precio = :precio, estado = :estado, descripcion = :descripcion WHERE id = :id";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("nombre", figura.getNombre());
+        query.setParameter("precio", figura.getPrecio());
+        query.setParameter("estado", figura.getEstado());
+        query.setParameter("descripcion", figura.getDescripcion());
+        query.setParameter("id", figura.getId()); // Mantiene el ID sin modificar
+        query.executeUpdate();
+    }
 
     @Override
     @Transactional
     public List<Figura> darUnaListaBuscandoUnaPalabra(String palabra) {
-        String hql = "SELECT f FROM Figura f " +
-                "LEFT JOIN f.preferenciasList p " +
-                "WHERE CONCAT(f.nombre, f.precio, f.descripcion) LIKE :palabra " +
-                "OR p = :preferencia";
-
+        String hql = "SELECT f FROM Figura f WHERE CONCAT(f.nombre, f.precio, f.descripcion) LIKE :palabra";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("palabra", "%" + palabra + "%");
-
-        // Convertir la palabra en un valor de tipo enum Preferencias, si es válido
-        Preferencias preferencia = null;
-        try {
-            preferencia = Preferencias.valueOf(palabra.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            // Si no es un valor válido del enum, podemos manejar la excepción o devolver una lista vacía
-            System.err.println("Preferencia no válida: " + palabra);
-        }
-
-        if (preferencia != null) {
-            query.setParameter("preferencia", preferencia); // Aquí pasamos el valor del enum
-        } else {
-            // Si no hay preferencia válida, devolver una lista vacía o manejar el caso según convenga
-            return new ArrayList<>();
-        }
-
         return query.getResultList();
     }
+
+//    @Override
+//    @Transactional
+//    public List<Figura> darUnaListaBuscandoUnaPalabra(String palabra) {
+//        String hql = "SELECT f FROM Figura f " +
+//                "LEFT JOIN f.preferenciasList p " +
+//                "WHERE CONCAT(f.nombre, f.precio, f.descripcion) LIKE :palabra " +
+//                "OR p = :preferencia";
+//
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("palabra", "%" + palabra + "%");
+//        Preferencias preferencia = null;
+//        preferencia = Preferencias.valueOf(palabra.toUpperCase());
+//        query.setParameter("preferencia", preferencia); // Aquí pasamos el valor del enum
+//
+//
+//        return query.getResultList();
+//    }
 
 }
 

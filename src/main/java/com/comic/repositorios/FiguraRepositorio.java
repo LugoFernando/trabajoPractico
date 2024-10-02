@@ -16,5 +16,7 @@ public interface FiguraRepositorio {
 
     void BorrarPorId(Long id);
 
+    void actualizarFigura(Figura figura);
+
     List<Figura> darUnaListaBuscandoUnaPalabra(String texto);
 }

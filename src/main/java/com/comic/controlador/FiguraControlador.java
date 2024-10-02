@@ -85,7 +85,7 @@ public class FiguraControlador {
     public String detalleFigura(@PathVariable Long id, Model model) {
         Figura figura = figuraServicio.obtenerFiguraPorId(id);
         model.addAttribute("figura", figura);
-        return "detalle-figura";
+        return "detalleFigura";
     }
 
     @GetMapping("/productos")

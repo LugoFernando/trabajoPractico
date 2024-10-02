@@ -155,6 +155,36 @@ public class FiguraRepositorioTest {
         assertEquals("figura sin caja", figuras.get(0).getDescripcion());
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void queSeActualiceUnaFiguraExistente() {
+        // Preparar datos
+        Figura figuraTest = new Figura();
+        figuraTest.setId(1L);
+        figuraTest.setNombre("Robin");
+        figuraTest.setPrecio(200.0);
+        figuraTest.setEstado("Nuevo");
+        figuraTest.setDescripcion("Figura de acción");
+
+        // Guardar figura original
+        figuraRepositorio.guardar(figuraTest);
+
+        // Modificar datos de la figura
+        figuraTest.setNombre("Robin Modificado");
+
+        // Método a testear
+        figuraRepositorio.actualizarFigura(figuraTest);
+
+        // Obtener figura actualizada
+        Figura figuraActualizada = figuraRepositorio.buscarPorId(1L);
+
+        // Verificar que el nombre ha sido actualizado
+        assertEquals("Robin Modificado", figuraActualizada.getNombre());
+    }
+
+
+
 
     //    @Test // Nose porque no funciona
 //    @Transactional

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles de la Figura</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Aseguramos que la imagen ocupe todo el lado izquierdo */
+        .figure-image {
+            width: 100%; /* Ancho completo */
+            height: auto; /* Mantener proporción */
+            object-fit: cover; /* Cubrir el área sin distorsionar */
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Detalles de la Figura</h1>
+    <div class="row">
+        <!-- Columna para la imagen -->
+        <div class="col-md-6">
+            <img th:src="'data:image/png;base64,' + ${figura.cadena()}" class="card-img-top" alt="Foto de la Figura" style="height: 200px; object-fit: contain;">
+        </div>
+
+        <!-- Columna para los detalles de la figura -->
+        <div class="col-md-6">
+            <h2 th:text="${figura.nombre}"></h2>
+            <p><strong>Precio:</strong> <span th:text="${figura.precio}"></span></p>
+            <p><strong>Estado:</strong> <span th:text="${figura.estado}"></span></p>
+            <p><strong>Descripción:</strong></p>
+            <p th:text="${figura.descripcion}"></p>
+
+            <!-- Botón para comprar -->
+            <div class="mt-4">
+                <a th:href="@{'/comprar/' + ${figura.id}}" class="btn btn-success btn-lg">Comprar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">
+        <a th:href="@{/lista}" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS (Opcional si necesitas interactividad de Bootstrap) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
