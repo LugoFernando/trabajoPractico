@@ -80,7 +80,7 @@ public class ControladorLogin {
             Usuario datos=(Usuario)session.getAttribute("usuario");
             ModelMap modelo =new ModelMap();
             modelo.put("datos",datos);
-
+            modelo.put("preferencias", datos.getPreferenciasList());
         return new ModelAndView("quitarPreferencias",modelo);
     }
 
