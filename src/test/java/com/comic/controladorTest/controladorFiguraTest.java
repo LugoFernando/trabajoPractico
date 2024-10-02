@@ -1,25 +1,19 @@
 package com.comic.controladorTest;
 
-import com.comic.controlador.ControladorFigura;
-import com.comic.controlador.ControladorLogin;
 import com.comic.controlador.FiguraControlador;
 import com.comic.controlador.dto.DatosLogin;
-import com.comic.dominio.excepcion.UsuarioExistente;
 import com.comic.entidades.Usuario;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioFigura;
 import com.comic.servicios.ServicioLogin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.*;
 
 public class controladorFiguraTest {
