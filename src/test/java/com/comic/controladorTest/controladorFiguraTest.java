@@ -4,7 +4,7 @@ import com.comic.controlador.FiguraControlador;
 import com.comic.controlador.dto.DatosLogin;
 import com.comic.entidades.Usuario;
 import com.comic.servicios.FiguraServicio;
-import com.comic.servicios.ServicioFigura;
+
 import com.comic.servicios.ServicioLogin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

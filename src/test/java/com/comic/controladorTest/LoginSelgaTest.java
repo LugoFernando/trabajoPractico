@@ -3,6 +3,7 @@ package com.comic.controladorTest;
 import com.comic.controlador.ControladorLogin;
 import com.comic.controlador.dto.DatosLogin;
 import com.comic.dominio.excepcion.UsuarioExistente;
+import com.comic.entidades.Preferencias;
 import com.comic.entidades.Usuario;
 import com.comic.servicios.ServicioLogin;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
@@ -202,5 +207,60 @@ public class LoginSelgaTest {
 
     }
 
+    @Test
+    public void irAAgregarPreferenciasMostraraTodasLasPreferenciasPorqueNoSeEligioNinguna(){
+        //Preferencias marvel=Preferencias.MARVEL;
+        List<Preferencias>listaDePreFerenciasVacias=new ArrayList<>();
+       // listaDePreFerenciasVacias.add(marvel);
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+        when(usuarioMock.getPreferenciasList()).thenReturn(listaDePreFerenciasVacias);
+
+        ModelAndView modelAndView = controladorLogin.irAgregarPreferencias(requestMock);
+
+        // 3. Verificar el resultado
+        assertThat(modelAndView.getViewName(), is("agregarPreferencias")); // Verificar la vista
+        assertThat(modelAndView.getModel().get("availablePreferencias"),
+                is(Arrays.asList(Preferencias.values()))); // Verificar las preferencias disponibles
+        assertThat(modelAndView.getModel().get("datos"), is(usuarioMock)); // Verificar que el modelo contiene el usuario
+
+    }
+
+    @Test
+    public void irAAgregarPreferenciasYmostrarDCCOMICMANGAYANIMEporqueSeEligiocomoPreferenciaMARVEL(){
+        Preferencias marvel=Preferencias.MARVEL;
+        List<Preferencias>listaDePreFerenciasConMarvel=new ArrayList<>();
+        listaDePreFerenciasConMarvel.add(marvel);
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+        when(usuarioMock.getPreferenciasList()).thenReturn(listaDePreFerenciasConMarvel);
+        List<Preferencias>preferenciasEsperadas=new ArrayList<>();
+        preferenciasEsperadas.add(Preferencias.DC);
+        preferenciasEsperadas.add(Preferencias.COMIC);
+        preferenciasEsperadas.add(Preferencias.MANGA);
+        preferenciasEsperadas.add(Preferencias.ANIME);
+        ModelAndView modelAndView = controladorLogin.irAgregarPreferencias(requestMock);
+
+        // 3. Verificar el resultado
+        assertThat(modelAndView.getViewName(), is("agregarPreferencias")); // Verificar la vista
+        assertThat(modelAndView.getModel().get("availablePreferencias"),
+                is(preferenciasEsperadas)); // Verificar las preferencias disponibles
+        assertThat(modelAndView.getModel().get("datos"), is(usuarioMock)); // Verificar que el modelo contiene el usuario
+    }
+
+    @Test
+    public void irAQuitarPreferenciasYqueMUestreComoPrefenciaElegidaMarvelParaPoderSacarla(){
+        Preferencias marvel=Preferencias.MARVEL;
+        List<Preferencias>listaDePreFerenciasConMarvel=new ArrayList<>();
+        listaDePreFerenciasConMarvel.add(marvel);
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+        when(usuarioMock.getPreferenciasList()).thenReturn(listaDePreFerenciasConMarvel);
+        ModelAndView modelAndView = controladorLogin.irAQuitarPreferencias(requestMock);
+
+        assertThat(modelAndView.getViewName(), is("quitarPreferencias")); // Verificar la vista
+        assertThat(modelAndView.getModel().get("preferencias"), is(listaDePreFerenciasConMarvel)); // Asegúrate de que el modelo contenga las preferencias correctas
+
+    }
 
 }
