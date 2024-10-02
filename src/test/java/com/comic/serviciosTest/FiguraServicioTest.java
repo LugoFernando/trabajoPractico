@@ -61,6 +61,41 @@ public class FiguraServicioTest {
         verify(figuraRepositorio).BorrarPorId(figuraMock.getId());
     }
 
+    @Test
+    public void queSeObtengaFigurasBuscandoPorTexto() {
+        List<Figura> figurasMock = new ArrayList<>();
+        Figura figuraMock = new Figura();
+        figuraMock.setNombre("Batman");
+        figurasMock.add(figuraMock);
+
+        // Simulación
+        String textoBusqueda = "Batman";
+        when(this.figuraRepositorio.darUnaListaBuscandoUnaPalabra(textoBusqueda)).thenReturn(figurasMock);
+
+        // Ejecución
+        List<Figura> figuras = this.figuraServicio.buscarSegunTexto(textoBusqueda);
+
+        // Verificacion
+        assertThat(figuras, equalTo(figurasMock));
+        verify(figuraRepositorio).darUnaListaBuscandoUnaPalabra(textoBusqueda);
+        verify(figuraRepositorio, never()).buscarTodo(); // Asegurarse de que no se llamó a buscarTodo
+    }
+
+    @Test
+    public void queSeObtenganTodasLasFigurasCuandoTextoEsNulo() {
+        // Mock
+        List<Figura> figurasMock = new ArrayList<>();
+        // Simulación
+        when(this.figuraRepositorio.buscarTodo()).thenReturn(figurasMock);
+        // Ejecución
+        List<Figura> figuras = this.figuraServicio.buscarSegunTexto(null);
+
+        // Verificación
+        assertThat(figuras, equalTo(figurasMock));
+        verify(figuraRepositorio).buscarTodo();
+        verify(figuraRepositorio, never()).darUnaListaBuscandoUnaPalabra(anyString());
+    }
+
 
 
 

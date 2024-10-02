@@ -35,8 +35,20 @@
     <div class="mb-3">
         <label class="form-label fw-bold">Mis Preferencias:</label>
         <ul class="list-group">
-            <li class="list-group-item" th:each="preferencia : *{preferenciasList}" th:text="${preferencia}"></li>
+            <!-- Verifica si la lista no es null y no está vacía -->
+            <li class="list-group-item" th:each="preferencia : ${datosUsuario.preferenciasList}" th:if="${datosUsuario.preferenciasList != null and !datosUsuario.preferenciasList.isEmpty()}" th:text="${preferencia}"></li>
         </ul>
+        <!-- Si la lista está vacía o es null, mostrar un mensaje -->
+        <p th:if="${datosUsuario.preferenciasList == null or datosUsuario.preferenciasList.isEmpty()}">Usted no tiene preferencias elegidas.</p>
+    </div>
+
+    <!-- Botones condicionales -->
+    <div class="d-flex justify-content-between mt-4">
+        <!-- Mostrar el botón "Agregar Preferencias" siempre -->
+        <a th:href="@{/agregar-preferencias}" class="btn btn-primary w-45">Agregar Preferencias</a>
+
+        <!-- Mostrar el botón "Quitar Preferencias" solo si la lista no está vacía o es distinta de null -->
+        <a th:if="${datosUsuario.preferenciasList != null and !datosUsuario.preferenciasList.isEmpty()}" th:href="@{/quitar_Preferencias}" class="btn btn-danger w-45">Quitar Preferencias</a>
     </div>
 
     <!-- Botones -->

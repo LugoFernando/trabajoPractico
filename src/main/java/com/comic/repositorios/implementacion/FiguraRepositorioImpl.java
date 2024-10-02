@@ -52,4 +52,18 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
             this.sessionFactory.getCurrentSession().delete(figura);
         }
     }
+
+
+
+    @Override
+    @Transactional
+    public List<Figura> darUnaListaBuscandoUnaPalabra(String palabra) {
+        String hql = "SELECT f FROM Figura f WHERE CONCAT(f.nombre, f.precio, f.descripcion) LIKE :palabra";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("palabra", "%" + palabra + "%");
+        return query.getResultList();
+    }
+
+
+
 }
