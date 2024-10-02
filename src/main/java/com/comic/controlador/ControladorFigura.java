@@ -1,6 +1,7 @@
 package com.comic.controlador;
 
 import com.comic.entidades.Figura;
+import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioFigura;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ public class ControladorFigura {
  private ServicioFigura servicioFigura;
 
 @Autowired
- public ControladorFigura (ServicioFigura servicioFigura)  {
+ public ControladorFigura (FiguraServicio servicioFigura)  {
 
     this.servicioFigura=servicioFigura;
 }
