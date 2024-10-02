@@ -94,8 +94,6 @@ public class FiguraControlador {
     }
 
 
-
-
     @GetMapping("/limpiar")
     public String listarTodasLasFiguras() {
         return "listaDeProducto";
