@@ -155,6 +155,29 @@ public class FiguraRepositorioTest {
         assertEquals("figura sin caja", figuras.get(0).getDescripcion());
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void queSeActualiceUnaFiguraExistente() {
+        List<Figura> figuraMock = getCompletarListaFigura();
+
+        Figura figuraParaActualizar = figuraMock.get(1); // Batman
+        figuraParaActualizar.setNombre("Batman Modificado");
+
+        figuraRepositorio.actualizarFigura(figuraParaActualizar);
+
+        Figura figuraActualizada = figuraRepositorio.buscarPorId(2L);
+
+        // Verifica si esta actualizado
+        assertEquals("Batman Modificado", figuraActualizada.getNombre());
+        // y los otros parametros no
+        assertEquals(2000.0, figuraActualizada.getPrecio());
+        assertEquals("Nuevo", figuraActualizada.getEstado());
+        assertEquals("figura en bolsa", figuraActualizada.getDescripcion());
+    }
+
+
+
 
     //    @Test // Nose porque no funciona
 //    @Transactional

@@ -22,6 +22,8 @@ public class FiguraControlador {
 
 
     private FiguraServicio figuraServicio;
+
+
     private ServicioLogin servicioLogin;
 
     @Autowired
@@ -53,6 +55,9 @@ public class FiguraControlador {
         figuraServicio.guardarFigura(figura , imagen);
         return "redirect:/lista";
     }
+
+
+
 
 
 //    @GetMapping("/nueva2")
