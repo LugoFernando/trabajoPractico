@@ -11,7 +11,7 @@
 
     <h2 class="mb-4 text-center">Quitar Preferencias</h2>
 
-    <!-- Preferencias disponibles para quitar -->
+    <!-- muestro las preferencias disponibles para quitar -->
     <form th:action="@{/guardar-preferencias-eliminadas}" method="post">
         <div class="mb-3">
             <label class="form-label fw-bold">Preferencias actuales:</label>
@@ -23,11 +23,11 @@
             </ul>
         </div>
 
-        <!-- Botón para confirmar la eliminación -->
+
         <button type="submit" class="btn btn-danger">Quitar Preferencias</button>
     </form>
 
-    <!-- Botón para volver a cuenta -->
+
     <div class="mt-4">
         <a th:href="@{/cuenta}" class="btn btn-secondary">Volver a Cuenta</a>
     </div>

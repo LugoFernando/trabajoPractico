@@ -22,7 +22,7 @@ public class ServiceLoginTest {
 
     @BeforeEach
     public void init() {
-        // Inicializa manualmente el servicio con el repositorio mockeado
+
         repositorioUsuarioMock = mock(RepositorioUsuario.class);
         servicioLogin = new ServicioLoginImpl(repositorioUsuarioMock);
         datos=new DatosLogin("selgadis25@gmail.com","123456");
@@ -32,10 +32,6 @@ public class ServiceLoginTest {
         usuarioMock.setPassword("123456");
     }
 
-   /* @Override
-    public Usuario consultarUsuario (String email, String password) {
-        return repositorioUsuario.buscarUsuario(email, password);
-    }*/
 
     @Test
     public void verificaQueCuandoSeProporcionaUnEmailyContraseñaválidosElMétodoDevuelveElUsuarioEsperado(){
@@ -43,17 +39,14 @@ public class ServiceLoginTest {
         when(repositorioUsuarioMock.buscarUsuario("selgadis25@gmail.com", "123456"))
                 .thenReturn(usuarioMock);
 
-        // Llama al metodo que deseas probar
         Usuario usuarioEncontrado = servicioLogin.consultarUsuario(datos.getEmail() ,datos.getPassword());
 
-        // Verifica que el usuario encontrado sea igual al usuario mockeado
         assertThat(usuarioEncontrado, equalTo(usuarioMock));
 
 
     }
 
-//    Verifica que cuando se proporciona un email o contraseña incorrecta,
-//    se maneja correctamente un valor nulo o vacío (dependiendo de la implementación de buscarUsuario).
+
     @Test
     public void  verificaQueCuandoSeProporcionaUnEmailyContraseñaNoválidosElMétodoDevuelveNull(){
         when(repositorioUsuarioMock.buscarUsuario("selgadis24@gmail.com", "123456"))
@@ -72,12 +65,12 @@ public class ServiceLoginTest {
         when(repositorioUsuarioMock.buscarUsuario(usuarioMock.getEmail(), usuarioMock.getPassword()))
                 .thenReturn(usuarioMock);
 
-        // Verifica que se lance la excepción
+
         assertThrows(UsuarioExistente.class, () -> {
             servicioLogin.registrar(usuarioMock); // Esta línea debe lanzar la excepción
         });
 
-        // Verifica que el método guardar no fue llamado
+
         verify(repositorioUsuarioMock, never()).guardar(any(Usuario.class));
     }
 
