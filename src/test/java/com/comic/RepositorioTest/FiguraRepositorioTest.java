@@ -159,28 +159,21 @@ public class FiguraRepositorioTest {
     @Transactional
     @Rollback
     public void queSeActualiceUnaFiguraExistente() {
-        // Preparar datos
-        Figura figuraTest = new Figura();
-        figuraTest.setId(1L);
-        figuraTest.setNombre("Robin");
-        figuraTest.setPrecio(200.0);
-        figuraTest.setEstado("Nuevo");
-        figuraTest.setDescripcion("Figura de acción");
+        List<Figura> figuraMock = getCompletarListaFigura();
 
-        // Guardar figura original
-        figuraRepositorio.guardar(figuraTest);
+        Figura figuraParaActualizar = figuraMock.get(1); // Batman
+        figuraParaActualizar.setNombre("Batman Modificado");
 
-        // Modificar datos de la figura
-        figuraTest.setNombre("Robin Modificado");
+        figuraRepositorio.actualizarFigura(figuraParaActualizar);
 
-        // Método a testear
-        figuraRepositorio.actualizarFigura(figuraTest);
+        Figura figuraActualizada = figuraRepositorio.buscarPorId(2L);
 
-        // Obtener figura actualizada
-        Figura figuraActualizada = figuraRepositorio.buscarPorId(1L);
-
-        // Verificar que el nombre ha sido actualizado
-        assertEquals("Robin Modificado", figuraActualizada.getNombre());
+        // Verifica si esta actualizado
+        assertEquals("Batman Modificado", figuraActualizada.getNombre());
+        // y los otros parametros no
+        assertEquals(2000.0, figuraActualizada.getPrecio());
+        assertEquals("Nuevo", figuraActualizada.getEstado());
+        assertEquals("figura en bolsa", figuraActualizada.getDescripcion());
     }
 
 

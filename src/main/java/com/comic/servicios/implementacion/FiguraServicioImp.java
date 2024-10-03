@@ -73,4 +73,9 @@ public class FiguraServicioImp implements FiguraServicio {
         }
         return figuraRepositorio.buscarTodo();
     }
+
+    @Override
+    public void actualizar(Figura figura) {
+        figuraRepositorio.actualizarFigura(figura);
+    }
 }
