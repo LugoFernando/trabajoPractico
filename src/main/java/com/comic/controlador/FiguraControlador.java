@@ -111,20 +111,15 @@ public class FiguraControlador {
     public ModelAndView irAProductos(Model model, @RequestParam(value = "palabraBuscada", required = false) String palabraBuscada) {
 
         List<Figura> figuras;
-
-        // Si el usuario ha ingresado una búsqueda
         if (palabraBuscada != null && !palabraBuscada.isEmpty()) {
-            figuras = figuraServicio.buscarSegunTexto(palabraBuscada); // Buscar figuras que coincidan con la palabra
-            model.addAttribute("palabraBuscada", palabraBuscada); // Añadir la palabra al modelo
+            figuras = figuraServicio.buscarSegunTexto(palabraBuscada); // busca figuras que coincidan
+            model.addAttribute("palabraBuscada", palabraBuscada); //  añade el resultado al model
         } else {
-            // Si no hay búsqueda, mostrar todas las figuras o un conjunto por defecto
-            figuras = figuraServicio.listarFiguras(); // Obtener todas las figuras
+            figuras = figuraServicio.listarFiguras();
         }
-
-        // Añadir la lista de figuras al modelo
+        // añade la lista
         model.addAttribute("figuras", figuras);
 
-        // Retornar la vista "listaDeProducto"
         return new ModelAndView("listaDeProducto");
     }
 

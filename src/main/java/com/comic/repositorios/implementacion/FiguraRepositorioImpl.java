@@ -62,7 +62,7 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
         query.setParameter("precio", figura.getPrecio());
         query.setParameter("estado", figura.getEstado());
         query.setParameter("descripcion", figura.getDescripcion());
-        query.setParameter("id", figura.getId()); // Mantiene el ID sin modificar
+        query.setParameter("id", figura.getId()); // mantiene el ID sin modificar
         query.executeUpdate();
     }
 
