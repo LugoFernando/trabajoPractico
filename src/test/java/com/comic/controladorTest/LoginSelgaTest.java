@@ -190,6 +190,7 @@ public class LoginSelgaTest {
         assertThat(modelAndView.getViewName(), is("redirect:/home"));
 
     }
+
     @Test
     public void muestraLaInformacionDelUsuarioAutentificadoyRedirigeACuenta(){
 
@@ -206,6 +207,7 @@ public class LoginSelgaTest {
 
 
     }
+
 
     @Test
     public void irAAgregarPreferenciasMostraraTodasLasPreferenciasPorqueNoSeEligioNinguna(){
