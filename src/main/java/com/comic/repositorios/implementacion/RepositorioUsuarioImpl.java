@@ -8,6 +8,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+
 @Repository("repositorioUsuario")
 public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
@@ -51,5 +54,16 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     public void modificar(Usuario usuario) {
         sessionFactory.getCurrentSession().update(usuario);
     }
+
+    @Override
+    @Transactional
+    public Usuario buscarPorId(Long id) {
+        String hql = "SELECT u FROM Usuario u WHERE u.id = ?1";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter(1, id);
+        return (Usuario) query.getSingleResult();
+    }
+
+
 
 }

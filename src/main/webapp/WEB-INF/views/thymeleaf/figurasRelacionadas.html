@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Figuras Relacionadas</title>
+</head>
+<body>
+<h1>Figuras Relacionadas a tus Compras</h1>
+
+<div th:if="${figuras.isEmpty()}">
+    <p>No se encontraron figuras relacionadas.</p>
+</div>
+
+<div th:each="figura : ${figuras}">
+    <h2 th:text="${figura.nombre}">Nombre de la Figura</h2>
+    <p th:text="${figura.descripcion}">Descripción</p>
+    <p>Precio: <span th:text="${figura.precio}">Precio</span></p>
+    <img th:src="'data:image/jpeg;base64,' + ${figura.imagen}" alt="Imagen Figura" />
+</div>
+</body>
+</html>
+

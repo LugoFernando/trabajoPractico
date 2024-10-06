@@ -22,12 +22,15 @@ public class Figura {
     private String descripcion;
 
 
-    @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
-    @CollectionTable(name = "figura_preferencias", joinColumns = @JoinColumn(name = "figura_id"))
-    @Column(name = "preferencia")
-    @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
-    private List<Preferencias> preferenciasList =new ArrayList<>();
+//    @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
+//    @CollectionTable(name = "figura_preferencias", joinColumns = @JoinColumn(name = "figura_id"))
+//    @Column(name = "preferencia")
+//    @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
+//    private List<Preferencias> preferenciasList =new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
 
     @Lob
@@ -95,13 +98,13 @@ public class Figura {
        return new String(this.imagen);
     }
 
-    public List<Preferencias> getPreferenciasList() {
-        return preferenciasList;
-    }
-
-    public void setPreferenciasList(List<Preferencias> preferenciasList) {
-        this.preferenciasList = preferenciasList;
-    }
+//    public List<Preferencias> getPreferenciasList() {
+//        return preferenciasList;
+//    }
+//
+//    public void setPreferenciasList(List<Preferencias> preferenciasList) {
+//        this.preferenciasList = preferenciasList;
+//    }
 
 
 }

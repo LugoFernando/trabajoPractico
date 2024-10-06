@@ -22,6 +22,10 @@ public class Usuario {
     @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
     private List<Preferencias> preferenciasList =new ArrayList<>();
 
+    // Relación OneToMany con Compra
+    @OneToMany(mappedBy = "usuario")
+    private List<Compra> compras = new ArrayList<>();
+
 
     public Long getId() {
         return id;

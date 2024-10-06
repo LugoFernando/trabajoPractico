@@ -2,18 +2,22 @@ package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
 
+import com.comic.entidades.Figura;
 import com.comic.entidades.Preferencias;
+import com.comic.servicios.CompraServicio;
 import com.comic.servicios.ServicioLogin;
 import com.comic.entidades.Usuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,9 +29,14 @@ public class ControladorLogin {
     private ServicioLogin servicioLogin;
 
     @Autowired
+    private CompraServicio compraServicio;
+
+    @Autowired
     public ControladorLogin(ServicioLogin servicioLogin) {
         this.servicioLogin = servicioLogin;
     }
+
+
 
 
 
@@ -196,4 +205,26 @@ public class ControladorLogin {
         }
         return new ModelAndView("redirect:/home"); // Redirigir a la página de inicio
     }
+
+
+
+
+
+
+    @GetMapping("/figuras-relacionadas")
+    public String obtenerFigurasRelacionadas(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        // recupera el usuario de la sesion
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+        // obten la figura relacionada
+        List<Figura> figurasRelacionadas = compraServicio.obtenerFigurasRelacionadas(usuario);
+
+        // lo añade a la vista
+        model.addAttribute("figuras", figurasRelacionadas);
+        return "figurasRelacionadas";  // Retornar la vista correspondiente
+    }
+
 }
