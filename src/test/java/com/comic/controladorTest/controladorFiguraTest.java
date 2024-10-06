@@ -166,4 +166,47 @@ public class controladorFiguraTest {
     }
 
 
+    @Test
+    public void queSeMuestreLaVistaDeActualizarFiguraSiExiste() {
+        // mock
+        Figura figuraMock = new Figura();
+        figuraMock.setId(1L);
+        when(servicioFiguraMock.obtenerFiguraPorId(1L)).thenReturn(figuraMock);
+
+        ModelAndView modelAndView = figuraControlador.vistaActualizarFigura(1L);
+
+        //verificacion
+        assertThat(modelAndView.getViewName(), equalTo("modificarFigura"));
+        assertThat(modelAndView.getModel().get("figura"), equalTo(figuraMock));
+        verify(servicioFiguraMock).obtenerFiguraPorId(1L);
+    }
+
+    @Test
+    public void queRedirijaALaListaSiNoSeEncuentraLaFigura() {
+        when(servicioFiguraMock.obtenerFiguraPorId(1L)).thenReturn(null);
+
+        ModelAndView modelAndView = figuraControlador.vistaActualizarFigura(1L);
+
+        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
+        verify(servicioFiguraMock).obtenerFiguraPorId(1L);
+    }
+
+
+    @Test
+    public void queSeActualiceLaFiguraYRedirijaALaLista() {
+        //mock
+        Figura figuraMock = new Figura();
+        figuraMock.setId(1L);
+        figuraMock.setNombre("Batman");
+
+        ModelAndView modelAndView = figuraControlador.actualizarFigura(figuraMock);
+
+        // verificacion
+        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
+        verify(servicioFiguraMock).actualizar(figuraMock);
+    }
+
+
+
+
 }

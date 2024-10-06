@@ -20,8 +20,7 @@ public class Figura {
     private String estado;
     @Column(name = "descripcion")
     private String descripcion;
-    @Column(name = "fotoUrl")
-    private String fotoUrl;
+
 
     @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
     @CollectionTable(name = "figura_preferencias", joinColumns = @JoinColumn(name = "figura_id"))

@@ -8,41 +8,35 @@
 <body>
 
 <div class="container mt-4">
-    <h1 class="text-center mb-4">Nuestros Productos </h1>
+    <h1 class="text-center mb-4">Nuestros Productos</h1>
 
-
-    <form class="d-flex" method="get">
+    <!-- Formulario de búsqueda -->
+    <form class="d-flex mb-4" method="get">
         <input class="form-control me-2" type="search" name="palabraBuscada" th:value="${palabraBuscada}" placeholder="Buscar por nombre" aria-label="Buscar">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
 
-    <!--Tabla -->
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-        <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Estado</th>
-            <th>Descripción</th>
-            <th>Foto</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="figura : ${figuras}">
-            <td th:text="${figura.nombre}"></td>
-            <td th:text="${figura.precio}"></td>
-            <td th:text="${figura.estado}"></td>
-            <td th:text="${figura.descripcion}"></td>
-            <td><img th:src="'data:image/png;base64,' + ${figura.cadena()}" alt="Foto" width="100"></td>
-            <td>
-                <a class="btn btn-success btn-sm" th:href="@{'/comprar/' + ${figura.id}}">Comprar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- Grid de productos -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="figura : ${figuras}">
+            <div class="card h-100">
+                <!-- Ajustar imagen para que se vea completa -->
+                <img th:src="'data:image/png;base64,' + ${figura.cadena()}" class="card-img-top" alt="Foto de la Figura" style="height: 200px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title" th:text="${figura.nombre}"></h5>
+                    <!-- Precio sin "USD" -->
+                    <p class="card-text">Precio: <span th:text="${figura.precio}"></span></p>
+                </div>
+                <div class="card-footer text-center">
+                    <a class="btn btn-success" th:href="@{'/comprar/' + ${figura.id}}">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a class="btn btn-secondary mt-3" th:href="@{/home}">Volver Al Inicio</a>
+    <div class="mt-4">
+        <a class="btn btn-secondary" th:href="@{/home}">Volver Al Inicio</a>
+    </div>
 </div>
 
 <!--Bootstrap JS-->
@@ -50,3 +44,5 @@
 
 </body>
 </html>
+</html>
+

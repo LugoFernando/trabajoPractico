@@ -59,6 +59,7 @@ public class ControladorLogin {
     }
     @RequestMapping(path = "/agregar-preferencias",method =RequestMethod.GET)//TESTEAR
     public ModelAndView irAgregarPreferencias(HttpServletRequest request){
+
         HttpSession session =request.getSession();
         Usuario datos =(Usuario)session.getAttribute("usuario");
         ModelMap modelo =new ModelMap();
@@ -74,6 +75,12 @@ public class ControladorLogin {
         return  new ModelAndView("agregarPreferencias",modelo);
     }
 
+    @RequestMapping(path = "/guardar-modificaciones",method =RequestMethod.POST)
+    public ModelAndView guardarCambiosEnDatosDeCuenta(HttpServletRequest request){
+        return new ModelAndView("/cuenta");
+
+    }
+
     @RequestMapping(path = "quitar_Preferencias", method = RequestMethod.GET)
     public ModelAndView irAQuitarPreferencias(HttpServletRequest request){
             HttpSession session=request.getSession();
@@ -85,7 +92,7 @@ public class ControladorLogin {
     }
 
     @RequestMapping(path = "/guardar-preferencias", method = RequestMethod.POST)
-    public String guardarPreferencias(@RequestParam List<Preferencias> preferencias, HttpServletRequest request) {
+    public String guardarPreferencias(@RequestParam (value = "preferencias", required = false) List<Preferencias> preferencias, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
@@ -98,12 +105,14 @@ public class ControladorLogin {
                 }
             }
         }
+       // Usuario usuarioBuscado= servicioLogin.consultarUsuario(usuario.getEmail(),usuario.getPassword());
+        servicioLogin.modificarUusuario(usuario);
 
         // Puedes redirigir a otra página después de guardar
         return "redirect:/cuenta"; // O la página que desees
     }
     @RequestMapping(path = "/guardar-preferencias-eliminadas", method = RequestMethod.POST)
-    public String guardarPreferenciasDespuesDeEliminar(@RequestParam List<Preferencias> preferencias, HttpServletRequest request) {
+    public String guardarPreferenciasDespuesDeEliminar(@RequestParam(value = "preferencias", required = false) List<Preferencias> preferencias, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
@@ -117,7 +126,7 @@ public class ControladorLogin {
                 }
             }
         }
-
+        servicioLogin.modificarUusuario(usuario);
         return "redirect:/cuenta"; // Redirige a la cuenta después de quitar las preferencias
     }
 

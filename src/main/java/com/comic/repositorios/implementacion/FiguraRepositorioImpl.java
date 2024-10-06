@@ -53,7 +53,18 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
         }
     }
 
-
+    @Override
+    @Transactional
+    public void actualizarFigura(Figura figura) {
+        String hql = "UPDATE Figura SET nombre = :nombre, precio = :precio, estado = :estado, descripcion = :descripcion WHERE id = :id";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("nombre", figura.getNombre());
+        query.setParameter("precio", figura.getPrecio());
+        query.setParameter("estado", figura.getEstado());
+        query.setParameter("descripcion", figura.getDescripcion());
+        query.setParameter("id", figura.getId()); // mantiene el ID sin modificar
+        query.executeUpdate();
+    }
 
     @Override
     @Transactional
@@ -64,21 +75,6 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
         return query.getResultList();
     }
 
-//    @Override
-//    @Transactional
-//    public List<Figura> darUnaListaBuscandoUnaPalabra(String palabra) {
-//        String hql = "SELECT f FROM Figura f " +
-//                "LEFT JOIN f.preferenciasList p " +
-//                "WHERE CONCAT(f.nombre, f.precio, f.descripcion) LIKE :palabra " +
-//                "OR p LIKE :palabraPreferencia";
-//
-//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-//        query.setParameter("palabra", "%" + palabra + "%");
-//        query.setParameter("palabraPreferencia", "%" + palabra + "%");
-//
-//        return query.getResultList();
-//
-//
 
 
-    }
+}

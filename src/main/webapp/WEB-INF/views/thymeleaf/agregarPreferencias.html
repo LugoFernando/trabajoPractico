@@ -9,13 +9,13 @@
 <body>
 <div class="container mt-5 p-4 bg-white border rounded shadow">
 
-    <!-- Verifica si hay preferencias disponibles -->
+    <!-- verifico las preferencias con condicionales si no hay muestro el mensaje-->
     <div th:if="${availablePreferencias == null or #lists.isEmpty(availablePreferencias)}">
         <p class="text-center">No hay más categorías para agregar.</p>
         <a th:href="@{/cuenta}" class="btn btn-secondary">Volver a Cuenta</a>
     </div>
 
-    <!-- Si hay preferencias disponibles, muestra el formulario -->
+    <!-- Si tengo preferencias las puedo mostrar-->
     <div th:if="${availablePreferencias != null and !#lists.isEmpty(availablePreferencias)}">
         <h2 class="mb-4 text-center">Agregar Preferencias</h2>
         <form th:action="@{/guardar-preferencias}" method="post">
