@@ -2,7 +2,9 @@ package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
 
+import com.comic.entidades.Figura;
 import com.comic.entidades.Preferencias;
+import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import com.comic.entidades.Usuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,10 +26,12 @@ public class ControladorLogin {
 
     @Autowired
     private ServicioLogin servicioLogin;
+    private FiguraServicio figuraServicio;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin) {
+    public ControladorLogin(ServicioLogin servicioLogin , FiguraServicio figuraServicio) {
         this.servicioLogin = servicioLogin;
+        this.figuraServicio=figuraServicio;
     }
 
 
@@ -50,9 +55,14 @@ public class ControladorLogin {
 
     @RequestMapping( path = "/cuenta", method = RequestMethod.GET)
     public ModelAndView irACuenta(HttpServletRequest request){
+
         ModelMap modelo = new ModelMap();
         HttpSession session = request.getSession();
         Usuario datosUsuario=(Usuario)session.getAttribute("usuario");
+
+
+
+
         modelo.put("datosUsuario",datosUsuario);
         return new ModelAndView("usuario",modelo);
 
@@ -185,9 +195,24 @@ public class ControladorLogin {
 
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome() {
+    public ModelAndView irAHome(HttpServletRequest request) {
+        List<Figura>listaDeFiguras=figuraServicio.listarFiguras();
+        List<Figura>figurasCoincidenConPreferenciasUsuario=new ArrayList<>();
+        ModelMap modelo = new ModelMap();
+        HttpSession session = request.getSession();
+        Usuario datosUsuario=(Usuario)session.getAttribute("usuario");
+        if (datosUsuario != null) {
+            List<Preferencias> preferenciasUsuario = datosUsuario.getPreferenciasList();
 
-        return new ModelAndView("home2");
+            figurasCoincidenConPreferenciasUsuario = listaDeFiguras.stream()
+                    .filter(figura -> figura.getPreferenciasList().stream()
+                            .anyMatch(preferenciasUsuario::contains))
+                    .collect(Collectors.toList());
+        }
+
+
+        modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
+        return new ModelAndView("home2",modelo);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)

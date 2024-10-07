@@ -81,40 +81,23 @@
 
 <!-- Sección de Productos -->
 <div class="container my-5">
-    <h2 class="text-center mb-4">Nuestras Figuras Más Populares</h2>
+    <h2 class="text-center mb-4">Figuras que coinciden con tus preferencias</h2>
     <div class="row">
-        <!-- Producto 1 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card">
-                <img th:action="@{/vistaProducto}" src="https://via.placeholder.com/300x300" class="card-img-top" alt="Figura 1">
-                <div class="card-body">
-                    <h5 class="card-title">Figura 1</h5>
-                    <p class="card-text">Descripción breve de la figura. Detalles sobre el personaje y su calidad.</p>
-                    <a class="btn btn-primary">Comprar por 29,99 €</a>
+        <div th:if="${figurasFiltradas != null && !figurasFiltradas.isEmpty()}">
+            <div th:each="figura : ${figurasFiltradas}" class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}" class="card-img-top" alt="Imagen de Figura">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${figura.nombre}">Nombre de Figura</h5>
+                        <p class="card-text" th:text="${figura.descripcion}">Descripción de Figura</p>
+                        <p class="card-text" th:text="${figura.precio} + ' €'">Precio de Figura</p>
+                        <a th:href="@{/comprar/{id}(id=${figura.id})}" class="btn btn-primary">Comprar</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Producto 2 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x300" class="card-img-top" alt="Figura 2">
-                <div class="card-body">
-                    <h5 class="card-title">Figura 2</h5>
-                    <p class="card-text">Descripción breve de la figura. Detalles sobre el personaje y su calidad.</p>
-                    <a href="#" class="btn btn-primary">Comprar por 29,99 €</a>
-                </div>
-            </div>
-        </div>
-        <!-- Producto 3 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x300" class="card-img-top" alt="Figura 3">
-                <div class="card-body">
-                    <h5 class="card-title">Figura 3</h5>
-                    <p class="card-text">Descripción breve de la figura. Detalles sobre el personaje y su calidad.</p>
-                    <a href="#" class="btn btn-primary">Comprar por 19,99 €</a>
-                </div>
-            </div>
+        <div th:if="${figurasFiltradas == null || figurasFiltradas.isEmpty()}">
+            <p class="text-center">No hay figuras que coincidan con tus preferencias en este momento.</p>
         </div>
     </div>
 </div>
