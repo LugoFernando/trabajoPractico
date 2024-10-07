@@ -1,6 +1,7 @@
 
 --USUARIOS
 INSERT INTO Usuario(id, email, password, rol, activo) VALUES(null, 'test@unlam.edu.ar', 'test', 'ADMIN', true);
+INSERT INTO Usuario(id, email, password, rol, activo) VALUES(null, 'selgadis@gmail.com', 'selga', 'ADMIN', true);
 
 
 
@@ -41,4 +42,10 @@ VALUES
 (7, 'MARVEL'),
 (8, 'MANGA'),
 (9, 'MARVEL');
+
+INSERT INTO usuario_preferencias (usuario_id, preferencia)
+VALUES
+(2, 'DC'),
+(2, 'MARVEL');
+
 
