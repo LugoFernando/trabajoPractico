@@ -230,4 +230,24 @@ public class ControladorLogin {
         }
         return new ModelAndView("redirect:/home"); // Redirigir a la página de inicio
     }
+
+    @RequestMapping(path = "/moificarDatosUsuario", method = RequestMethod.GET)
+    public ModelAndView irAAFormularioMoficiarDatosUsuario(HttpServletRequest request){
+        ModelMap modelo=new ModelMap();
+        HttpSession session=request.getSession();
+        Usuario usuario= (Usuario)session.getAttribute("usuario");
+        modelo.put("datos",usuario);
+        return new ModelAndView("modificarDatosUsuario",modelo);
+    }
+
+    @RequestMapping(path = "confirmarModificacionesDeUsuario", method = RequestMethod.POST)
+    public String confirmarModificacionesDeUsuario(@ModelAttribute("datos") Usuario usuario,HttpServletRequest request){
+        HttpSession sesion =request.getSession();
+        Usuario usuarioExistente=(Usuario) sesion.getAttribute("usuario");
+
+        usuarioExistente.setEmail(usuario.getEmail());
+        usuarioExistente.setPassword(usuario.getPassword());
+        servicioLogin.modificarUsuarioPorID(usuarioExistente);
+        return "redirect:/cuenta";
+    }
 }
