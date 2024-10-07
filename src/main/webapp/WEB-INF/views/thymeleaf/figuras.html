@@ -15,74 +15,7 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-<h1>Lista de Figuras de Colección</h1>
-<p>
-    <a th:href="@{/nueva}">Agregar Nueva Figura</a>
-<p>
-<table>
-    <thead>
-    <tr>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Estado</th>
-        <th>Descripción</th>
-        <th>Foto</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="figura : ${figuras}">
-        <td th:text="${figura.nombre}"></td>
-        <td th:text="${figura.precio}"></td>
-        <td th:text="${figura.estado}"></td>
-        <td th:text="${figura.descripcion}"></td>
-        <td><img th:src="'data:image/png;base64,' + ${figura.cadena()}" alt="Foto" width="100"></td> <!--investigar-->
-        <td>
-        <!-- <a th:href="@{'/eliminar/' + ${figura.id}}">Eliminar</a> -->
-            <input type="hidden" id="figuraId" th:value="${figura.id}">
 
-            <a href="#" class="btn btn-danger" onclick="confirmDelete()">Eliminar</a>
-        </td>
-    </tr>
-    </tbody>
-    <a th:href="@{/home}">Volver Al Inicio</a>
-</table>
-
-<!-- Modal -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmar Eliminación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ¿Estás seguro de que deseas eliminar este elemento?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function confirmDelete() {
-        let deleteItemId = document.getElementById("figuraId").value;
-        console.log("deleteItemId: " + deleteItemId);
-        $('#deleteConfirmationModal').modal('show');
-    }
-
-    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-        let deleteItemId = document.getElementById("figuraId").value;
-        if (deleteItemId !== null) {
-            window.location.href =  'eliminar/' + deleteItemId; // Construct the delete URL
-        }
-    });
-</script>
-
-=======
 <div class="container mt-5">
     <h1 class="text-center mb-4">Tus Figuras Subidas</h1>
 
@@ -110,7 +43,8 @@
                 <img th:src="'data:image/png;base64,' + ${figura.cadena()}" alt="Foto" width="100" class="img-thumbnail">
                 <div class="mt-2">
                     <a th:href="@{'/actualizar/' + ${figura.id}}" class="btn btn-info btn-sm">Modificar</a>
-                    <a th:href="@{'/eliminar/' + ${figura.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+                    <input type="hidden" id="figuraId" th:value="${figura.id}">
+                    <a href="#" class="btn btn-danger" onclick="confirmDelete()">Eliminar</a>
                 </div>
             </td>
         </tr>
@@ -120,6 +54,39 @@
     <div class="d-flex justify-content-end mt-3">
         <a th:href="@{/home}" class="btn btn-secondary">Volver Al Inicio</a>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este elemento?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function confirmDelete() {
+            let deleteItemId = document.getElementById("figuraId").value;
+            console.log("deleteItemId: " + deleteItemId);
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+            let deleteItemId = document.getElementById("figuraId").value;
+            if (deleteItemId !== null) {
+                window.location.href =  'eliminar/' + deleteItemId; // Construct the delete URL
+            }
+        });
+    </script>
 </div>
 
 </body>
