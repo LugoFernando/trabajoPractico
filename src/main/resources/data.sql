@@ -37,6 +37,7 @@ INSERT INTO figura_preferencias (figura_id, preferencia)
 VALUES
 (1, 'DC'),
 (2, 'MARVEL'),
+(3, 'MARVEL'),
 (4, 'DC'),
 (5, 'MANGA'),
 (6, 'MARVEL'),
@@ -52,11 +53,12 @@ VALUES
 
 --Compra
 INSERT INTO Compra(id, usuario_id, cantidad, precio_total)
-VALUES (1, 1, 1, 42000);
+VALUES (1, 1, 2, 42000);
 
 --relación entre compra y figuras
 INSERT INTO compra_figuras(compra_id, figura_id)
-VALUES (1, 1);
+VALUES (1, 1),
+(1, 3);
 
 
 
