@@ -222,8 +222,8 @@ public class ControladorLogin {
 @RequestMapping(path = "/home", method = RequestMethod.GET)
 public ModelAndView irAHome2(HttpServletRequest request) {
     ModelMap modelo = new ModelMap();
-    List<Figura>figurasCoincidenConPreferenciasUsuario=new ArrayList<>();//preferencias
-    List<Figura>listaDeFiguras=figuraServicio.listarFiguras();//preferencias
+    List<Figura>figurasCoincidenConPreferenciasUsuario=new ArrayList<>();//preferencias del metodo q tenia antes
+    List<Figura>listaDeFiguras=figuraServicio.listarFiguras();//preferencias del metodo q tenia antes
     HttpSession session = request.getSession();
     Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
 
@@ -232,10 +232,10 @@ public ModelAndView irAHome2(HttpServletRequest request) {
     List<Figura> listaDeFigurasQueCoinciden = new ArrayList<>();
 
     if (datosUsuario != null) {
-        // Obtener todas las compras desde el servicio
+        // recupero todas las compras desde el servicio
         List<Compra> todasLasCompras = compraServicio.listarlasCompras();
 
-        // Filtrar solo las compras que pertenecen al usuario actual
+        // Filtro solo las compras que pertenecen al usuario actual
         List<Compra> comprasDelUsuario = todasLasCompras.stream()
                 .filter(compra -> compra.getUsuario().getId().equals(datosUsuario.getId()))
                 .collect(Collectors.toList());
@@ -243,13 +243,11 @@ public ModelAndView irAHome2(HttpServletRequest request) {
         // Filtrar las figuras compradas por el usuario que coinciden con las figuras en la base de datos
         for (Compra compra : comprasDelUsuario) {
             for (Figura figuraComprada : compra.getFiguras()) {
-                // Comparar la figura comprada con las figuras de la base de datos
                 // Comparar la figura comprada con las figuras de la base de datos usando contains para coincidencias parciales
                 listaDeFigurasEnBaseDeDatos.stream()
                         .filter(figura -> figura.getNombre().toLowerCase().contains(figuraComprada.getNombre().toLowerCase()) &&
                                 figura.getPreferenciasList().stream().anyMatch(figuraComprada.getPreferenciasList()::contains))
                         .forEach(listaDeFigurasQueCoinciden::add);
-
             }
         }
     }
