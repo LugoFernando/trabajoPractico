@@ -216,7 +216,6 @@ public class ControladorLogin {
         modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
         return new ModelAndView("home2",modelo);
     }
-git a
 //    metodo de buscar en base a compra
     @RequestMapping(path = "/home2", method = RequestMethod.GET)
     public ModelAndView irAHome2(HttpServletRequest request) {
