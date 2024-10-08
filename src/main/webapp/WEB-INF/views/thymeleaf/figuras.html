@@ -43,7 +43,7 @@
                 <img th:src="'data:image/png;base64,' + ${figura.cadena()}" alt="Foto" width="100" class="img-thumbnail">
                 <div class="mt-2">
                     <a th:href="@{'/actualizar/' + ${figura.id}}" class="btn btn-info btn-sm">Modificar</a>
-                    <input type="hidden" id="figuraId" th:value="${figura.id}">
+                    <input type="hidden" class="figuraId" th:value="${figura.id}">
                     <a href="#" class="btn btn-danger" onclick="confirmDelete()">Eliminar</a>
                 </div>
             </td>
@@ -73,17 +73,30 @@
             </div>
         </div>
     </div>
+
     <script>
+        let deleteItemId = null;
+
         function confirmDelete() {
-            let deleteItemId = document.getElementById("figuraId").value;
-            console.log("deleteItemId: " + deleteItemId);
+            // Obtén el botón que disparó el evento
+            const clickedButton = event.target;
+
+            // Encuentra la fila más cercana al botón
+            const closestRow = clickedButton.closest('tr');
+
+            // Busca el input hidden que tiene el ID de la figura en esa fila
+            deleteItemId = closestRow.querySelector('.figuraId').value;
+
+            console.log("ID a eliminar: " + deleteItemId);
+
+            // Mostrar el modal de confirmación
             $('#deleteConfirmationModal').modal('show');
         }
 
+        // Asignamos la acción del botón de confirmación del modal
         document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-            let deleteItemId = document.getElementById("figuraId").value;
             if (deleteItemId !== null) {
-                window.location.href =  'eliminar/' + deleteItemId; // Construct the delete URL
+                window.location.href = 'eliminar/' + deleteItemId; // Redirigimos a la URL de eliminación
             }
         });
     </script>
