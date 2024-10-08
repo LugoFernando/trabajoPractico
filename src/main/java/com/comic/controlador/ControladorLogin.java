@@ -222,7 +222,8 @@ public class ControladorLogin {
 @RequestMapping(path = "/home", method = RequestMethod.GET)
 public ModelAndView irAHome2(HttpServletRequest request) {
     ModelMap modelo = new ModelMap();
-
+    List<Figura>figurasCoincidenConPreferenciasUsuario=new ArrayList<>();//preferencias
+    List<Figura>listaDeFiguras=figuraServicio.listarFiguras();//preferencias
     HttpSession session = request.getSession();
     Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
 
@@ -252,7 +253,17 @@ public ModelAndView irAHome2(HttpServletRequest request) {
             }
         }
     }
+    if (datosUsuario != null) {
+        List<Preferencias> preferenciasUsuario = datosUsuario.getPreferenciasList();
 
+        figurasCoincidenConPreferenciasUsuario = listaDeFiguras.stream()
+                .filter(figura -> figura.getPreferenciasList().stream()
+                        .anyMatch(preferenciasUsuario::contains))
+                .collect(Collectors.toList()); // busca en la lista completa de figuras coincidencias en base a las preferencias
+    }
+
+
+    modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
     // Agregar la lista de figuras que coinciden al modelo para usarla en el HTML
     modelo.addAttribute("figurasCoincidenConCompra", listaDeFigurasQueCoinciden);
 
