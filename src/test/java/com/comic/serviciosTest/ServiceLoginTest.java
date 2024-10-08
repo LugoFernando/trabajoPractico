@@ -2,7 +2,7 @@ package com.comic.serviciosTest;
 
 import com.comic.controlador.dto.DatosLogin;
 import com.comic.dominio.excepcion.UsuarioExistente;
-import com.comic.entidades.Usuario;
+import com.comic.entidades.entidades.Usuario;
 import com.comic.repositorios.RepositorioUsuario;
 import com.comic.servicios.implementacion.ServicioLoginImpl;
 import org.junit.jupiter.api.BeforeEach;

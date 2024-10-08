@@ -1,19 +1,16 @@
 package com.comic.controlador;
 
-import com.comic.entidades.Figura;
+import com.comic.entidades.entidades.Figura;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 

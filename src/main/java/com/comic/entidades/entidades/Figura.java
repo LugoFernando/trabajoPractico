@@ -1,8 +1,7 @@
-package com.comic.entidades;
+package com.comic.entidades.entidades;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @Entity

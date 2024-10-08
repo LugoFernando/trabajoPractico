@@ -2,11 +2,13 @@ package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
 
-import com.comic.entidades.Figura;
-import com.comic.entidades.Preferencias;
+import com.comic.entidades.entidades.Compra;
+import com.comic.entidades.entidades.Figura;
+import com.comic.entidades.entidades.Preferencias;
+import com.comic.servicios.CompraServicio;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
-import com.comic.entidades.Usuario;
+import com.comic.entidades.entidades.Usuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -27,11 +27,13 @@ public class ControladorLogin {
     @Autowired
     private ServicioLogin servicioLogin;
     private FiguraServicio figuraServicio;
+    private CompraServicio compraServicio;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin , FiguraServicio figuraServicio) {
+    public ControladorLogin(ServicioLogin servicioLogin , FiguraServicio figuraServicio , CompraServicio compraServicio) {
         this.servicioLogin = servicioLogin;
         this.figuraServicio=figuraServicio;
+        this.compraServicio=compraServicio;
     }
 
 
@@ -207,13 +209,64 @@ public class ControladorLogin {
             figurasCoincidenConPreferenciasUsuario = listaDeFiguras.stream()
                     .filter(figura -> figura.getPreferenciasList().stream()
                             .anyMatch(preferenciasUsuario::contains))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList()); // busca en la lista completa de figuras coincidencias en base a las preferencias
         }
 
 
         modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
         return new ModelAndView("home2",modelo);
     }
+
+
+//    metodo de buscar en base a compra
+    @RequestMapping(path = "/home2", method = RequestMethod.GET)
+    public ModelAndView irAHome2(HttpServletRequest request) {
+        // Obtener todas las compras (posiblemente desde un servicio de Compra)
+        List<Compra> listaDeCompras = compraServicio.listarlasCompras();
+        List<Compra> comprasFiltradasPorPreferencias = new ArrayList<>();
+        ModelMap modelo = new ModelMap();
+
+        HttpSession session = request.getSession();
+        Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
+
+        if (datosUsuario != null) {
+            // Obtener las preferencias del usuario autenticado
+            List<Preferencias> preferenciasUsuario = datosUsuario.getPreferenciasList();
+
+            // Filtrar las compras en base a las preferencias del usuario
+            comprasFiltradasPorPreferencias = listaDeCompras.stream()
+                    .filter(compra -> compra.getUsuario().getId().equals(datosUsuario.getId())) // Asegurarse de que la compra pertenece al usuario actual
+                    .map(compra -> {
+                        // Filtrar las figuras dentro de cada compra según las preferencias del usuario
+                        List<Figura> figurasFiltradas = compra.getFiguras().stream()
+                                .filter(figura -> figura.getPreferenciasList().stream()
+                                        .anyMatch(preferenciasUsuario::contains))
+                                .collect(Collectors.toList());
+
+                        // Crear una nueva compra con solo las figuras que coincidan con las preferencias
+                        Compra compraFiltrada = new Compra();
+                        compraFiltrada.setId(compra.getId()); // Mantener el ID original de la compra
+                        compraFiltrada.setUsuario(compra.getUsuario()); // Mantener la referencia al usuario
+                        compraFiltrada.setFiguras(figurasFiltradas); // Solo las figuras filtradas
+                        compraFiltrada.calcularCantidad(); // Recalcular la cantidad de figuras
+                        compraFiltrada.calcularPrecioTotal(); // Recalcular el precio total
+
+                        return compraFiltrada;
+                    })
+                    .collect(Collectors.toList()); // Recoger las compras filtradas
+        }
+
+        // Añadir la lista de compras filtradas al modelo para pasarlas a la vista
+        modelo.addAttribute("comprasFiltradasPorPreferencias", comprasFiltradasPorPreferencias);
+
+        // Devolver la vista junto con el modelo
+        return new ModelAndView("home2", modelo);
+    }
+
+
+
+
+
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {

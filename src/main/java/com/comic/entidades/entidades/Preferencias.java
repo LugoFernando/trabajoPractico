@@ -1,4 +1,4 @@
-package com.comic.entidades;
+package com.comic.entidades.entidades;
 
 public enum Preferencias {
 

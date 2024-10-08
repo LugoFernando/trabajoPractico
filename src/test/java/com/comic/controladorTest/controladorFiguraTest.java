@@ -1,8 +1,8 @@
 package com.comic.controladorTest;
 
 import com.comic.controlador.FiguraControlador;
-import com.comic.entidades.Figura;
-import com.comic.entidades.Usuario;
+import com.comic.entidades.entidades.Figura;
+import com.comic.entidades.entidades.Usuario;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import org.junit.jupiter.api.BeforeEach;

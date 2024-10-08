@@ -1,6 +1,6 @@
 package com.comic.servicios;
 
-import com.comic.entidades.Figura;
+import com.comic.entidades.entidades.Figura;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

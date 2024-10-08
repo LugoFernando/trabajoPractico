@@ -1,6 +1,6 @@
 package com.comic.repositorios.implementacion;
 
-import com.comic.entidades.Usuario;
+import com.comic.entidades.entidades.Usuario;
 import com.comic.repositorios.RepositorioUsuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
