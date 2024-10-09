@@ -47,13 +47,6 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
     @Override
     @Transactional
     public void BorrarPorId(Long id) {
-        // Primero eliminamos las filas dependientes en compra_figuras
-        String hqlEliminarDependencias = "DELETE FROM CompraFiguras cf WHERE cf.figura.id = :figuraId";
-        Query queryEliminar = this.sessionFactory.getCurrentSession().createQuery(hqlEliminarDependencias);
-        queryEliminar.setParameter("figuraId", id);
-        int dependenciasEliminadas = queryEliminar.executeUpdate();
-
-        // Luego, eliminamos la figura si existe
         Figura figura = buscarPorId(id);
         if (figura != null) {
             this.sessionFactory.getCurrentSession().delete(figura);
