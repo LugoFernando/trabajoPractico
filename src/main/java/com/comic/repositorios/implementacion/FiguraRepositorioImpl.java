@@ -56,13 +56,14 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
     @Override
     @Transactional
     public void actualizarFigura(Figura figura) {
-        String hql = "UPDATE Figura SET nombre = :nombre, precio = :precio, estado = :estado, descripcion = :descripcion WHERE id = :id";
+        String hql = "UPDATE Figura SET nombre = :nombre, precio = :precio, estado = :estado, descripcion = :descripcion, imagen = :imagen WHERE id = :id";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("nombre", figura.getNombre());
         query.setParameter("precio", figura.getPrecio());
         query.setParameter("estado", figura.getEstado());
         query.setParameter("descripcion", figura.getDescripcion());
-        query.setParameter("id", figura.getId()); // mantiene el ID sin modificar
+        query.setParameter("imagen", figura.getImagen()); // Agregado para la imagen
+        query.setParameter("id", figura.getId());
         query.executeUpdate();
     }
 

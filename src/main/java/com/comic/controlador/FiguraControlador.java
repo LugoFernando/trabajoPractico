@@ -83,11 +83,22 @@ public class FiguraControlador {
     }
 
 
+
     // actualizar la figura
     @PostMapping("/actualizar")
-    public ModelAndView actualizarFigura(@ModelAttribute("figura") Figura figura) {
-        figuraServicio.actualizar(figura);
-        return new ModelAndView("redirect:/lista");
+    public ModelAndView actualizarFigura(@ModelAttribute Figura figura, @RequestParam("archivoImagen") MultipartFile archivoImagen) {
+        try {
+            // Cambiar la imagen solo si se proporciona un nuevo archivo
+            if (!archivoImagen.isEmpty()) {
+                figura.setImagen(archivoImagen.getBytes());
+            }
+
+            figuraServicio.actualizar(figura , archivoImagen);
+            return new ModelAndView("redirect:/lista"); // Redirigir a la lista de figuras
+        } catch (Exception e) {
+            // Manejo de errores (opcional)
+            return new ModelAndView("error"); // Redirigir a una vista de error
+        }
     }
 
 

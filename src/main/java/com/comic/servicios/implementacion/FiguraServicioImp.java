@@ -75,7 +75,14 @@ public class FiguraServicioImp implements FiguraServicio {
     }
 
     @Override
-    public void actualizar(Figura figura) {
+    public void actualizar(Figura figura , MultipartFile imagen) {
+        if(imagen != null) {
+            try {
+                figura.setImagen(Base64.getEncoder().encode(imagen.getBytes()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         figuraRepositorio.actualizarFigura(figura);
     }
 }
