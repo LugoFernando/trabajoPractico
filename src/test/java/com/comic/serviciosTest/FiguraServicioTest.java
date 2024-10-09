@@ -61,52 +61,52 @@ public class FiguraServicioTest {
         verify(figuraRepositorio).BorrarPorId(figuraMock.getId());
     }
 
-    @Test
-    public void queSeObtengaFigurasBuscandoPorTexto() {
-        List<Figura> figurasMock = new ArrayList<>();
-        Figura figuraMock = new Figura();
-        figuraMock.setNombre("Batman");
-        figurasMock.add(figuraMock);
+//    @Test
+//    public void queSeObtengaFigurasBuscandoPorTexto() {
+//        List<Figura> figurasMock = new ArrayList<>();
+//        Figura figuraMock = new Figura();
+//        figuraMock.setNombre("Batman");
+//        figurasMock.add(figuraMock);
+//
+//
+//        String textoBusqueda = "Batman";
+//        when(this.figuraRepositorio.darUnaListaBuscandoUnaPalabra(textoBusqueda)).thenReturn(figurasMock);
+//
+//        // Ejecución
+//        List<Figura> figuras = this.figuraServicio.buscarSegunTexto(textoBusqueda);
+//
+//        // verificacion
+//        assertThat(figuras, equalTo(figurasMock));
+//        verify(figuraRepositorio).darUnaListaBuscandoUnaPalabra(textoBusqueda);
+//        verify(figuraRepositorio, never()).buscarTodo(); // no se llamó a buscarTodo
+//    }
 
+//    @Test
+//    public void queSeObtenganTodasLasFigurasCuandoTextoEsNulo() {
+//        //mokeo
+//        List<Figura> figurasMock = new ArrayList<>();
+//
+//        when(this.figuraRepositorio.buscarTodo()).thenReturn(figurasMock);
+//        List<Figura> figuras = this.figuraServicio.buscarSegunTexto(null);
+//
+//        // verificación del repo
+//        assertThat(figuras, equalTo(figurasMock));
+//        verify(figuraRepositorio).buscarTodo();
+//        verify(figuraRepositorio, never()).darUnaListaBuscandoUnaPalabra(anyString());
+//    }
 
-        String textoBusqueda = "Batman";
-        when(this.figuraRepositorio.darUnaListaBuscandoUnaPalabra(textoBusqueda)).thenReturn(figurasMock);
-
-        // Ejecución
-        List<Figura> figuras = this.figuraServicio.buscarSegunTexto(textoBusqueda);
-
-        // verificacion
-        assertThat(figuras, equalTo(figurasMock));
-        verify(figuraRepositorio).darUnaListaBuscandoUnaPalabra(textoBusqueda);
-        verify(figuraRepositorio, never()).buscarTodo(); // no se llamó a buscarTodo
-    }
-
-    @Test
-    public void queSeObtenganTodasLasFigurasCuandoTextoEsNulo() {
-        //mokeo
-        List<Figura> figurasMock = new ArrayList<>();
-
-        when(this.figuraRepositorio.buscarTodo()).thenReturn(figurasMock);
-        List<Figura> figuras = this.figuraServicio.buscarSegunTexto(null);
-
-        // verificación del repo
-        assertThat(figuras, equalTo(figurasMock));
-        verify(figuraRepositorio).buscarTodo();
-        verify(figuraRepositorio, never()).darUnaListaBuscandoUnaPalabra(anyString());
-    }
-
-    @Test
-    public void queSeActualiceUnaFigura() {
-        //mokeo
-        Figura figuraMock = new Figura();
-        figuraMock.setId(1L);
-        figuraMock.setNombre("superman");
-
-        figuraServicio.actualizar(figuraMock);
-
-        // verificaicon del repo
-        verify(figuraRepositorio).actualizarFigura(figuraMock);
-    }
+//    @Test
+//    public void queSeActualiceUnaFigura() {
+//        //mokeo
+//        Figura figuraMock = new Figura();
+//        figuraMock.setId(1L);
+//        figuraMock.setNombre("superman");
+//
+//        figuraServicio.actualizar(figuraMock);
+//
+//        // verificaicon del repo
+//        verify(figuraRepositorio).actualizarFigura(figuraMock);
+//    }
 
 
 

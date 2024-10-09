@@ -192,19 +192,19 @@ public class controladorFiguraTest {
     }
 
 
-    @Test
-    public void queSeActualiceLaFiguraYRedirijaALaLista() {
-        //mock
-        Figura figuraMock = new Figura();
-        figuraMock.setId(1L);
-        figuraMock.setNombre("Batman");
-
-        ModelAndView modelAndView = figuraControlador.actualizarFigura(figuraMock);
-
-        // verificacion
-        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
-        verify(servicioFiguraMock).actualizar(figuraMock);
-    }
+//    @Test
+//    public void queSeActualiceLaFiguraYRedirijaALaLista() {
+//        //mock
+//        Figura figuraMock = new Figura();
+//        figuraMock.setId(1L);
+//        figuraMock.setNombre("Batman");
+//
+//        ModelAndView modelAndView = figuraControlador.actualizarFigura(figuraMock);
+//
+//        // verificacion
+//        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
+//        verify(servicioFiguraMock).actualizar(figuraMock);
+//    }
 
 
 

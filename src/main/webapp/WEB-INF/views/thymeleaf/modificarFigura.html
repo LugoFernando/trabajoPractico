@@ -8,8 +8,8 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Modificar Figura</h1>
 
-    <form th:action="@{/actualizar}" th:object="${figura}" method="post">
-    <input type="hidden" th:field="*{id}">
+    <form th:action="@{/actualizar}" th:object="${figura}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
 
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
@@ -24,14 +24,19 @@
         <div class="mb-3">
             <label for="estado" class="form-label">Estado</label>
             <select class="form-select" th:field="*{estado}" id="estado" name="estado" required>
-                <option value="nuevo">Nuevo</option>
-                <option value="usado">Usado</option>
+                <option value="nuevo" th:selected="${figura.estado == 'nuevo'}">Nuevo</option>
+                <option value="usado" th:selected="${figura.estado == 'usado'}">Usado</option>
             </select>
         </div>
 
         <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción</label>
             <textarea class="form-control" th:field="*{descripcion}" id="descripcion" name="descripcion" rows="3" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="archivoImagen" class="form-label">Cambiar Imagen</label>
+            <input type="file" class="form-control" id="archivoImagen" name="archivoImagen" accept="image/*">
         </div>
 
         <div class="text-center">
