@@ -2,7 +2,9 @@ package com.comic.entidades.entidades;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Figura {
@@ -41,6 +43,10 @@ public class Figura {
         this.precio = precio;
         this.estado = estado;
         this.descripcion = descripcion;
+    }
+
+    public Figura( String nombre){
+        this.nombre = nombre;
     }
 
 
@@ -102,5 +108,16 @@ public class Figura {
         this.preferenciasList = preferenciasList;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Figura figura = (Figura) o;
+        return Objects.equals(id, figura.id) && Objects.equals(nombre, figura.nombre) && Objects.equals(precio, figura.precio) && Objects.equals(estado, figura.estado) && Objects.equals(descripcion, figura.descripcion) && Objects.equals(preferenciasList, figura.preferenciasList) && Objects.deepEquals(imagen, figura.imagen);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, precio, estado, descripcion, preferenciasList, Arrays.hashCode(imagen));
+    }
 }
