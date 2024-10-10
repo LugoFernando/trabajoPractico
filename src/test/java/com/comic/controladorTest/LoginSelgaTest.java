@@ -5,6 +5,7 @@ import com.comic.controlador.dto.DatosLogin;
 import com.comic.dominio.excepcion.UsuarioExistente;
 import com.comic.entidades.Preferencias;
 import com.comic.entidades.Usuario;
+import com.comic.servicios.CompraServicio;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +32,7 @@ public class LoginSelgaTest {
     private HttpServletRequest requestMock;
     private ServicioLogin servicioLoginMock;
     private FiguraServicio figuraServicio;
+    private CompraServicio compraServicio;
 
     @BeforeEach
     public void init(){
@@ -40,7 +42,7 @@ public class LoginSelgaTest {
         requestMock = mock(HttpServletRequest.class);
         sessionMock = mock(HttpSession.class);
         servicioLoginMock = mock(ServicioLogin.class);
-        controladorLogin = new ControladorLogin(servicioLoginMock,figuraServicio);
+        controladorLogin = new ControladorLogin(servicioLoginMock,figuraServicio,compraServicio);
     }
 
 

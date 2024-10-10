@@ -16,7 +16,8 @@ public interface FiguraServicio {
 
     void eliminarFigura(Long id);
 
+
     List<Figura> buscarSegunTexto(String texto);
 
-    void actualizar(Figura figura);
+    void actualizar(Figura figura, MultipartFile imagen);
 }

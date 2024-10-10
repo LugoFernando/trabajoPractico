@@ -5,15 +5,12 @@ import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 
@@ -86,11 +83,22 @@ public class FiguraControlador {
     }
 
 
+
     // actualizar la figura
     @PostMapping("/actualizar")
-    public ModelAndView actualizarFigura(@ModelAttribute("figura") Figura figura) {
-        figuraServicio.actualizar(figura);
-        return new ModelAndView("redirect:/lista");
+    public ModelAndView actualizarFigura(@ModelAttribute Figura figura, @RequestParam("archivoImagen") MultipartFile archivoImagen) {
+        try {
+            // Cambiar la imagen solo si se proporciona un nuevo archivo
+            if (!archivoImagen.isEmpty()) {
+                figura.setImagen(archivoImagen.getBytes());
+            }
+
+            figuraServicio.actualizar(figura , archivoImagen);
+            return new ModelAndView("redirect:/lista"); // Redirigir a la lista de figuras
+        } catch (Exception e) {
+            // Manejo de errores (opcional)
+            return new ModelAndView("error"); // Redirigir a una vista de error
+        }
     }
 
 
