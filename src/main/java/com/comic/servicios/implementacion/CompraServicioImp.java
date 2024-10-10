@@ -1,6 +1,6 @@
 package com.comic.servicios.implementacion;
 
-import com.comic.entidades.entidades.Compra;
+import com.comic.entidades.Compra;
 import com.comic.repositorios.CompraRepositorio;
 import com.comic.servicios.CompraServicio;
 import org.springframework.beans.factory.annotation.Autowired;

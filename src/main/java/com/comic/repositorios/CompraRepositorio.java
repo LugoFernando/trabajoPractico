@@ -1,6 +1,6 @@
 package com.comic.repositorios;
 
-import com.comic.entidades.entidades.Compra;
+import com.comic.entidades.Compra;
 
 import javax.transaction.Transactional;
 import java.util.List;

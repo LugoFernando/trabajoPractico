@@ -1,6 +1,6 @@
 package com.comic.repositorios;
 
-import com.comic.entidades.entidades.Figura;
+import com.comic.entidades.Figura;
 
 import java.util.List;
 

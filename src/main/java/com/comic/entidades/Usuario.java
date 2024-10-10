@@ -1,4 +1,4 @@
-package com.comic.entidades.entidades;
+package com.comic.entidades;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;

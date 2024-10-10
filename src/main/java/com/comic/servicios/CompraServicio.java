@@ -1,6 +1,6 @@
 package com.comic.servicios;
 
-import com.comic.entidades.entidades.Compra;
+import com.comic.entidades.Compra;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.comic.controlador;
 
-import com.comic.entidades.entidades.Figura;
+import com.comic.entidades.Figura;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,8 @@
 package com.comic.RepositorioTest;
 
+import com.comic.entidades.Preferencias;
 import com.comic.integracion.config.HibernateTestConfig;
-import com.comic.entidades.entidades.Figura;
+import com.comic.entidades.Figura;
 import com.comic.repositorios.FiguraRepositorio;
 import com.comic.repositorios.implementacion.FiguraRepositorioImpl;
 import org.hibernate.Session;
@@ -193,6 +194,31 @@ public class FiguraRepositorioTest {
         assertNotNull(figuras);
         assertEquals(3, figuras.size());
         assertEquals("figura sin caja", figuras.get(0).getDescripcion());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void buscoEnBaseALaPreferenciaDeUnaFiguraYMedevuelveUnaLista() {
+
+        List<Figura> figuraMock = new ArrayList<>();
+        Figura figura1 = new Figura(1L, "superman", 4000.0, "Nuevo", "figura sin caja");
+        figura1.getPreferenciasList().add(Preferencias.MARVEL);
+
+        Figura figura2 = new Figura(2L, "batman", 2000.0, "Nuevo", "figura en bolsa");
+        figura2.getPreferenciasList().add(Preferencias.MANGA);
+
+        Figura figura3 = new Figura(3L, "naruto", 2000.0, "Nuevo", "figura sin uso");
+        figura3.getPreferenciasList().add(Preferencias.MARVEL);
+
+        this.sessionFactory.getCurrentSession().save(figura1);
+        this.sessionFactory.getCurrentSession().save(figura2);
+        this.sessionFactory.getCurrentSession().save(figura3);
+
+        List<Figura> figuras = this.figuraRepositorio.darUnaListaBuscandoUnaPalabra("MARVEL");
+
+        assertNotNull(figuras);
+        assertEquals(2, figuras.size());
     }
 
     @Test

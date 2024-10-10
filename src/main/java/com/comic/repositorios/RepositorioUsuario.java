@@ -1,6 +1,6 @@
 package com.comic.repositorios;
 
-import com.comic.entidades.entidades.Usuario;
+import com.comic.entidades.Usuario;
 import org.springframework.stereotype.Repository;
 
 @Repository

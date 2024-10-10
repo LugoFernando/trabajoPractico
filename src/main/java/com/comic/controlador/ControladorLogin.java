@@ -2,13 +2,13 @@ package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
 
-import com.comic.entidades.entidades.Compra;
-import com.comic.entidades.entidades.Figura;
-import com.comic.entidades.entidades.Preferencias;
+import com.comic.entidades.Compra;
+import com.comic.entidades.Figura;
+import com.comic.entidades.Preferencias;
 import com.comic.servicios.CompraServicio;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
-import com.comic.entidades.entidades.Usuario;
+import com.comic.entidades.Usuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

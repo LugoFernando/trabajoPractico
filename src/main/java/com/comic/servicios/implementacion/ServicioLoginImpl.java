@@ -2,7 +2,7 @@ package com.comic.servicios.implementacion;
 
 import com.comic.repositorios.RepositorioUsuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
-import com.comic.entidades.entidades.Usuario;
+import com.comic.entidades.Usuario;
 import com.comic.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
