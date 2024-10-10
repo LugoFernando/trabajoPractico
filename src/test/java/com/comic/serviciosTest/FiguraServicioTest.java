@@ -1,6 +1,6 @@
 package com.comic.serviciosTest;
 
-import com.comic.entidades.entidades.Figura;
+import com.comic.entidades.Figura;
 import com.comic.repositorios.FiguraRepositorio;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.implementacion.FiguraServicioImp;

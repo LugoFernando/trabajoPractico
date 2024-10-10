@@ -1,4 +1,4 @@
-package com.comic.entidades.entidades;
+package com.comic.entidades;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -22,7 +22,6 @@ public class Compra {
     )
     @Fetch(FetchMode.SUBSELECT)  // Añadir FetchMode.SUBSELECT para evitar MultipleBagFetchException
     private List<Figura> figuras = new ArrayList<>();
-
 
 
     @ManyToOne(fetch = FetchType.EAGER)

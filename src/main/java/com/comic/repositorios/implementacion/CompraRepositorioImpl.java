@@ -1,6 +1,6 @@
 package com.comic.repositorios.implementacion;
 
-import com.comic.entidades.entidades.Compra;
+import com.comic.entidades.Compra;
 import com.comic.repositorios.CompraRepositorio;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

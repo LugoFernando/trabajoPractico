@@ -3,7 +3,7 @@ package com.comic.controladorTest;
 import com.comic.controlador.ControladorLogin;
 import com.comic.controlador.dto.DatosLogin;
 import com.comic.dominio.excepcion.UsuarioExistente;
-import com.comic.entidades.entidades.Usuario;
+import com.comic.entidades.Usuario;
 import com.comic.servicios.ServicioLogin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

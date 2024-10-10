@@ -1,4 +1,4 @@
-package com.comic.entidades.entidades;
+package com.comic.entidades;
 
 import javax.persistence.*;
 import java.util.ArrayList;

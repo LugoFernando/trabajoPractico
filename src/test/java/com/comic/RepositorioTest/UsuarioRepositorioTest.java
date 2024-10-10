@@ -1,7 +1,7 @@
 package com.comic.RepositorioTest;
 
-import com.comic.entidades.entidades.Preferencias;
-import com.comic.entidades.entidades.Usuario;
+import com.comic.entidades.Preferencias;
+import com.comic.entidades.Usuario;
 import com.comic.integracion.config.HibernateTestConfig;
 import com.comic.repositorios.RepositorioUsuario;
 import com.comic.repositorios.implementacion.RepositorioUsuarioImpl;

@@ -1,7 +1,7 @@
 package com.comic.RepositorioTest;
 
 import com.comic.integracion.config.HibernateTestConfig;
-import com.comic.entidades.entidades.Figura;
+import com.comic.entidades.Figura;
 import com.comic.repositorios.FiguraRepositorio;
 import com.comic.repositorios.implementacion.FiguraRepositorioImpl;
 import org.hibernate.Session;

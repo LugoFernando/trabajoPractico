@@ -1,6 +1,6 @@
 package com.comic.repositorios.implementacion;
 
-import com.comic.entidades.entidades.Figura;
+import com.comic.entidades.Figura;
 import com.comic.repositorios.FiguraRepositorio;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
