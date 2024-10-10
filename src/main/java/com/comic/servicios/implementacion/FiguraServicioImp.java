@@ -51,7 +51,6 @@ public class FiguraServicioImp implements FiguraServicio {
 
     @Override
     public void eliminarFigura(Long id) {
-
         figuraRepositorio.BorrarPorId(id);
     }
 

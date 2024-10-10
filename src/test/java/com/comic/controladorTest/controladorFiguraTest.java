@@ -8,6 +8,7 @@ import com.comic.servicios.ServicioLogin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -167,7 +168,7 @@ public class controladorFiguraTest {
 
 
     @Test
-    public void queSeMuestreLaVistaDeActualizarFiguraSiExiste() {
+    public void queSeMuestreLaVistaFiguraSiencuentraLaFiguraConElID() {
         // mock
         Figura figuraMock = new Figura();
         figuraMock.setId(1L);
@@ -182,7 +183,8 @@ public class controladorFiguraTest {
     }
 
     @Test
-    public void queRedirijaALaListaSiNoSeEncuentraLaFigura() {
+    public void queMuestreLaListaDeFigurasEnCasoQueNoENcuentreCoincidenciaConID() {
+
         when(servicioFiguraMock.obtenerFiguraPorId(1L)).thenReturn(null);
 
         ModelAndView modelAndView = figuraControlador.vistaActualizarFigura(1L);
@@ -191,21 +193,50 @@ public class controladorFiguraTest {
         verify(servicioFiguraMock).obtenerFiguraPorId(1L);
     }
 
+    @Test
+    public void queSeRedirigaALaVistaModificarFiguraEnElCasoQueEncuentreLaId() {
+        //moc
+        Figura figuraMock = new Figura();
+        figuraMock.setId(1L);
+        when(servicioFiguraMock.obtenerFiguraPorId(1L)).thenReturn(figuraMock);
 
-//    @Test
-//    public void queSeActualiceLaFiguraYRedirijaALaLista() {
-//        //mock
-//        Figura figuraMock = new Figura();
-//        figuraMock.setId(1L);
-//        figuraMock.setNombre("Batman");
-//
-//        ModelAndView modelAndView = figuraControlador.actualizarFigura(figuraMock);
-//
-//        // verificacion
-//        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
-//        verify(servicioFiguraMock).actualizar(figuraMock);
-//    }
+        // ejecuto
+        ModelAndView modelAndView = figuraControlador.vistaActualizarFigura(1L);
 
+        assertThat(modelAndView.getViewName(), equalTo("modificarFigura"));
+        assertThat(modelAndView.getModel().get("figura"), equalTo(figuraMock));
+        verify(servicioFiguraMock).obtenerFiguraPorId(1L);
+    }
+
+    @Test
+    public void queSeRedirigaALaVistaListaEnElCasoQueNoSeEncuentraLaId() {
+        // simulacion
+        when(servicioFiguraMock.obtenerFiguraPorId(1L)).thenReturn(null);
+
+        // ejecutar
+        ModelAndView modelAndView = figuraControlador.vistaActualizarFigura(1L);
+
+        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
+        verify(servicioFiguraMock).obtenerFiguraPorId(1L);
+
+    }
+
+    @Test
+    public void queSeVeaLaVistaListaDeProductosDespuesDeActualizarLaFiguraConImagen() throws Exception {
+        // moc
+        Figura figuraMock = new Figura();
+        figuraMock.setId(1L);
+        figuraMock.setNombre("Batman");
+
+        // simulacion de la img
+        MockMultipartFile archivoImagenMock = new MockMultipartFile("archivoImagen", "imagen.jpg", "image/jpeg", "imagen simulada".getBytes());
+
+        // Ejecutar el método del controlador
+        ModelAndView modelAndView = figuraControlador.actualizarFigura(figuraMock, archivoImagenMock);
+
+        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
+        verify(servicioFiguraMock).actualizar(figuraMock, archivoImagenMock);
+    }
 
 
 
