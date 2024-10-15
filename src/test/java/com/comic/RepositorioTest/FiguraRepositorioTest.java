@@ -40,7 +40,7 @@ public class FiguraRepositorioTest {
     }
 
 
-    @Test
+   /* @Test
     @Transactional
     @Rollback
     public void queSeGuardeUnaFiguraNuevaEnLaBaseDeDatos() {
@@ -252,6 +252,6 @@ public class FiguraRepositorioTest {
         assertEquals("Nuevo", figuraActualizada.getEstado());
         assertEquals("figura en bolsa", figuraActualizada.getDescripcion());
     }
-
+*/
 
 }

@@ -21,6 +21,10 @@ public class Figura {
     private String estado;
     @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "cantidad")
+    private Integer cantidad;
+    @Column
+    private Boolean disponible;
 
 
     @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
@@ -37,12 +41,14 @@ public class Figura {
     public Figura(){
     }
 
-    public Figura(Long id, String nombre, Double precio, String estado, String descripcion) {
+    public Figura(Long id, String nombre, Double precio, String estado, String descripcion, Integer cantidad) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.estado = estado;
         this.descripcion = descripcion;
+        this.cantidad=cantidad;
+        disponible=true;
     }
 
     public Figura( String nombre){
@@ -95,6 +101,21 @@ public class Figura {
         this.imagen = imagen;
     }
 
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
+    }
 
     public String cadena(){
        return new String(this.imagen);

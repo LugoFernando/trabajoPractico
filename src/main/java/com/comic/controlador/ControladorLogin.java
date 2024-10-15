@@ -10,6 +10,7 @@ import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import com.comic.entidades.Usuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
+import com.comic.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,12 +29,13 @@ public class ControladorLogin {
     private ServicioLogin servicioLogin;
     private FiguraServicio figuraServicio;
     private CompraServicio compraServicio;
-
+    private UsuarioServicio usuarioServicio;
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin , FiguraServicio figuraServicio , CompraServicio compraServicio) {
+    public ControladorLogin(ServicioLogin servicioLogin , FiguraServicio figuraServicio , CompraServicio compraServicio, UsuarioServicio usuarioServicio) {
         this.servicioLogin = servicioLogin;
         this.figuraServicio=figuraServicio;
         this.compraServicio=compraServicio;
+        this.usuarioServicio = usuarioServicio;
     }
 
 
@@ -307,5 +309,18 @@ public ModelAndView irAHome2(HttpServletRequest request) {
         usuarioExistente.setPassword(usuario.getPassword());
         servicioLogin.modificarUsuarioPorID(usuarioExistente);
         return "redirect:/cuenta";
+    }
+
+    @GetMapping("/carrito/{id}")
+    public ModelAndView mostrarCarritoYAgregarFiguraElegida(@PathVariable long id, HttpServletRequest request){
+
+        HttpSession session =request.getSession();
+        Usuario usuarioLogueado=(Usuario)session.getAttribute("usuario");
+        usuarioServicio.agregarALCarrito(id,1,usuarioLogueado.getId());
+        Usuario usuarioEncontradoEnBaseDeDatos=servicioLogin.consultarUsuario(usuarioLogueado.getEmail(),usuarioLogueado.getPassword());
+        ModelMap modelo =new ModelMap();
+        modelo.put("usuarioCarrito",usuarioEncontradoEnBaseDeDatos.getCarrito());
+
+        return new ModelAndView("carrito",modelo);
     }
 }

@@ -41,7 +41,7 @@ public class ServicioLoginImpl implements ServicioLogin {
         //usuarioEncontrado.getPreferenciasList().addAll(usuario.getPreferenciasList());
         usuarioEncontrado.setEmail(usuario.getEmail());
         usuarioEncontrado.setPassword(usuario.getPassword());
-        repositorioUsuario.guardar(usuarioEncontrado);
+        repositorioUsuario.modificar(usuarioEncontrado);
     }
 
     @Override
@@ -49,8 +49,10 @@ public class ServicioLoginImpl implements ServicioLogin {
         Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario.getId());
         usuarioEncontrado.setEmail(usuario.getEmail());
         usuarioEncontrado.setPassword(usuario.getPassword());
-
+        repositorioUsuario.modificar(usuarioEncontrado);
     }
+
+
 
 
 

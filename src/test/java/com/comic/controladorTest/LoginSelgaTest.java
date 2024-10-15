@@ -10,6 +10,7 @@ import com.comic.entidades.Usuario;
 import com.comic.servicios.CompraServicio;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
+import com.comic.servicios.UsuarioServicio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +36,7 @@ public class LoginSelgaTest {
     private ServicioLogin servicioLoginMock;
     private FiguraServicio figuraServicio;
     private CompraServicio compraServicio;
-
+    private UsuarioServicio usuarioServicio;
     @BeforeEach
     public void init(){
         datosLoginMock = new DatosLogin("selgadis25.com", "123456");
@@ -44,7 +45,7 @@ public class LoginSelgaTest {
         requestMock = mock(HttpServletRequest.class);
         sessionMock = mock(HttpSession.class);
         servicioLoginMock = mock(ServicioLogin.class);
-        controladorLogin = new ControladorLogin(servicioLoginMock,figuraServicio,compraServicio);
+        controladorLogin = new ControladorLogin(servicioLoginMock,figuraServicio,compraServicio,usuarioServicio);
     }
 
 
