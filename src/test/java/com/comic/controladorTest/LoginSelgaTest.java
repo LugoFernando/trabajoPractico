@@ -3,6 +3,8 @@ package com.comic.controladorTest;
 import com.comic.controlador.ControladorLogin;
 import com.comic.controlador.dto.DatosLogin;
 import com.comic.dominio.excepcion.UsuarioExistente;
+import com.comic.entidades.Compra;
+import com.comic.entidades.Figura;
 import com.comic.entidades.Preferencias;
 import com.comic.entidades.Usuario;
 import com.comic.servicios.CompraServicio;
@@ -16,11 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.doNothing;
 public class LoginSelgaTest {
@@ -298,6 +300,9 @@ public class LoginSelgaTest {
 
         assertThat(resultado, is("redirect:/cuenta"));
     }
+
+
+
 
 
 }
