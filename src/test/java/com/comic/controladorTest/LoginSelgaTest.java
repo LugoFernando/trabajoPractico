@@ -3,8 +3,11 @@ package com.comic.controladorTest;
 import com.comic.controlador.ControladorLogin;
 import com.comic.controlador.dto.DatosLogin;
 import com.comic.dominio.excepcion.UsuarioExistente;
+import com.comic.entidades.Compra;
+import com.comic.entidades.Figura;
 import com.comic.entidades.Preferencias;
 import com.comic.entidades.Usuario;
+import com.comic.servicios.CompraServicio;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,11 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.doNothing;
 public class LoginSelgaTest {
@@ -31,6 +34,7 @@ public class LoginSelgaTest {
     private HttpServletRequest requestMock;
     private ServicioLogin servicioLoginMock;
     private FiguraServicio figuraServicio;
+    private CompraServicio compraServicio;
 
     @BeforeEach
     public void init(){
@@ -40,7 +44,7 @@ public class LoginSelgaTest {
         requestMock = mock(HttpServletRequest.class);
         sessionMock = mock(HttpSession.class);
         servicioLoginMock = mock(ServicioLogin.class);
-        controladorLogin = new ControladorLogin(servicioLoginMock,figuraServicio);
+        controladorLogin = new ControladorLogin(servicioLoginMock,figuraServicio,compraServicio);
     }
 
 
@@ -296,6 +300,9 @@ public class LoginSelgaTest {
 
         assertThat(resultado, is("redirect:/cuenta"));
     }
+
+
+
 
 
 }

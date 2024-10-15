@@ -1,5 +1,7 @@
 package com.comic.entidades;
-import com.comic.entidades.Preferencias;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,13 +18,14 @@ public class Usuario {
     private String rol;
     private Boolean activo = false;
 
-    @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
+    @ElementCollection(fetch = FetchType.EAGER, targetClass = Preferencias.class)
     @CollectionTable(name = "usuario_preferencias", joinColumns = @JoinColumn(name = "usuario_id"))
     @Column(name = "preferencia")
-    @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
-    private List<Preferencias> preferenciasList =new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    @Fetch(FetchMode.SUBSELECT)  // Añadir FetchMode.SUBSELECT para evitar MultipleBagFetchException
+    private List<Preferencias> preferenciasList = new ArrayList<>();
 
-
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -52,14 +55,6 @@ public class Usuario {
     }
     public void setActivo(Boolean activo) {
         this.activo = activo;
-    }
-
-    public boolean activo() {
-        return activo;
-    }
-
-    public void activar() {
-        activo = true;
     }
 
     public List<Preferencias> getPreferenciasList() {
