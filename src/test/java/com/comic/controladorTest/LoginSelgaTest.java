@@ -411,7 +411,7 @@ public class LoginSelgaTest {
         List<Figura> figurasRecomendadasPorPreferencias = (List<Figura>) modelAndView.getModel().get("figurasFiltradas");
         assertThat(figurasRecomendadasPorPreferencias, hasSize(2));
         assertThat(figurasRecomendadasPorPreferencias, contains(figura1, figura2));
-    }
+    }//hola cambie aca
 
 
 
