@@ -1,6 +1,6 @@
 package com.comic.repositorios.implementacion;
 
-import com.comic.entidades.Compra;
+import com.comic.entidades.Dto.Compra;
 import com.comic.repositorios.CompraRepositorio;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -1,5 +1,7 @@
-package com.comic.entidades;
+package com.comic.entidades.Dto;
 
+import com.comic.entidades.Figura;
+import com.comic.entidades.Usuario;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 

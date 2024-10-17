@@ -1,15 +1,11 @@
 package com.comic.servicios.implementacion;
 
-import com.comic.entidades.Carrito;
-import com.comic.entidades.Compra;
-import com.comic.entidades.Figura;
-import com.comic.entidades.Usuario;
+import com.comic.entidades.Dto.Compra;
 import com.comic.repositorios.CompraRepositorio;
 import com.comic.servicios.CompraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("CompraServicio")

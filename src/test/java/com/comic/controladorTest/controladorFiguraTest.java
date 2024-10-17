@@ -97,7 +97,7 @@ public class controladorFiguraTest {
     public void queSeBusqueUnaFiguraPorIDyDevuelvaLaVista(){
         Model modelMock = mock(Model.class);
         Figura figuraMock = mock(Figura.class);
-        String valorEsperado = "detalle-figura";
+        String valorEsperado = "detalleFigura";
         when(servicioFiguraMock.obtenerFiguraPorId(anyLong())).thenReturn(figuraMock);
 
         String valorObtenido = figuraControlador.detalleFigura(anyLong(), modelMock);
