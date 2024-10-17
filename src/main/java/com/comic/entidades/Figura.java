@@ -30,7 +30,6 @@ public class Figura {
     private List<Preferencias> preferenciasList =new ArrayList<>();
 
 
-
     @Lob
     private byte[] imagen;
 

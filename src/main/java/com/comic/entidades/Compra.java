@@ -46,6 +46,7 @@ public class Compra {
     }
 
     public void calcularPrecioTotal() {
+
         this.precioTotal = this.figuras.stream().mapToDouble(Figura::getPrecio).sum();
     }
 
@@ -82,5 +83,11 @@ public class Compra {
 
     public double getPrecioTotal() {
         return precioTotal;
+    }
+
+    public void setTotal(double v) {
+    } // lo genere porque me lo pidio el compra servicio
+
+    public void setMontoTotal(double total) {
     }
 }

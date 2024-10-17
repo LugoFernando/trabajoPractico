@@ -9,4 +9,7 @@ public interface CompraRepositorio {
 
     @Transactional
     List<Compra> buscarTodasLasCompras();
+
+    @Transactional
+    void guardar(Compra compra);
 }

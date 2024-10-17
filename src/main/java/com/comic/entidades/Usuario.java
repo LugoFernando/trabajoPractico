@@ -64,4 +64,5 @@ public class Usuario {
     public void setPreferenciasList(List<Preferencias> preferenciasList) {
         this.preferenciasList = preferenciasList;
     }
+
 }

@@ -32,8 +32,13 @@
 
             <!-- Botón para comprar -->
             <div class="mt-4">
-                <a th:href="@{'/comprar/' + ${figura.id}}" class="btn btn-success btn-lg">Comprar</a>
+                <a th:href="@{'/agregar/' + ${figura.id}}" class="btn btn-success btn-lg">Comprar</a>
             </div>
+            <form th:action="@{/agregar/{id}(id=${figura.id})}" method="post">
+                <button type="submit">Agregar al Carrito</button>
+            </form>
+
+
         </div>
     </div>
 
