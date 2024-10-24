@@ -37,7 +37,7 @@ public class FiguraControlador {
     public String listarFiguras(Model model) {
         List<Figura> figuras = figuraServicio.listarFiguras();
         model.addAttribute("figuras", figuras);
-        return "figuras";
+        return "figuras";// cambiar a model siempre que sea un string
     }
 
     // pagina para el formulario de nueva figura

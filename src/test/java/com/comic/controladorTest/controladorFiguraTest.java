@@ -122,9 +122,9 @@ public class controladorFiguraTest {
     //vistaTodasLasFiguras
     @Test
     public void queSeRedirijaALaVistaConTodasLasFiguras(){
-        String valorEsperado = "listaDeProducto";
-        String valorObtenido = figuraControlador.listarTodasLasFiguras();
-        assertThat(valorEsperado, equalTo(valorObtenido));
+            String valorEsperado = "listaDeProducto";
+            String valorObtenido = figuraControlador.listarTodasLasFiguras();
+            assertThat(valorEsperado, equalTo(valorObtenido));
 
     }
 

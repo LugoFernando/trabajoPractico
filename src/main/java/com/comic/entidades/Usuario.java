@@ -25,6 +25,19 @@ public class Usuario {
     @Fetch(FetchMode.SUBSELECT)  // Añadir FetchMode.SUBSELECT para evitar MultipleBagFetchException
     private List<Preferencias> preferenciasList = new ArrayList<>();
 
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "carrito_id")
+    private Carrito carrito;
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
     // Getters y setters
     public Long getId() {
         return id;

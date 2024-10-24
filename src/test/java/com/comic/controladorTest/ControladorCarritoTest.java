@@ -5,6 +5,7 @@ import com.comic.controlador.ControladorCarrito;
 import com.comic.entidades.Carrito;
 import com.comic.entidades.Figura;
 import com.comic.entidades.Usuario;
+import com.comic.servicios.CarritoServicio;
 import com.comic.servicios.CompraServicio;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
@@ -24,6 +25,7 @@ public class ControladorCarritoTest {
     private ServicioLogin servicioLoginMock;
     private FiguraServicio figuraServicioMock;
     private CompraServicio compraServicioMock;
+    private CarritoServicio carritoServicioMock;
     private HttpSession sessionMock;
     private Usuario usuarioMock;
     private Figura figuraMock;
@@ -33,11 +35,12 @@ public class ControladorCarritoTest {
         servicioLoginMock = mock(ServicioLogin.class);
         figuraServicioMock = mock(FiguraServicio.class);
         compraServicioMock = mock(CompraServicio.class);
+        carritoServicioMock = mock(CarritoServicio.class);
         sessionMock = mock(HttpSession.class);
         usuarioMock = mock(Usuario.class);
         figuraMock = mock(Figura.class);
 
-        controladorCarrito = new ControladorCarrito(servicioLoginMock, figuraServicioMock, compraServicioMock);
+        controladorCarrito = new ControladorCarrito(servicioLoginMock, figuraServicioMock, compraServicioMock , carritoServicioMock );
     }
 
     @Test
