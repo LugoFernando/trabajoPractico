@@ -17,12 +17,14 @@
         <tr>
             <th>Nombre de la Figura</th>
             <th>Precio</th>
+            <th>Cantidad</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="figura : ${usuarioCarrito}">
             <td th:text="${figura.nombre}"></td>
             <td th:text="${figura.precio}"></td>
+            <td th:text="${figura.cantidad}"></td>
         </tr>
         </tbody>
     </table>

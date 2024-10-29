@@ -35,4 +35,27 @@ public class UsuarioServicioImpl implements UsuarioServicio {
             repositorioUsuario.modificar(usuarioEncontrado);
         }
     }
+
+//    @Override
+//    public void agregarALCarrito(Long idFigura, Integer cantidad, Long idUsuario) {
+//        Figura figuraEncontrada = figuraRepositorio.buscarPorId(idFigura);
+//        Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(idUsuario);
+//
+//        if (figuraEncontrada.getCantidad() >= cantidad) {
+//            // Evitar agregar duplicados al carrito
+//            if (!usuarioEncontrado.getCarrito().contains(figuraEncontrada)) {
+//                usuarioEncontrado.getCarrito().add(figuraEncontrada);
+//            }else{
+//                for(Figura figura :usuarioEncontrado.getCarrito()){
+//                        if(figura.getId().equals(figuraEncontrada.getId())){
+//                            Integer cantidadACtualizada= figura.getCantidadCarrito()+cantidad;
+//                            figura.setCantidadCarrito(cantidadACtualizada);
+//                        }
+//                }
+//
+//            }
+//            repositorioUsuario.modificar(usuarioEncontrado);
+//        }
+//    }
+
 }

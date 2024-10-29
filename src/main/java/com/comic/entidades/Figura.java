@@ -27,6 +27,7 @@ public class Figura {
     private Boolean disponible;
 
 
+
     @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
     @CollectionTable(name = "figura_preferencias", joinColumns = @JoinColumn(name = "figura_id"))
     @Column(name = "preferencia")
@@ -141,4 +142,6 @@ public class Figura {
     public int hashCode() {
         return Objects.hash(id, nombre, precio, estado, descripcion, preferenciasList, Arrays.hashCode(imagen));
     }
+
+
 }

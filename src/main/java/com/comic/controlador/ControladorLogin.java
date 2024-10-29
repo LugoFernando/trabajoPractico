@@ -312,11 +312,11 @@ public ModelAndView irAHome2(HttpServletRequest request) {
     }
 
     @GetMapping("/carrito/{id}")
-    public ModelAndView mostrarCarritoYAgregarFiguraElegida(@PathVariable long id, HttpServletRequest request){
+    public ModelAndView mostrarCarritoYAgregarFiguraElegida(@PathVariable long id,@RequestParam Integer cantidad, HttpServletRequest request){
 
         HttpSession session =request.getSession();
         Usuario usuarioLogueado=(Usuario)session.getAttribute("usuario");
-        usuarioServicio.agregarALCarrito(id,1,usuarioLogueado.getId());
+        usuarioServicio.agregarALCarrito(id,cantidad,usuarioLogueado.getId());
         Usuario usuarioEncontradoEnBaseDeDatos=servicioLogin.consultarUsuario(usuarioLogueado.getEmail(),usuarioLogueado.getPassword());
         ModelMap modelo =new ModelMap();
         modelo.put("usuarioCarrito",usuarioEncontradoEnBaseDeDatos.getCarrito());

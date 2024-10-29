@@ -18,10 +18,12 @@ public class Usuario {
     private String rol;
     private Boolean activo = false;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    @Fetch(FetchMode.SUBSELECT)
-    private List<Figura> carrito = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CarritoItem> carrito = new ArrayList<>();
+
+
 
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Preferencias.class)
     @CollectionTable(name = "usuario_preferencias", joinColumns = @JoinColumn(name = "usuario_id"))
@@ -61,12 +63,11 @@ public class Usuario {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
-
-    public List<Figura> getCarrito() {
+    public List<CarritoItem> getCarrito() {
         return carrito;
     }
 
-    public void setCarrito(List<Figura> carrito) {
+    public void setCarrito(List<CarritoItem> carrito) {
         this.carrito = carrito;
     }
 

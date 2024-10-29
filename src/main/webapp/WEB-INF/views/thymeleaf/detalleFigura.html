@@ -29,11 +29,18 @@
             <p><strong>Estado:</strong> <span th:text="${figura.estado}"></span></p>
             <p><strong>Descripción:</strong></p>
             <p th:text="${figura.descripcion}"></p>
+            <!-- Select para seleccionar la cantidad -->
+            <form th:action="@{'/carrito/' + ${figura.id}}" method="get">
+                <label for="cantidad">Cantidad:</label>
+                <select id="cantidad" name="cantidad" class="form-select" required>
+                    <option value="" disabled selected>Seleccione una cantidad</option>
+                    <option th:each="i : ${#numbers.sequence(1, figura.cantidad)}"
+                            th:value="${i}"
+                            th:text="${i}"></option>
+                </select>
+                <button type="submit" class="btn btn-success btn-lg mt-4">Comprar</button>
+            </form>
 
-            <!-- Botón para comprar -->
-            <div class="mt-4">
-                <a th:href="@{'/carrito/' + ${figura.id}}" class="btn btn-success btn-lg">Comprar</a>
-            </div>
         </div>
     </div>
 
