@@ -32,24 +32,7 @@ public class ControladorCarrito {
         this.carritoServicio=carritoServicio;
     }
 
-//    @PostMapping("/agregar/{id}")
-//    public String agregarFigurasAlCarrito(@PathVariable Long id, HttpSession session) {
-//        Usuario usuario = (Usuario) session.getAttribute("usuario"); //verifica que este logeado en la seesion
-//        if (usuario == null) {
-//            return "redirect:/login";
-//        }
-//
-//        Figura figura = figuraServicio.obtenerFiguraPorId(id); //agrega la figura por el id con el boton
-//
-//        Carrito carrito = (Carrito) session.getAttribute("carrito"); //agrega a la sesion un carrito
-//        if (carrito == null) {
-//            carrito = new Carrito(usuario);
-//            session.setAttribute("carrito", carrito);  // solo setea cuando el carrito es nuevo
-//        }
-//        carrito.agregarFigura(figura);
-//
-//        return "redirect:/ver";
-//    }
+
 
     @PostMapping("/agregar/{id}")
     public String agregarFigurasAlCarrito(@PathVariable Long id, HttpSession session) {
@@ -84,7 +67,8 @@ public class ControladorCarrito {
         }
 
         // Obtener el carrito del usuario desde la base de datos
-        Carrito carrito = usuario.getCarrito();
+//        Carrito carrito = usuario.getCarrito();
+        Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario);
 
         // Si el carrito no existe, se crea uno nuevo
         if (carrito == null) {

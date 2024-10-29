@@ -29,6 +29,8 @@ public class Figura {
     @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
     private List<Preferencias> preferenciasList =new ArrayList<>();
 
+    @ManyToMany(mappedBy = "figuras")
+    private List<Carrito> carritos = new ArrayList<>();
 
     @Lob
     private byte[] imagen;
