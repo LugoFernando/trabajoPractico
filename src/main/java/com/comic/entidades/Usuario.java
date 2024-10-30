@@ -63,6 +63,7 @@ public class Usuario {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
+
     public List<CarritoItem> getCarrito() {
         return carrito;
     }
