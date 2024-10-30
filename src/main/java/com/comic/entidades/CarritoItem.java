@@ -24,6 +24,11 @@ public class CarritoItem {
     // ...
 
 
+    public CarritoItem(Usuario usuario, Figura figura) {
+        this.usuario = usuario;
+        this.figura = figura;
+    }
+
     public Long getId() {
         return id;
     }
@@ -38,6 +43,22 @@ public class CarritoItem {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Figura getFigura() {
+        return figura;
+    }
+
+    public void setFigura(Figura figura) {
+        this.figura = figura;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
 

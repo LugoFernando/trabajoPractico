@@ -29,13 +29,13 @@ public class ControladorLogin {
     private ServicioLogin servicioLogin;
     private FiguraServicio figuraServicio;
     private CompraServicio compraServicio;
-    private UsuarioServicio usuarioServicio;
+  ;
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin , FiguraServicio figuraServicio , CompraServicio compraServicio, UsuarioServicio usuarioServicio) {
+    public ControladorLogin(ServicioLogin servicioLogin , FiguraServicio figuraServicio , CompraServicio compraServicio) {
         this.servicioLogin = servicioLogin;
         this.figuraServicio=figuraServicio;
         this.compraServicio=compraServicio;
-        this.usuarioServicio = usuarioServicio;
+
     }
 
 
@@ -311,16 +311,19 @@ public ModelAndView irAHome2(HttpServletRequest request) {
         return "redirect:/cuenta";
     }
 
-    @GetMapping("/carrito/{id}")
-    public ModelAndView mostrarCarritoYAgregarFiguraElegida(@PathVariable long id,@RequestParam Integer cantidad, HttpServletRequest request){
-
-        HttpSession session =request.getSession();
-        Usuario usuarioLogueado=(Usuario)session.getAttribute("usuario");
-        usuarioServicio.agregarALCarrito(id,cantidad,usuarioLogueado.getId());
-        Usuario usuarioEncontradoEnBaseDeDatos=servicioLogin.consultarUsuario(usuarioLogueado.getEmail(),usuarioLogueado.getPassword());
-        ModelMap modelo =new ModelMap();
-        modelo.put("usuarioCarrito",usuarioEncontradoEnBaseDeDatos.getCarrito());
-
-        return new ModelAndView("carrito",modelo);
-    }
+//    @GetMapping("/carrito/{id}")
+//    public ModelAndView mostrarCarritoYAgregarFiguraElegida(@PathVariable long id,@RequestParam Integer cantidad, HttpServletRequest request){
+//
+//        HttpSession session =request.getSession();
+//        Usuario usuarioLogueado=(Usuario)session.getAttribute("usuario");
+//        //usuarioServicio.agregarALCarrito(id,cantidad,usuarioLogueado.getId());
+//        Usuario usuarioEncontradoEnBaseDeDatos=servicioLogin.consultarUsuario(usuarioLogueado.getEmail(),usuarioLogueado.getPassword());
+//       if(usuarioEncontradoEnBaseDeDatos.getCarrito()==null){
+//
+//       }
+//        ModelMap modelo =new ModelMap();
+//        modelo.put("usuarioCarrito",usuarioEncontradoEnBaseDeDatos.getCarrito());
+//
+//        return new ModelAndView("carrito",modelo);
+//    }
 }

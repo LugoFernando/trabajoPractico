@@ -32,5 +32,15 @@ public class CarritoItemImpl implements CarritoItemRepositorio {
         return query.getResultList();
     }
 
+    @Override
+    public void guardarITemCarrito(CarritoItem carrito){
+        sessionFactory.getCurrentSession().save(carrito);
+    }
+
+    @Override
+    public void modificar(CarritoItem carrito) {
+        sessionFactory.getCurrentSession().update(carrito);
+    }
+
 
 }
