@@ -8,10 +8,10 @@
 </head>
 <body>
 <div class="container mt-5 p-4 bg-white border rounded shadow" th:object="${datosUsuario}">
-    <!-- Título -->
+
     <h2 class="mb-4 text-center">Perfil del Usuario</h2>
 
-    <!-- Datos del usuario -->
+    <!-- muestro datos del usuario -->
     <div class="row">
         <div class="col-md-12">
             <div class="mb-3">
@@ -31,10 +31,30 @@
         </div>
     </div>
 
-    <!-- Botones -->
+    <!-- muestro las preferencias del usuario -->
+    <div class="mb-3">
+        <label class="form-label fw-bold">Mis Preferencias:</label>
+        <ul class="list-group">
+            <!-- Verifica si la lista no es null y no está vacía -->
+            <li class="list-group-item" th:each="preferencia : ${datosUsuario.preferenciasList}" th:if="${datosUsuario.preferenciasList != null and !datosUsuario.preferenciasList.isEmpty()}" th:text="${preferencia}"></li>
+        </ul>
+        <!-- Si la lista está vacía o es null, mostrar un mensaje -->
+        <p th:if="${datosUsuario.preferenciasList == null or datosUsuario.preferenciasList.isEmpty()}">Usted no tiene preferencias elegidas.</p>
+    </div>
+
+    <!-- Botones condicionales -->
     <div class="d-flex justify-content-between mt-4">
-        <a href="#" class="btn btn-primary w-45">Cambiar datos</a>
-        <a th:href="@{/home}"  class="btn btn-secondary w-45">Volver</a>
+        <!-- Muestro el botón "Agregar Preferencias" siempre -->
+        <a th:href="@{/agregar-preferencias}" class="btn btn-primary w-45">Agregar Preferencias</a>
+
+        <!-- Muestr el botón Quitar Preferencias solo si la lista no está vacía o es distinta de null -->
+        <a th:if="${datosUsuario.preferenciasList != null and !datosUsuario.preferenciasList.isEmpty()}" th:href="@{/quitar_Preferencias}" class="btn btn-danger w-45">Quitar Preferencias</a>
+    </div>
+
+
+    <div class="d-flex justify-content-between mt-4">
+        <a th:href="@{/moificarDatosUsuario}" class="btn btn-primary w-45">Cambiar datos</a>
+        <a th:href="@{/home}" class="btn btn-secondary w-45">Volver</a>
     </div>
 </div>
 

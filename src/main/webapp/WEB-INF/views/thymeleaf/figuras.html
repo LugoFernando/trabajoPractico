@@ -2,36 +2,105 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lista de Figuras</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="https://kit.fontawesome.com/2edf5860bb.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
+
 <body>
-<h1>Lista de Figuras de Colección</h1>
-<p>
-<a th:href="@{/nueva}">Agregar Nueva Figura</a>
-<p>
-<table>
-    <thead>
-    <tr>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Estado</th>
-        <th>Descripción</th>
-        <th>Foto</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="figura : ${figuras}">
-        <td th:text="${figura.nombre}"></td>
-        <td th:text="${figura.precio}"></td>
-        <td th:text="${figura.estado}"></td>
-        <td th:text="${figura.descripcion}"></td>
-        <td><img th:src="'data:image/png;base64,' + ${figura.cadena()}" alt="Foto" width="100"></td> <!--investigar-->
-        <td>
-            <a th:href="@{'/eliminar/' + ${figura.id}}">Eliminar</a>
-        </td>
-    </tr>
-    </tbody>
-    <a th:href="@{/home}">Volver Al Inicio</a>
-</table>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Tus Figuras Subidas</h1>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a th:href="@{/nueva}" class="btn btn-primary">Agregar Nueva Figura</a>
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+            <th>Foto</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="figura : ${figuras}">
+            <td th:text="${figura.nombre}"></td>
+            <td th:text="${figura.precio}"></td>
+            <td th:text="${figura.estado}"></td>
+            <td th:text="${figura.descripcion}"></td>
+            <td>
+                <img th:src="'data:image/png;base64,' + ${figura.cadena()}" alt="Foto" width="100" class="img-thumbnail">
+                <div class="mt-2">
+                    <a th:href="@{'/actualizar/' + ${figura.id}}" class="btn btn-info btn-sm">Modificar</a>
+                    <input type="hidden" class="figuraId" th:value="${figura.id}">
+                    <a href="#" class="btn btn-danger" onclick="confirmDelete()">Eliminar</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end mt-3">
+        <a th:href="@{/home}" class="btn btn-secondary">Volver Al Inicio</a>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este elemento?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let deleteItemId = null;
+
+        function confirmDelete() {
+            // Obtén el botón que disparó el evento
+            const clickedButton = event.target;
+
+            // Encuentra la fila más cercana al botón
+            const closestRow = clickedButton.closest('tr');
+
+            // Busca el input hidden que tiene el ID de la figura en esa fila
+            deleteItemId = closestRow.querySelector('.figuraId').value;
+
+            console.log("ID a eliminar: " + deleteItemId);
+
+            // Mostrar el modal de confirmación
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        // Asignamos la acción del botón de confirmación del modal
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+            if (deleteItemId !== null) {
+                window.location.href = 'eliminar/' + deleteItemId; // Redirigimos a la URL de eliminación
+            }
+        });
+    </script>
+</div>
+
 </body>
 </html>

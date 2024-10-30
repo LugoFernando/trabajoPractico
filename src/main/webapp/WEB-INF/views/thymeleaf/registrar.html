@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Taller Web I</title>
+
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Tienda de Figuras</a>
+</nav>
+
+<main role="main" class="container">
+    <div class="container">
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <form th:action="@{/registrarme}" method="POST" th:object="${nuevoUsuario}">
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Ingrese su Email</label>
+                    <input th:field="*{email}" id="email" type="email" class="form-control" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Ingrese su Contraseña</label>
+                    <input th:field="*{password}" type="password" id="password" class="form-control" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Repita su Contraseña</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Elija sus Preferencias</label>
+                    <div th:each="preferencia : ${T(com.comic.entidades.Preferencias).values()}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:field="*{preferenciasList}"
+                                   th:value="${preferencia}" id="${preferencia.name()}"/>
+                            <label class="form-check-label" th:for="${preferencia.name()}">
+                                <span th:text="${preferencia.name()}">Preferencia</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Registrarme</button>
+            </form>
+
+            <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}"> </p>
+
+            <a id="ir-a-login" href="login">Ya tengo una cuenta</a>
+        </div>
+    </div>
+</main>
+
+
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

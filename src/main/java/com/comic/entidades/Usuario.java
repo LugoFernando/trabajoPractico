@@ -1,9 +1,11 @@
 package com.comic.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -17,6 +19,20 @@ public class Usuario {
     private Boolean activo = false;
 
 
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CarritoItem> carrito = new ArrayList<>();
+
+
+
+    @ElementCollection(fetch = FetchType.EAGER, targetClass = Preferencias.class)
+    @CollectionTable(name = "usuario_preferencias", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name = "preferencia")
+    @Enumerated(EnumType.STRING)
+    @Fetch(FetchMode.SUBSELECT)  // Añadir FetchMode.SUBSELECT para evitar MultipleBagFetchException
+    private List<Preferencias> preferenciasList = new ArrayList<>();
+
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -47,12 +63,19 @@ public class Usuario {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
-
-    public boolean activo() {
-        return activo;
+    public List<CarritoItem> getCarrito() {
+        return carrito;
     }
 
-    public void activar() {
-        activo = true;
+    public void setCarrito(List<CarritoItem> carrito) {
+        this.carrito = carrito;
+    }
+
+    public List<Preferencias> getPreferenciasList() {
+        return preferenciasList;
+    }
+
+    public void setPreferenciasList(List<Preferencias> preferenciasList) {
+        this.preferenciasList = preferenciasList;
     }
 }

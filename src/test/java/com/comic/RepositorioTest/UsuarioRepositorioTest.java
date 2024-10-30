@@ -1,5 +1,6 @@
 package com.comic.RepositorioTest;
 
+import com.comic.entidades.Preferencias;
 import com.comic.entidades.Usuario;
 import com.comic.integracion.config.HibernateTestConfig;
 import com.comic.repositorios.RepositorioUsuario;
@@ -18,6 +19,7 @@ import static org.hamcrest.Matchers.*;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -53,6 +55,57 @@ public class UsuarioRepositorioTest {
         Usuario usuarioObtenido = (Usuario)query.getSingleResult();
 
         assertThat(usuarioObtenido, equalTo(usuario));
+
+
+    }
+    @Test
+    @Transactional
+    @Rollback
+    public void quePuedaCargarUnaPreferenciaAlRegistrarseYQueSeaIgualAMARVEL(){
+        List<Preferencias> lista = new ArrayList<>();
+        lista.add(Preferencias.MARVEL);
+        Usuario usuario =new Usuario();
+        usuario.setEmail("selgadis24@gmail.com");
+        usuario.setPassword("1234");
+        usuario.setPreferenciasList(lista);
+        this.repositorioUsuario.guardar(usuario);
+
+        String hql="FROM Usuario WHERE email = :email AND password = :password";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("email","selgadis24@gmail.com");
+        query.setParameter("password", "1234");
+        Usuario usuarioObtenido = (Usuario)query.getSingleResult();
+
+
+        assertThat(usuarioObtenido.getPreferenciasList(), contains(Preferencias.MARVEL));
+
+
+
+    }
+    @Test
+    @Transactional
+    @Rollback
+    public void quePuedaCargar3PreferenciaAlRegistrarseYQueSeaIgualAMARVELDCYMANGA(){
+        List<Preferencias> lista = new ArrayList<>();
+        lista.add(Preferencias.MARVEL);
+        lista.add(Preferencias.DC);
+        lista.add(Preferencias.MANGA);
+
+        Usuario usuario =new Usuario();
+        usuario.setEmail("selgadis24@gmail.com");
+        usuario.setPassword("1234");
+        usuario.setPreferenciasList(lista);
+        this.repositorioUsuario.guardar(usuario);
+
+        String hql="FROM Usuario WHERE email = :email AND password = :password";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("email","selgadis24@gmail.com");
+        query.setParameter("password", "1234");
+        Usuario usuarioObtenido = (Usuario)query.getSingleResult();
+
+
+        assertThat(usuarioObtenido.getPreferenciasList(), containsInAnyOrder(Preferencias.MARVEL, Preferencias.DC, Preferencias.MANGA));
+
 
 
     }
