@@ -3,8 +3,6 @@ package com.comic.repositorios;
 import com.comic.entidades.Usuario;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
-
 @Repository
 public interface RepositorioUsuario {
 
@@ -12,8 +10,6 @@ public interface RepositorioUsuario {
     void guardar(Usuario usuario);
     Usuario buscar(String email);
     void modificar(Usuario usuario);
-
-    @Transactional
-    Usuario buscarPorId(Long id);
+    Usuario buscarUsuario(Long id);
 }
 

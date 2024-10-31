@@ -2,8 +2,9 @@ package com.comic.entidades;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Base64;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Figura {
@@ -20,17 +21,19 @@ public class Figura {
     private String estado;
     @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "cantidad")
+    private Integer cantidad;
+    @Column
+    private Boolean disponible;
 
 
-//    @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
-//    @CollectionTable(name = "figura_preferencias", joinColumns = @JoinColumn(name = "figura_id"))
-//    @Column(name = "preferencia")
-//    @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
-//    private List<Preferencias> preferenciasList =new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
+    @CollectionTable(name = "figura_preferencias", joinColumns = @JoinColumn(name = "figura_id"))
+    @Column(name = "preferencia")
+    @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
+    private List<Preferencias> preferenciasList =new ArrayList<>();
+
 
 
     @Lob
@@ -39,12 +42,18 @@ public class Figura {
     public Figura(){
     }
 
-    public Figura(Long id, String nombre, Double precio, String estado, String descripcion) {
+    public Figura(Long id, String nombre, Double precio, String estado, String descripcion, Integer cantidad) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.estado = estado;
         this.descripcion = descripcion;
+        this.cantidad=cantidad;
+        disponible=true;
+    }
+
+    public Figura( String nombre){
+        this.nombre = nombre;
     }
 
 
@@ -93,18 +102,46 @@ public class Figura {
         this.imagen = imagen;
     }
 
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
+    }
 
     public String cadena(){
        return new String(this.imagen);
     }
 
-//    public List<Preferencias> getPreferenciasList() {
-//        return preferenciasList;
-//    }
-//
-//    public void setPreferenciasList(List<Preferencias> preferenciasList) {
-//        this.preferenciasList = preferenciasList;
-//    }
+    public List<Preferencias> getPreferenciasList() {
+        return preferenciasList;
+    }
+
+    public void setPreferenciasList(List<Preferencias> preferenciasList) {
+        this.preferenciasList = preferenciasList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Figura figura = (Figura) o;
+        return Objects.equals(id, figura.id) && Objects.equals(nombre, figura.nombre) && Objects.equals(precio, figura.precio) && Objects.equals(estado, figura.estado) && Objects.equals(descripcion, figura.descripcion) && Objects.equals(preferenciasList, figura.preferenciasList) && Objects.deepEquals(imagen, figura.imagen);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, precio, estado, descripcion, preferenciasList, Arrays.hashCode(imagen));
+    }
 
 
 }

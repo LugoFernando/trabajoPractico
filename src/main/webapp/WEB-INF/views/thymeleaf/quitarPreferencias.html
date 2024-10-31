@@ -2,28 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quitar Preferencias</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container mt-5 p-4 bg-white border rounded shadow">
 
-<!-- Preferencias disponibles para quitar -->
-<form th:action="@{/guardar-preferencias-eliminadas}" method="post"> <!-- Mover el formulario aquí -->
-    <div class="mb-3">
-        <label class="form-label fw-bold">Preferencias actuales:</label>
-        <ul class="list-group">
-            <li th:each="preferencia : ${datos.preferenciasList}">
-                <input type="checkbox" th:value="${preferencia}" name="preferencias" /> <!-- Checkbox aquí -->
-                <span th:text="${preferencia}"></span>
-            </li>
-        </ul>
+    <h2 class="mb-4 text-center">Quitar Preferencias</h2>
+
+    <!-- muestro las preferencias disponibles para quitar -->
+    <form th:action="@{/guardar-preferencias-eliminadas}" method="post">
+        <div class="mb-3">
+            <label class="form-label fw-bold">Preferencias actuales:</label>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="preferencia : ${datos.preferenciasList}">
+                    <input type="checkbox" th:value="${preferencia}" name="preferencias" />
+                    <span th:text="${preferencia}"></span>
+                </li>
+            </ul>
+        </div>
+
+
+        <button type="submit" class="btn btn-danger">Quitar Preferencias</button>
+    </form>
+
+
+    <div class="mt-4">
+        <a th:href="@{/cuenta}" class="btn btn-secondary">Volver a Cuenta</a>
     </div>
 
-    <!-- Botón para confirmar la eliminación -->
-    <button type="submit" class="btn btn-danger">Quitar Preferencias</button>
-</form>
+</div>
 
-<!-- Botón para volver a cuenta -->
-<a th:href="@{/cuenta}" class="btn btn-secondary">Volver a Cuenta</a>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.comic.repositorios;
 
 import com.comic.entidades.Figura;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface FiguraRepositorio {

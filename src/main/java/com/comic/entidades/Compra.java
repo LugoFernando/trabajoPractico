@@ -1,5 +1,8 @@
 package com.comic.entidades;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,38 +14,42 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "monto_total")
-    private Double montoTotal;
-
-    // Relación ManyToOne con Usuario
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    // Relación OneToMany con Figura (una compra puede tener varias figuras)
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
     @JoinTable(
-            name = "compra_figura",
+            name = "compra_figuras",
             joinColumns = @JoinColumn(name = "compra_id"),
             inverseJoinColumns = @JoinColumn(name = "figura_id")
     )
+    @Fetch(FetchMode.SUBSELECT)  // Añadir FetchMode.SUBSELECT para evitar MultipleBagFetchException
     private List<Figura> figuras = new ArrayList<>();
 
-    public Compra() {}
 
-    public Compra(Usuario usuario, List<Figura> figuras) {
-        this.usuario = usuario;
-        this.figuras = figuras;
-        calcularMontoTotal();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @Column(name = "cantidad")
+    private int cantidad;
+
+    @Column(name = "precio_total")
+    private double precioTotal;
+
+    @PrePersist
+    @PreUpdate
+    public void preSave() {
+        calcularCantidad();
+        calcularPrecioTotal();
     }
 
-    // Método para calcular el monto total sumando los precios de las figuras
-    public void calcularMontoTotal() {
-        this.montoTotal = figuras.stream()
-                .mapToDouble(Figura::getPrecio)
-                .sum();
+    public void calcularCantidad() {
+        this.cantidad = this.figuras.size();
     }
 
+    public void calcularPrecioTotal() {
+        this.precioTotal = this.figuras.stream().mapToDouble(Figura::getPrecio).sum();
+    }
+
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -51,12 +58,14 @@ public class Compra {
         this.id = id;
     }
 
-    public Double getMontoTotal() {
-        return montoTotal;
+    public List<Figura> getFiguras() {
+        return figuras;
     }
 
-    public void setMontoTotal(Double montoTotal) {
-        this.montoTotal = montoTotal;
+    public void setFiguras(List<Figura> figuras) {
+        this.figuras = figuras;
+        calcularCantidad();
+        calcularPrecioTotal();
     }
 
     public Usuario getUsuario() {
@@ -67,11 +76,11 @@ public class Compra {
         this.usuario = usuario;
     }
 
-    public List<Figura> getFiguras() {
-        return figuras;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setFiguras(List<Figura> figuras) {
-        this.figuras = figuras;
+    public double getPrecioTotal() {
+        return precioTotal;
     }
 }

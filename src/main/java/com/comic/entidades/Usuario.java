@@ -1,5 +1,7 @@
 package com.comic.entidades;
-import com.comic.entidades.Preferencias;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,17 +18,21 @@ public class Usuario {
     private String rol;
     private Boolean activo = false;
 
-    @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
+
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CarritoItem> carrito = new ArrayList<>();
+
+
+
+    @ElementCollection(fetch = FetchType.EAGER, targetClass = Preferencias.class)
     @CollectionTable(name = "usuario_preferencias", joinColumns = @JoinColumn(name = "usuario_id"))
     @Column(name = "preferencia")
-    @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
-    private List<Preferencias> preferenciasList =new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    @Fetch(FetchMode.SUBSELECT)  // Añadir FetchMode.SUBSELECT para evitar MultipleBagFetchException
+    private List<Preferencias> preferenciasList = new ArrayList<>();
 
-    // Relación OneToMany con Compra
-    @OneToMany(mappedBy = "usuario")
-    private List<Compra> compras = new ArrayList<>();
-
-
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -58,12 +64,12 @@ public class Usuario {
         this.activo = activo;
     }
 
-    public boolean activo() {
-        return activo;
+    public List<CarritoItem> getCarrito() {
+        return carrito;
     }
 
-    public void activar() {
-        activo = true;
+    public void setCarrito(List<CarritoItem> carrito) {
+        this.carrito = carrito;
     }
 
     public List<Preferencias> getPreferenciasList() {

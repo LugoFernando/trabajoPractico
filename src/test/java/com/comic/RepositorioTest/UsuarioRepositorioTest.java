@@ -76,7 +76,7 @@ public class UsuarioRepositorioTest {
         query.setParameter("password", "1234");
         Usuario usuarioObtenido = (Usuario)query.getSingleResult();
 
-        // Verificar que el usuario obtenido tiene la preferencia MARVEL
+
         assertThat(usuarioObtenido.getPreferenciasList(), contains(Preferencias.MARVEL));
 
 

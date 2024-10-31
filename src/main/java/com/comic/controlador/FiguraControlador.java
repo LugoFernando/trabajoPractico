@@ -1,19 +1,20 @@
 package com.comic.controlador;
 
 import com.comic.entidades.Figura;
+import com.comic.entidades.Usuario;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
-import java.util.Base64;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -66,7 +67,7 @@ public class FiguraControlador {
     }
 
     // mostrar una figura específica por id
-    @GetMapping("/detalle/{id}")
+    @GetMapping("/detalleProducto/{id}")
     public String detalleFigura(@PathVariable Long id, Model model) {
         Figura figura = figuraServicio.obtenerFiguraPorId(id);
         model.addAttribute("figura", figura);
@@ -86,11 +87,22 @@ public class FiguraControlador {
     }
 
 
+
     // actualizar la figura
     @PostMapping("/actualizar")
-    public ModelAndView actualizarFigura(@ModelAttribute("figura") Figura figura) {
-        figuraServicio.actualizar(figura);
-        return new ModelAndView("redirect:/lista");
+    public ModelAndView actualizarFigura(@ModelAttribute Figura figura, @RequestParam("archivoImagen") MultipartFile archivoImagen) {
+        try {
+            // Cambiar la imagen solo si se proporciona un nuevo archivo
+            if (!archivoImagen.isEmpty()) {
+                figura.setImagen(archivoImagen.getBytes());
+            }
+
+            figuraServicio.actualizar(figura , archivoImagen);
+            return new ModelAndView("redirect:/lista"); // Redirigir a la lista de figuras
+        } catch (Exception e) {
+            // Manejo de errores (opcional)
+            return new ModelAndView("error"); // Redirigir a una vista de error
+        }
     }
 
 
@@ -111,20 +123,15 @@ public class FiguraControlador {
     public ModelAndView irAProductos(Model model, @RequestParam(value = "palabraBuscada", required = false) String palabraBuscada) {
 
         List<Figura> figuras;
-
-        // Si el usuario ha ingresado una búsqueda
         if (palabraBuscada != null && !palabraBuscada.isEmpty()) {
-            figuras = figuraServicio.buscarSegunTexto(palabraBuscada); // Buscar figuras que coincidan con la palabra
-            model.addAttribute("palabraBuscada", palabraBuscada); // Añadir la palabra al modelo
+            figuras = figuraServicio.buscarSegunTexto(palabraBuscada); // busca figuras que coincidan
+            model.addAttribute("palabraBuscada", palabraBuscada); //  añade el resultado al model
         } else {
-            // Si no hay búsqueda, mostrar todas las figuras o un conjunto por defecto
-            figuras = figuraServicio.listarFiguras(); // Obtener todas las figuras
+            figuras = figuraServicio.listarFiguras();
         }
-
-        // Añadir la lista de figuras al modelo
+        // añade la lista
         model.addAttribute("figuras", figuras);
 
-        // Retornar la vista "listaDeProducto"
         return new ModelAndView("listaDeProducto");
     }
 

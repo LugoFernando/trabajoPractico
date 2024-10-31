@@ -2,24 +2,24 @@ package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
 
+import com.comic.entidades.Compra;
 import com.comic.entidades.Figura;
 import com.comic.entidades.Preferencias;
 import com.comic.servicios.CompraServicio;
+import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import com.comic.entidades.Usuario;
 import com.comic.dominio.excepcion.UsuarioExistente;
+import com.comic.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -27,16 +27,16 @@ public class ControladorLogin {
 
     @Autowired
     private ServicioLogin servicioLogin;
-
-    @Autowired
+    private FiguraServicio figuraServicio;
     private CompraServicio compraServicio;
-
+  ;
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin) {
+    public ControladorLogin(ServicioLogin servicioLogin , FiguraServicio figuraServicio , CompraServicio compraServicio) {
         this.servicioLogin = servicioLogin;
+        this.figuraServicio=figuraServicio;
+        this.compraServicio=compraServicio;
+
     }
-
-
 
 
 
@@ -59,15 +59,21 @@ public class ControladorLogin {
 
     @RequestMapping( path = "/cuenta", method = RequestMethod.GET)
     public ModelAndView irACuenta(HttpServletRequest request){
+
         ModelMap modelo = new ModelMap();
         HttpSession session = request.getSession();
         Usuario datosUsuario=(Usuario)session.getAttribute("usuario");
+
+
+
+
         modelo.put("datosUsuario",datosUsuario);
         return new ModelAndView("usuario",modelo);
 
     }
     @RequestMapping(path = "/agregar-preferencias",method =RequestMethod.GET)//TESTEAR
     public ModelAndView irAgregarPreferencias(HttpServletRequest request){
+
         HttpSession session =request.getSession();
         Usuario datos =(Usuario)session.getAttribute("usuario");
         ModelMap modelo =new ModelMap();
@@ -83,18 +89,24 @@ public class ControladorLogin {
         return  new ModelAndView("agregarPreferencias",modelo);
     }
 
+    @RequestMapping(path = "/guardar-modificaciones",method =RequestMethod.POST)
+    public ModelAndView guardarCambiosEnDatosDeCuenta(HttpServletRequest request){
+        return new ModelAndView("/cuenta");
+
+    }
+
     @RequestMapping(path = "quitar_Preferencias", method = RequestMethod.GET)
     public ModelAndView irAQuitarPreferencias(HttpServletRequest request){
             HttpSession session=request.getSession();
             Usuario datos=(Usuario)session.getAttribute("usuario");
             ModelMap modelo =new ModelMap();
             modelo.put("datos",datos);
-
+            modelo.put("preferencias", datos.getPreferenciasList());
         return new ModelAndView("quitarPreferencias",modelo);
     }
 
     @RequestMapping(path = "/guardar-preferencias", method = RequestMethod.POST)
-    public String guardarPreferencias(@RequestParam List<Preferencias> preferencias, HttpServletRequest request) {
+    public String guardarPreferencias(@RequestParam (value = "preferencias", required = false) List<Preferencias> preferencias, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
@@ -107,12 +119,14 @@ public class ControladorLogin {
                 }
             }
         }
+       // Usuario usuarioBuscado= servicioLogin.consultarUsuario(usuario.getEmail(),usuario.getPassword());
+        servicioLogin.modificarUusuario(usuario);
 
         // Puedes redirigir a otra página después de guardar
         return "redirect:/cuenta"; // O la página que desees
     }
     @RequestMapping(path = "/guardar-preferencias-eliminadas", method = RequestMethod.POST)
-    public String guardarPreferenciasDespuesDeEliminar(@RequestParam List<Preferencias> preferencias, HttpServletRequest request) {
+    public String guardarPreferenciasDespuesDeEliminar(@RequestParam(value = "preferencias", required = false) List<Preferencias> preferencias, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
@@ -126,7 +140,7 @@ public class ControladorLogin {
                 }
             }
         }
-
+        servicioLogin.modificarUusuario(usuario);
         return "redirect:/cuenta"; // Redirige a la cuenta después de quitar las preferencias
     }
 
@@ -184,11 +198,82 @@ public class ControladorLogin {
     }
 
 
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome() {
+//    @RequestMapping(path = "/home", method = RequestMethod.GET)
+//    public ModelAndView irAHome(HttpServletRequest request) {
+//        List<Figura>listaDeFiguras=figuraServicio.listarFiguras();
+//        List<Figura>figurasCoincidenConPreferenciasUsuario=new ArrayList<>();
+//        ModelMap modelo = new ModelMap();
+//        HttpSession session = request.getSession();
+//        Usuario datosUsuario=(Usuario)session.getAttribute("usuario");
+//        if (datosUsuario != null) {
+//            List<Preferencias> preferenciasUsuario = datosUsuario.getPreferenciasList();
+//
+//            figurasCoincidenConPreferenciasUsuario = listaDeFiguras.stream()
+//                    .filter(figura -> figura.getPreferenciasList().stream()
+//                            .anyMatch(preferenciasUsuario::contains))
+//                    .collect(Collectors.toList()); // busca en la lista completa de figuras coincidencias en base a las preferencias
+//        }
+//
+//
+//        modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
+//        return new ModelAndView("home2",modelo);
+//    }
 
-        return new ModelAndView("home2");
+
+//    metodo de buscar en base a compra
+@RequestMapping(path = "/home", method = RequestMethod.GET)
+public ModelAndView irAHome2(HttpServletRequest request) {
+    ModelMap modelo = new ModelMap();
+    List<Figura>figurasCoincidenConPreferenciasUsuario=new ArrayList<>();//preferencias del metodo q tenia antes
+    List<Figura>listaDeFiguras=figuraServicio.listarFiguras();//preferencias del metodo q tenia antes
+    HttpSession session = request.getSession();
+    Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
+
+    // Obtener todas las figuras disponibles en la base de datos
+    List<Figura> listaDeFigurasEnBaseDeDatos = figuraServicio.listarFiguras();
+    List<Figura> listaDeFigurasQueCoinciden = new ArrayList<>();
+
+    if (datosUsuario != null) {
+        // recupero todas las compras desde el servicio
+        List<Compra> todasLasCompras = compraServicio.listarlasCompras();
+
+        // Filtro solo las compras que pertenecen al usuario actual
+        List<Compra> comprasDelUsuario = todasLasCompras.stream()
+                .filter(compra -> compra.getUsuario().getId().equals(datosUsuario.getId()))
+                .collect(Collectors.toList());
+
+        // Filtrar las figuras compradas por el usuario que coinciden con las figuras en la base de datos
+        for (Compra compra : comprasDelUsuario) {
+            for (Figura figuraComprada : compra.getFiguras()) {
+                // Comparar la figura comprada con las figuras de la base de datos usando contains para coincidencias parciales
+                listaDeFigurasEnBaseDeDatos.stream()
+                        .filter(figura -> figura.getNombre().toLowerCase().contains(figuraComprada.getNombre().toLowerCase()) &&
+                                figura.getPreferenciasList().stream().anyMatch(figuraComprada.getPreferenciasList()::contains))
+                        .forEach(listaDeFigurasQueCoinciden::add);
+            }
+        }
     }
+    if (datosUsuario != null) {
+        List<Preferencias> preferenciasUsuario = datosUsuario.getPreferenciasList();
+
+        figurasCoincidenConPreferenciasUsuario = listaDeFiguras.stream()
+                .filter(figura -> figura.getPreferenciasList().stream()
+                        .anyMatch(preferenciasUsuario::contains))
+                .collect(Collectors.toList()); // busca en la lista completa de figuras coincidencias en base a las preferencias
+    }
+
+
+    modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
+    // Agregar la lista de figuras que coinciden al modelo para usarla en el HTML
+    modelo.addAttribute("figurasCoincidenConCompra", listaDeFigurasQueCoinciden);
+
+    return new ModelAndView("home2", modelo);
+}
+
+
+
+
+
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
@@ -206,25 +291,39 @@ public class ControladorLogin {
         return new ModelAndView("redirect:/home"); // Redirigir a la página de inicio
     }
 
-
-
-
-
-
-    @GetMapping("/figuras-relacionadas")
-    public String obtenerFigurasRelacionadas(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        // recupera el usuario de la sesion
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        if (usuario == null) {
-            return "redirect:/login";
-        }
-        // obten la figura relacionada
-        List<Figura> figurasRelacionadas = compraServicio.obtenerFigurasRelacionadas(usuario);
-
-        // lo añade a la vista
-        model.addAttribute("figuras", figurasRelacionadas);
-        return "figurasRelacionadas";  // Retornar la vista correspondiente
+    @RequestMapping(path = "/moificarDatosUsuario", method = RequestMethod.GET)
+    public ModelAndView irAAFormularioMoficiarDatosUsuario(HttpServletRequest request){
+        ModelMap modelo=new ModelMap();
+        HttpSession session=request.getSession();
+        Usuario usuario= (Usuario)session.getAttribute("usuario");
+        modelo.put("datos",usuario);
+        return new ModelAndView("modificarDatosUsuario",modelo);
     }
 
+    @RequestMapping(path = "confirmarModificacionesDeUsuario", method = RequestMethod.POST)
+    public String confirmarModificacionesDeUsuario(@ModelAttribute("datos") Usuario usuario,HttpServletRequest request){
+        HttpSession sesion =request.getSession();
+        Usuario usuarioExistente=(Usuario) sesion.getAttribute("usuario");
+
+        usuarioExistente.setEmail(usuario.getEmail());
+        usuarioExistente.setPassword(usuario.getPassword());
+        servicioLogin.modificarUsuarioPorID(usuarioExistente);
+        return "redirect:/cuenta";
+    }
+
+//    @GetMapping("/carrito/{id}")
+//    public ModelAndView mostrarCarritoYAgregarFiguraElegida(@PathVariable long id,@RequestParam Integer cantidad, HttpServletRequest request){
+//
+//        HttpSession session =request.getSession();
+//        Usuario usuarioLogueado=(Usuario)session.getAttribute("usuario");
+//        //usuarioServicio.agregarALCarrito(id,cantidad,usuarioLogueado.getId());
+//        Usuario usuarioEncontradoEnBaseDeDatos=servicioLogin.consultarUsuario(usuarioLogueado.getEmail(),usuarioLogueado.getPassword());
+//       if(usuarioEncontradoEnBaseDeDatos.getCarrito()==null){
+//
+//       }
+//        ModelMap modelo =new ModelMap();
+//        modelo.put("usuarioCarrito",usuarioEncontradoEnBaseDeDatos.getCarrito());
+//
+//        return new ModelAndView("carrito",modelo);
+//    }
 }
