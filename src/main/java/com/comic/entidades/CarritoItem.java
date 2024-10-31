@@ -13,7 +13,7 @@ public class CarritoItem {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "figura_id", nullable = false)
     private Figura figura;
 
@@ -23,7 +23,9 @@ public class CarritoItem {
     // Getters y setters
     // ...
 
+    public  CarritoItem(){
 
+    }
     public CarritoItem(Usuario usuario, Figura figura) {
         this.usuario = usuario;
         this.figura = figura;

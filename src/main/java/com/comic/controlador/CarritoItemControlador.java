@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class CarritoItemControlador {
@@ -33,6 +34,19 @@ public class CarritoItemControlador {
         this.carritoItemServicio = carritoItemServicio;
     }
 
+    @GetMapping("/carrito")
+    public ModelAndView mostrarCarrito(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Usuario usuarioLogueado = (Usuario) session.getAttribute("usuario");
+
+        // Obtener el carrito del usuario logueado
+        List<CarritoItem> itemsCarrito = usuarioLogueado.getCarrito();
+
+        ModelMap modelo = new ModelMap();
+        modelo.put("usuarioCarrito", itemsCarrito);
+
+        return new ModelAndView("carrito", modelo);
+    }
 
     @GetMapping("/carrito/{id}")
     public ModelAndView mostrarCarritoYAgregarFiguraElegida(@PathVariable long id, @RequestParam Integer cantidad, HttpServletRequest request){
@@ -55,6 +69,9 @@ public class CarritoItemControlador {
 
         return new ModelAndView("carrito",modelo);
     }
+
+
+
 
 
 }

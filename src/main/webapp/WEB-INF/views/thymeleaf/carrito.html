@@ -21,10 +21,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="figura : ${usuarioCarrito}">
-            <td th:text="${figura.nombre}"></td>
-            <td th:text="${figura.precio}"></td>
-            <td th:text="${figura.cantidad}"></td>
+        <tr th:each="item : ${usuarioCarrito}">
+            <td th:text="${item.figura.nombre}"></td>
+            <td th:text="${item.figura.precio}"></td>
+            <td th:text="${item.cantidad}"></td>
         </tr>
         </tbody>
     </table>

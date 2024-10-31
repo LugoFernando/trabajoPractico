@@ -18,12 +18,8 @@ public class Usuario {
     private String rol;
     private Boolean activo = false;
 
-
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CarritoItem> carrito = new ArrayList<>();
-
-
 
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Preferencias.class)
     @CollectionTable(name = "usuario_preferencias", joinColumns = @JoinColumn(name = "usuario_id"))
