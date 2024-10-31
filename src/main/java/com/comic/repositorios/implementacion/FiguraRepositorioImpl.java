@@ -67,18 +67,18 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
         query.executeUpdate();
     }
 
-    @Override
-    @Transactional
-    public void actualizarFigura(Figura figura) {
-        String hql = "UPDATE Figura SET nombre = :nombre, precio = :precio, estado = :estado, descripcion = :descripcion WHERE id = :id";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("nombre", figura.getNombre());
-        query.setParameter("precio", figura.getPrecio());
-        query.setParameter("estado", figura.getEstado());
-        query.setParameter("descripcion", figura.getDescripcion());
-        query.setParameter("id", figura.getId()); // Mantiene el ID sin modificar
-        query.executeUpdate();
-    }
+//    @Override
+//    @Transactional
+//    public void actualizarFigura(Figura figura) {
+//        String hql = "UPDATE Figura SET nombre = :nombre, precio = :precio, estado = :estado, descripcion = :descripcion WHERE id = :id";
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("nombre", figura.getNombre());
+//        query.setParameter("precio", figura.getPrecio());
+//        query.setParameter("estado", figura.getEstado());
+//        query.setParameter("descripcion", figura.getDescripcion());
+//        query.setParameter("id", figura.getId()); // Mantiene el ID sin modificar
+//        query.executeUpdate();
+//    }
 
     @Override
     @Transactional
@@ -95,23 +95,7 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
         return query.getResultList();
     }
 
-//    @Override
-//    @Transactional
-//    public List<Figura> darUnaListaBuscandoUnaPalabra(String palabra) {
-//        String hql = "SELECT f FROM Figura f " +
-//                "LEFT JOIN f.preferenciasList p " +
-//                "WHERE CONCAT(f.nombre, f.precio, f.descripcion) LIKE :palabra " +
-//                "OR p = :preferencia";
-//
-//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-//        query.setParameter("palabra", "%" + palabra + "%");
-//        Preferencias preferencia = null;
-//        preferencia = Preferencias.valueOf(palabra.toUpperCase());
-//        query.setParameter("preferencia", preferencia); // Aquí pasamos el valor del enum
-//
-//
-//        return query.getResultList();
-//    }
+
 
 }
 
