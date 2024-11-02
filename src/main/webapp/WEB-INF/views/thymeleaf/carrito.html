@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+</head>
+<body>
+<h1>Carrito de Compras</h1>
+
+<!-- Verificar si el carrito tiene figuras -->
+<div>
+    <h2>Figuras en tu carrito:</h2>
+    <ul>
+        <!-- Recorre la lista de figuras y muestra nombre y precio -->
+        <li th:each="figura : ${figuras}">
+            <span th:text="${figura.nombre}">Nombre de la figura</span> -
+            <span th:text="${figura.precio}">Precio de la figura</span>
+        </li>
+    </ul>
+</div>
+
+<!-- Muestra el total del carrito -->
+<h3>Total: $<span th:text="${total}">0.00</span></h3>
+
+<!-- Botón para seguir comprando -->
+<a href="/figuras">Seguir comprando</a>
+</body>
+</html>

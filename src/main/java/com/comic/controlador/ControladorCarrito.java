@@ -60,31 +60,22 @@ public class ControladorCarrito {
 
     @GetMapping("/ver")
     public String verCarrito(HttpSession session, Model model) {
-        // Verificar si el usuario está logueado
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("usuario"); // Verifica si el usuario está logueado
         if (usuario == null) {
-            return "redirect:/login";  // Redirigir al login si no hay usuario logueado
+            return "redirect:/login"; // Redirige al login si no está logueado
         }
 
-        // Obtener el carrito del usuario desde la base de datos
-//        Carrito carrito = usuario.getCarrito();
-        Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario);
-
-        // Si el carrito no existe, se crea uno nuevo
+        Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario); // Recupera el carrito del usuario
         if (carrito == null) {
-            carrito = new Carrito(usuario);
-            usuario.setCarrito(carrito);  // Asignar el carrito al usuario
-            // Guardar el carrito en la base de datos (usando tu repositorio o sesión de Hibernate)
-            carritoServicio.guardarCarrito(carrito);  // O persistir con SessionFactory
+            carrito = new Carrito(usuario); // Crea un carrito vacío si no existe
         }
 
-        // Actualizar la sesión con el carrito
-        session.setAttribute("carrito", carrito);
+        double total = carrito.getFiguras().stream().mapToDouble(Figura::getPrecio).sum(); // Calcula el total
 
-        // Añadir el carrito al modelo para la vista
-        model.addAttribute("carrito", carrito);
+        model.addAttribute("figuras", carrito.getFiguras()); // Añade las figuras al modelo
+        model.addAttribute("total", total); // Añade el total al modelo
 
-        return "verCarrito";  // Devuelve la vista "verCarrito"
+        return "carrito"; // Redirige a la vista del carrito
     }
 
     //        @GetMapping("/ver")
