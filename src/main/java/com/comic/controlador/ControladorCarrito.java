@@ -65,7 +65,7 @@ public class ControladorCarrito {
         }
 
          // Actualiza el carrito en la sesión
-
+        // hola
         return "redirect:/ver"; // Redirige al carrito
     }
 
