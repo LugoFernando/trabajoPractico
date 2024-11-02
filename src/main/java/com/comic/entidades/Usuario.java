@@ -26,9 +26,11 @@ public class Usuario {
     private List<Preferencias> preferenciasList = new ArrayList<>();
 
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne/*(cascade = CascadeType.ALL, fetch = FetchType.LAZY)*/
     @JoinColumn(name = "carrito_id")
     private Carrito carrito;
+
+
 
     public Carrito getCarrito() {
         return carrito;

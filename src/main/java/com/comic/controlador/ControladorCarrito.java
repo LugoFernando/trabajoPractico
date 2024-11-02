@@ -45,13 +45,26 @@ public class ControladorCarrito {
         Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario); // Recupera el carrito del usuario
 
         if (carrito == null) {
-            carrito = new Carrito(usuario); // Crea un nuevo carrito si no existe
+                carrito = new Carrito(usuario); // Crea un nuevo carrito si no existe
+                carrito.agregarFigura(figura); // Agrega la figura al carrito
+                Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+                carritoServicio.guardarCarrito(carrito); // Guarda el carrito en la base de datos
+                usuarioBaseDatos.setCarrito(carrito);
+                servicioLogin.modificarCarrito(usuarioBaseDatos);
+                session.setAttribute("carrito", carrito);
+        }
+        else {
+            carrito.agregarFigura(figura); // Agrega la figura al carrito
+            Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+            carritoServicio.guardarCarrito(carrito); // Guarda el carrito en la base de datos
+            usuarioBaseDatos.setCarrito(carrito);
+            servicioLogin.modificarCarrito(usuarioBaseDatos);
+            session.setAttribute("carrito", carrito);
+            session.setAttribute("usuario", usuarioBaseDatos);
+
         }
 
-        carrito.agregarFigura(figura); // Agrega la figura al carrito
-        carritoServicio.guardarCarrito(carrito); // Guarda el carrito en la base de datos
-
-        session.setAttribute("carrito", carrito); // Actualiza el carrito en la sesión
+         // Actualiza el carrito en la sesión
 
         return "redirect:/ver"; // Redirige al carrito
     }
