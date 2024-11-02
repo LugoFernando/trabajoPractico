@@ -45,5 +45,11 @@ public class CarritoRepositorioImpl implements CarritoRepositorio {
                 .uniqueResult();
     }
 
+    @Override
+    @Transactional
+    public void modificarCarrito(Carrito carrito) {
+        sessionFactory.getCurrentSession().update(carrito);
+    }
+
 
 }

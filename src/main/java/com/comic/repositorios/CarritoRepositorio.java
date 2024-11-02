@@ -11,4 +11,7 @@ public interface CarritoRepositorio {
 
     @Transactional
     Carrito obtenerCarritoPorUsuario(Usuario usuario);
+
+    @Transactional
+    void modificarCarrito(Carrito carrito);
 }

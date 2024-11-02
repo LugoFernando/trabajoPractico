@@ -26,4 +26,9 @@ public class CarritoServicioImpl implements CarritoServicio {
     public Carrito obtenerCarritoPorUsuario(Usuario usuario) {
         return carritoRepositorio.obtenerCarritoPorUsuario(usuario);
     }
+
+    @Override
+    public void  modificarCarrito (Carrito carrito){
+        carritoRepositorio.modificarCarrito(carrito);
+    }
 }

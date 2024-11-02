@@ -56,7 +56,7 @@ public class ControladorCarrito {
         else {
             carrito.agregarFigura(figura); // Agrega la figura al carrito
             Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-            carritoServicio.guardarCarrito(carrito); // Guarda el carrito en la base de datos
+            carritoServicio.modificarCarrito(carrito); // Guarda el carrito en la base de datos
             usuarioBaseDatos.setCarrito(carrito);
             servicioLogin.modificarCarrito(usuarioBaseDatos);
             session.setAttribute("carrito", carrito);
