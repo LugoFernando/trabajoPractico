@@ -43,7 +43,10 @@
     <h3 class="mt-4">Total: $<span th:text="${total}">0.00</span></h3>
 
     <!-- Botón para seguir comprando -->
-    <a href="/figuras" class="btn btn-primary mt-3">Seguir comprando</a>
+    <div class="mt-4">
+        <a class="btn btn-secondary" th:href="@{/listaDeProducto}">Seguir Comprando</a>
+    </div>
+
 </div>
 
 <!-- Agregar Bootstrap JS y dependencias -->

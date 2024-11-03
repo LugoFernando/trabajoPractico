@@ -92,46 +92,6 @@ public class ControladorCarrito {
         return "carrito"; // Redirige a la vista del carrito
     }
 
-    //        @GetMapping("/ver")
-//    public String verCarrito(HttpSession session, Model model) {
-//        Usuario usuario = (Usuario) session.getAttribute("usuario");
-//        if (usuario == null) {
-//            return "redirect:/login";
-//        }
-//
-//        Carrito carrito = (Carrito) session.getAttribute("carrito");
-//        model.addAttribute("carrito", carrito);
-//        return "verCarrito";
-//    }
 
-
-
-
-
-//    @PostMapping("/confirmar")
-//    public String confirmarCompra(HttpSession session) {
-//        Usuario usuario = (Usuario) session.getAttribute("usuario");
-//        if (usuario == null) {
-//            return "redirect:/login";
-//        }
-//
-//        Carrito carrito = (Carrito) session.getAttribute("carrito");
-//
-//        if (carrito != null && !carrito.getFiguras().isEmpty()) {
-//            // Crear la compra a partir del carrito
-//            Compra compra = new Compra();
-//            compra.setUsuario(usuario);
-//            compra.setFiguras(carrito.getFiguras());
-//            compra.setMontoTotal(carrito.getTotal());
-//
-//            // Lógica para guardar la compra (usando el servicio de compras)
-//            // compraServicio.guardar(compra);
-//
-//            // Limpiar el carrito de la sesión
-//            session.removeAttribute("carrito");
-//        }
-//
-//        return "redirect:/carrito/exito";
-//    }
 
 }
