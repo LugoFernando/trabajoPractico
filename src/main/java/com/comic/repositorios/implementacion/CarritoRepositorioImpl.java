@@ -48,8 +48,6 @@ public class CarritoRepositorioImpl implements CarritoRepositorio {
     @Override
     @Transactional
     public void modificarCarrito(Carrito carrito) {
-        sessionFactory.getCurrentSession().update(carrito);
+        sessionFactory.getCurrentSession().saveOrUpdate(carrito);
     }
-
-
 }

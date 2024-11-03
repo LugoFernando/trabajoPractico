@@ -4,26 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras</title>
+    <!-- Agregar Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Carrito de Compras</h1>
+<div class="container my-5">
+    <h1 class="text-center">Carrito de Compras</h1>
 
-<!-- Verificar si el carrito tiene figuras -->
-<div>
-    <h2>Figuras en tu carrito:</h2>
-    <ul>
-        <!-- Recorre la lista de figuras y muestra nombre y precio -->
-        <li th:each="figura : ${figuras}">
-            <span th:text="${figura.nombre}">Nombre de la figura</span> -
-            <span th:text="${figura.precio}">Precio de la figura</span>
-        </li>
-    </ul>
+    <!-- Tabla de figuras en el carrito -->
+    <div class="table-responsive mt-4">
+        <table class="table table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Acciones</th> <!-- Columna para el botón de eliminar -->
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Itera a través de las figuras del carrito -->
+            <tr th:each="pedido : ${pedidos}">
+                <td th:text="${pedido.figura.nombre}">Nombre de la Figura</td>
+                <td th:text="${pedido.figura.descripcion}">Descripción de la Figura</td>
+                <td th:text="${pedido.figura.precio}">Precio de la Figura</td>
+                <td>
+                    <!-- Botón de eliminar -->
+                    <form th:action="@{/carrito/eliminar/{id}(id=${pedido.figura.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Muestra el total del carrito -->
+    <h3 class="mt-4">Total: $<span th:text="${total}">0.00</span></h3>
+
+    <!-- Botón para seguir comprando -->
+    <a href="/figuras" class="btn btn-primary mt-3">Seguir comprando</a>
 </div>
 
-<!-- Muestra el total del carrito -->
-<h3>Total: $<span th:text="${total}">0.00</span></h3>
-
-<!-- Botón para seguir comprando -->
-<a href="/figuras">Seguir comprando</a>
+<!-- Agregar Bootstrap JS y dependencias -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

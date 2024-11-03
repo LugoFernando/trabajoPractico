@@ -2,6 +2,7 @@ package com.comic.controlador;
 
 import com.comic.entidades.Carrito;
 import com.comic.entidades.Figura;
+import com.comic.entidades.Pedido;
 import com.comic.entidades.Usuario;
 import com.comic.servicios.CarritoServicio;
 import com.comic.servicios.CompraServicio;
@@ -41,29 +42,22 @@ public class ControladorCarrito {
             return "redirect:/login"; // Redirige al login si no está logueado
         }
 
+        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
         Figura figura = figuraServicio.obtenerFiguraPorId(id); // Obtiene la figura
-        Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario); // Recupera el carrito del usuario
+//        Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario); // Recupera el carrito del usuario
+
+        Carrito carrito = usuarioBaseDatos.getCarrito();
 
         if (carrito == null) {
-                carrito = new Carrito(usuario); // Crea un nuevo carrito si no existe
-                carrito.agregarFigura(figura); // Agrega la figura al carrito
-                Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-                carritoServicio.guardarCarrito(carrito); // Guarda el carrito en la base de datos
-                usuarioBaseDatos.setCarrito(carrito);
-                servicioLogin.modificarCarrito(usuarioBaseDatos);
-                session.setAttribute("carrito", carrito);
+            carrito = new Carrito(usuario); // Crea un nuevo carrito si no existe
         }
-        else {
-            carrito.agregarFigura(figura); // Agrega la figura al carrito
-            Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-            carritoServicio.modificarCarrito(carrito); // Guarda el carrito en la base de datos
-            usuarioBaseDatos.setCarrito(carrito);
-            servicioLogin.modificarCarrito(usuarioBaseDatos);
-            session.setAttribute("carrito", carrito);
-            session.setAttribute("usuario", usuarioBaseDatos);
+        carrito.agregarFigura(figura);
+        usuarioBaseDatos.setCarrito(carrito);
 
-        }
+        servicioLogin.modificarUsuario2(usuarioBaseDatos);
 
+        session.setAttribute("carrito", carrito);
+        session.setAttribute("usuario", usuarioBaseDatos);
          // Actualiza el carrito en la sesión
         // hola
         return "redirect:/ver"; // Redirige al carrito
@@ -78,14 +72,21 @@ public class ControladorCarrito {
             return "redirect:/login"; // Redirige al login si no está logueado
         }
 
-        Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario); // Recupera el carrito del usuario
+        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+        Carrito carrito = usuarioBaseDatos.getCarrito();
+
+//        Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario); // Recupera el carrito del usuario
         if (carrito == null) {
             carrito = new Carrito(usuario); // Crea un carrito vacío si no existe
         }
 
-        double total = carrito.getFiguras().stream().mapToDouble(Figura::getPrecio).sum(); // Calcula el total
+        double total = 0;
 
-        model.addAttribute("figuras", carrito.getFiguras()); // Añade las figuras al modelo
+        for (Pedido pedido : carrito.getPedidos()){
+            total += pedido.getCantidad()*pedido.getFigura().getPrecio();
+        }
+
+        model.addAttribute("pedidos", carrito.getPedidos()); // Añade las figuras al modelo
         model.addAttribute("total", total); // Añade el total al modelo
 
         return "carrito"; // Redirige a la vista del carrito

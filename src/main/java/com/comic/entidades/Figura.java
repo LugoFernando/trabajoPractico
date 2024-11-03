@@ -27,10 +27,7 @@ public class Figura {
     @CollectionTable(name = "figura_preferencias", joinColumns = @JoinColumn(name = "figura_id"))
     @Column(name = "preferencia")
     @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
-    private List<Preferencias> preferenciasList =new ArrayList<>();
-
-    @ManyToMany(mappedBy = "figuras")
-    private List<Carrito> carritos = new ArrayList<>();
+    private List<Preferencias> preferenciasList = new ArrayList<>();
 
     @Lob
     private byte[] imagen;
