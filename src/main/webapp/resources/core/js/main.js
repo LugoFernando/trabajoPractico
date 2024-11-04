@@ -1,4 +1,4 @@
-const mp = new MercadoPago('YOUR_PUBLIC_KEY',{
+const mp = new MercadoPago('TESTUSER1956962149',{
     locale:'es-AR'
 });//para crear el boton pagar con mp
 
