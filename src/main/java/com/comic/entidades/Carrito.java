@@ -49,7 +49,6 @@ public class Carrito {
         if (!encontro) {
             pedidos.add(new Pedido(figura, 1));
         }
-//        this.pedidos.add(pedido);  // Agregar figura directamente sin verificación
         this.total += figura.getPrecio();  // Actualizar el total cada vez que se agrega
     }
 
@@ -71,22 +70,15 @@ public class Carrito {
         Pedido pedidoAEliminar = null;
 
         for (Pedido pedido : pedidos) {
-            if (pedido.getFigura().equals(figura)) {
-                // Si la cantidad es mayor que 1, reduce la cantidad
-                if (pedido.getCantidad() > 1) {
-                    pedido.setCantidad(pedido.getCantidad() - 1);
-                    this.total -= figura.getPrecio(); // Actualiza el total
-
-                } else {
-                    // Si la cantidad es 1, elimina el pedido
-                    pedidoAEliminar = pedido;
-                    this.total -= figura.getPrecio(); // Actualiza el total
-                }
+            if (pedido.getFigura().equals(figura)) {  // Usa equals para la comparación
+                // Resta el precio total del pedido de esta figura (precio * cantidad)
+                this.total -= pedido.getFigura().getPrecio() * pedido.getCantidad();
+                pedidoAEliminar = pedido;
                 break;
             }
         }
 
-        // Si se identificó un pedido para eliminar, remuévelo de la lista
+        // Si se encontró el pedido, elimínalo de la lista de pedidos
         if (pedidoAEliminar != null) {
             pedidos.remove(pedidoAEliminar);
         }

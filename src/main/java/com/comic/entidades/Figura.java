@@ -107,15 +107,15 @@ public class Figura {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Figura figura = (Figura) o;
-        return Objects.equals(id, figura.id) && Objects.equals(nombre, figura.nombre) && Objects.equals(precio, figura.precio) && Objects.equals(estado, figura.estado) && Objects.equals(descripcion, figura.descripcion) && Objects.equals(preferenciasList, figura.preferenciasList) && Objects.deepEquals(imagen, figura.imagen);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Figura figura = (Figura) obj;
+        return Objects.equals(id, figura.id); // Usa el ID para comparar la igualdad
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, precio, estado, descripcion, preferenciasList, Arrays.hashCode(imagen));
+        return Objects.hash(id);
     }
 }

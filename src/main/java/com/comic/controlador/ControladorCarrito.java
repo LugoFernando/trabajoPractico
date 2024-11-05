@@ -73,19 +73,12 @@ public class ControladorCarrito {
         Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
         Carrito carrito = usuarioBaseDatos.getCarrito();
 
-//        Carrito carrito = carritoServicio.obtenerCarritoPorUsuario(usuario); // Recupera el carrito del usuario
         if (carrito == null) {
             carrito = new Carrito(usuario); // Crea un carrito vacío si no existe
         }
 
-        double total = 0;
-
-        for (Pedido pedido : carrito.getPedidos()){
-            total += pedido.getCantidad()*pedido.getFigura().getPrecio();
-        }
-
-        model.addAttribute("pedidos", carrito.getPedidos()); // Añade las figuras al modelo
-        model.addAttribute("total", total); // Añade el total al modelo
+        model.addAttribute("pedidos", carrito.getPedidos()); // Añade los pedidos al modelo
+        model.addAttribute("total", carrito.getTotal()); // Usa el total del carrito
 
         return "carrito"; // Redirige a la vista del carrito
     }
@@ -98,16 +91,16 @@ public class ControladorCarrito {
         }
 
         Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+        Figura figura = figuraServicio.obtenerFiguraPorId(id); // Obtiene la figura
+
         Carrito carrito = usuarioBaseDatos.getCarrito();
 
         if (carrito != null) {
-            Figura figura = figuraServicio.obtenerFiguraPorId(id); // Obtiene la figura por ID
-            carrito.eliminarFigura(figura); // Llama al método para eliminar la figura del carrito
+            carrito.eliminarFigura(figura); // Llama al método eliminarPedido para eliminar el pedido de la figura
             usuarioBaseDatos.setCarrito(carrito);
-            servicioLogin.modificarUsuario2(usuarioBaseDatos); // Actualiza el usuario en la base de datos
 
-            // Actualiza el carrito en la sesión
-            session.setAttribute("carrito", carrito);
+            servicioLogin.modificarUsuario2(usuarioBaseDatos); // Guarda los cambios en el usuario
+            session.setAttribute("carrito", carrito); // Actualiza el carrito en la sesión
         }
 
         return "redirect:/ver"; // Redirige a la vista del carrito
