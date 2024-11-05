@@ -44,6 +44,7 @@
                 <div class="mt-2">
                     <a th:href="@{'/actualizar/' + ${figura.id}}" class="btn btn-info btn-sm">Modificar</a>
                     <input type="hidden" id="figuraId" th:value="${figura.id}">
+
                     <a href="#" class="btn btn-danger" onclick="confirmDelete()">Eliminar</a>
                 </div>
             </td>

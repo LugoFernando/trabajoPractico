@@ -30,9 +30,10 @@
                 <td th:text="${pedido.figura.precio}">Precio de la Figura</td>
                 <td>
                     <!-- Botón de eliminar -->
-                    <form th:action="@{/carrito/eliminar/{id}(id=${pedido.figura.id})}" method="post" style="display:inline;">
+                    <form th:action="@{'/eliminar/' + ${pedido.figura.id}}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
+
                 </td>
             </tr>
             </tbody>

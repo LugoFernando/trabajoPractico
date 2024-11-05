@@ -63,8 +63,6 @@ public class ControladorCarrito {
         return "redirect:/ver"; // Redirige al carrito
     }
 
-
-
     @GetMapping("/ver")
     public String verCarrito(HttpSession session, Model model) {
         Usuario usuario = (Usuario) session.getAttribute("usuario"); // Verifica si el usuario está logueado
@@ -91,6 +89,30 @@ public class ControladorCarrito {
 
         return "carrito"; // Redirige a la vista del carrito
     }
+
+    @PostMapping("/eliminar/{id}")
+    public String eliminarFiguraDelCarrito(@PathVariable Long id, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario"); // Verifica si el usuario está logueado
+        if (usuario == null) {
+            return "redirect:/login"; // Redirige al login si no está logueado
+        }
+
+        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+        Carrito carrito = usuarioBaseDatos.getCarrito();
+
+        if (carrito != null) {
+            Figura figura = figuraServicio.obtenerFiguraPorId(id); // Obtiene la figura por ID
+            carrito.eliminarFigura(figura); // Llama al método para eliminar la figura del carrito
+            usuarioBaseDatos.setCarrito(carrito);
+            servicioLogin.modificarUsuario2(usuarioBaseDatos); // Actualiza el usuario en la base de datos
+
+            // Actualiza el carrito en la sesión
+            session.setAttribute("carrito", carrito);
+        }
+
+        return "redirect:/ver"; // Redirige a la vista del carrito
+    }
+
 
 
 

@@ -66,4 +66,31 @@ public class Carrito {
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
+
+    public void eliminarFigura(Figura figura) {
+        Pedido pedidoAEliminar = null;
+
+        for (Pedido pedido : pedidos) {
+            if (pedido.getFigura().equals(figura)) {
+                // Si la cantidad es mayor que 1, reduce la cantidad
+                if (pedido.getCantidad() > 1) {
+                    pedido.setCantidad(pedido.getCantidad() - 1);
+                    this.total -= figura.getPrecio(); // Actualiza el total
+
+                } else {
+                    // Si la cantidad es 1, elimina el pedido
+                    pedidoAEliminar = pedido;
+                    this.total -= figura.getPrecio(); // Actualiza el total
+                }
+                break;
+            }
+        }
+
+        // Si se identificó un pedido para eliminar, remuévelo de la lista
+        if (pedidoAEliminar != null) {
+            pedidos.remove(pedidoAEliminar);
+        }
+    }
+
+
 }
