@@ -1,6 +1,7 @@
 package com.comic.controlador;
 
 import com.comic.entidades.Figura;
+import com.comic.entidades.Usuario;
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
 import com.mercadopago.client.preference.PreferenceClient;
@@ -14,9 +15,12 @@ import org.springframework.core.env.Environment;
 import com.comic.entidades.UserBuyer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,9 +88,15 @@ public class ControladorPago {
 
     }
 
-//    @RequestMapping(path = "/checkOut")
-//    public ModelAndView checkOut() {
-//        return new ModelAndView("redirect:/checkOut");
-//    }
+    @RequestMapping(path = "/checkOut")
+    public ModelAndView checkOut(HttpServletRequest request) {
+
+        ModelMap modelo = new ModelMap();
+        HttpSession session = request.getSession();
+        Usuario datosUsuario=(Usuario)session.getAttribute("usuario");
+
+        modelo.put("datosUsuario",datosUsuario);
+        return new ModelAndView("checkOut",modelo);
+    }
 
 }
