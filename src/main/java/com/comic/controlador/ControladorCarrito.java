@@ -59,7 +59,7 @@ public class ControladorCarrito {
         session.setAttribute("carrito", carrito);
         session.setAttribute("usuario", usuarioBaseDatos);
          // Actualiza el carrito en la sesión
-        // hola
+
         return "redirect:/ver"; // Redirige al carrito
     }
 
@@ -67,45 +67,65 @@ public class ControladorCarrito {
     public String verCarrito(HttpSession session, Model model) {
         Usuario usuario = (Usuario) session.getAttribute("usuario"); // Verifica si el usuario está logueado
         if (usuario == null) {
-            return "redirect:/login"; // Redirige al login si no está logueado
+            return "redirect:/login";
         }
 
         Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
         Carrito carrito = usuarioBaseDatos.getCarrito();
 
         if (carrito == null) {
-            carrito = new Carrito(usuario); // Crea un carrito vacío si no existe
+            carrito = new Carrito(usuario); // Crea un carrito
         }
 
-        model.addAttribute("pedidos", carrito.getPedidos()); // Añade los pedidos al modelo
-        model.addAttribute("total", carrito.getTotal()); // Usa el total del carrito
+        model.addAttribute("pedidos", carrito.getPedidos()); //
+        model.addAttribute("total", carrito.getTotal());
 
-        return "carrito"; // Redirige a la vista del carrito
+        return "carrito";
     }
 
     @PostMapping("/eliminar/{id}")
     public String eliminarFiguraDelCarrito(@PathVariable Long id, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario"); // Verifica si el usuario está logueado
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
         if (usuario == null) {
-            return "redirect:/login"; // Redirige al login si no está logueado
+            return "redirect:/login";
         }
 
         Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-        Figura figura = figuraServicio.obtenerFiguraPorId(id); // Obtiene la figura
+        Figura figura = figuraServicio.obtenerFiguraPorId(id);
 
         Carrito carrito = usuarioBaseDatos.getCarrito();
 
         if (carrito != null) {
-            carrito.eliminarFigura(figura); // Llama al método eliminarPedido para eliminar el pedido de la figura
+            carrito.eliminarFigura(figura);
             usuarioBaseDatos.setCarrito(carrito);
 
-            servicioLogin.modificarUsuario2(usuarioBaseDatos); // Guarda los cambios en el usuario
-            session.setAttribute("carrito", carrito); // Actualiza el carrito en la sesión
+            servicioLogin.modificarUsuario2(usuarioBaseDatos);
+            session.setAttribute("carrito", carrito);
         }
 
-        return "redirect:/ver"; // Redirige a la vista del carrito
+        return "redirect:/ver";
     }
 
+    @PostMapping("/vaciar")
+    public String vaciarCarrito(HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+        Carrito carrito = usuarioBaseDatos.getCarrito();
+
+        if (carrito != null) {
+            carrito.vaciarCarrito();
+            usuarioBaseDatos.setCarrito(carrito);
+
+            servicioLogin.modificarUsuario2(usuarioBaseDatos);
+            session.setAttribute("carrito", carrito);
+        }
+
+        return "redirect:/ver";
+    }
 
 
 

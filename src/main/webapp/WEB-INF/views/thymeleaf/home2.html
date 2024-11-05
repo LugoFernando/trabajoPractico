@@ -31,9 +31,9 @@
                         <a class="nav-link" href="/mis-pedidos">Mis compras</a>
                     </li>
 
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" href="/mis-ventas">Mis ventas</a>
-                    </li>
+<!--                    <li class="nav-item" th:if="${session.usuario != null}">-->
+<!--                        <a class="nav-link" href="/mis-ventas">Mis ventas</a>-->
+<!--                    </li>-->
 
                     <li class="nav-item" th:if="${session.usuario != null}">
                         <a class="nav-link" th:href="@{/lista}">Mis publicaciones</a>
@@ -60,7 +60,7 @@
                     <!-- Carrito -->
 
                     <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="#" th:href="@{/ver}">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </li>
@@ -75,7 +75,7 @@
     <div class="jumbotron text-center bg-primary text-white py-5">
         <h1 class="display-4">¡Bienvenido a la Tienda de Figuras!</h1>
         <p class="lead">Encuentra tus personajes favoritos y las mejores colecciones de figuras.</p>
-        <a class="btn btn-light btn-lg" href="/productos" role="button">Ver Catálogo</a>
+        <a class="btn btn-light btn-lg" th:href="@{/listaDeProducto}" role="button">Ver Catálogo</a>
     </div>
 </div>
 
@@ -92,7 +92,7 @@
                         <h5 class="card-title" th:text="${figura.nombre}">Nombre de Figura</h5>
                         <p class="card-text" th:text="${figura.descripcion}">Descripción de Figura</p>
                         <p class="card-text" th:text="${figura.precio} + ' $'">Precio de Figura</p>
-                        <a th:href="@{/comprar/{id}(id=${figura.id})}" class="btn btn-primary">Comprar</a>
+                        <a class="btn btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                         <h5 class="card-title" th:text="${figura.nombre}">Nombre de Figura</h5>
                         <p class="card-text" th:text="${figura.descripcion}">Descripción de Figura</p>
                         <p class="card-text" th:text="${figura.precio} + ' $'">Precio de Figura</p>
-                        <a th:href="@{/comprar/{id}(id=${figura.id})}" class="btn btn-primary">Comprar</a>
+                        <a class="btn btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
                     </div>
                 </div>
             </div>

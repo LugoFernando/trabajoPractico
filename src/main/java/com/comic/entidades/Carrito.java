@@ -12,12 +12,12 @@ public class Carrito {
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Pedido> pedidos = new ArrayList<>();  // Permite duplicados al eliminar restricciones
+    private List<Pedido> pedidos = new ArrayList<>();
 
     private double total;
 
     public Carrito() {
-        this.pedidos = new ArrayList<>();  // Asegúrate de inicializar la lista
+        this.pedidos = new ArrayList<>();
         this.total = 0.0;
     }
 
@@ -49,7 +49,7 @@ public class Carrito {
         if (!encontro) {
             pedidos.add(new Pedido(figura, 1));
         }
-        this.total += figura.getPrecio();  // Actualizar el total cada vez que se agrega
+        this.total += figura.getPrecio();
     }
 
     // Método para vaciar el carrito
@@ -70,19 +70,17 @@ public class Carrito {
         Pedido pedidoAEliminar = null;
 
         for (Pedido pedido : pedidos) {
-            if (pedido.getFigura().equals(figura)) {  // Usa equals para la comparación
-                // Resta el precio total del pedido de esta figura (precio * cantidad)
+            if (pedido.getFigura().equals(figura)) {
+                // Resta el precio
                 this.total -= pedido.getFigura().getPrecio() * pedido.getCantidad();
                 pedidoAEliminar = pedido;
                 break;
             }
         }
 
-        // Si se encontró el pedido, elimínalo de la lista de pedidos
         if (pedidoAEliminar != null) {
             pedidos.remove(pedidoAEliminar);
         }
     }
-
 
 }

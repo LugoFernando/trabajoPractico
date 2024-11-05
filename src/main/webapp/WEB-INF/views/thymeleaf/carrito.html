@@ -33,7 +33,6 @@
                     <form th:action="@{'/eliminar/' + ${pedido.figura.id}}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
-
                 </td>
             </tr>
             </tbody>
@@ -43,11 +42,14 @@
     <!-- Muestra el total del carrito -->
     <h3 class="mt-4">Total: $<span th:text="${total}">0.00</span></h3>
 
-    <!-- Botón para seguir comprando -->
-    <div class="mt-4">
-        <a class="btn btn-secondary" th:href="@{/listaDeProducto}">Seguir Comprando</a>
-    </div>
+    <!-- Botones para seguir comprando y vaciar carrito -->
+    <div class="d-flex justify-content-center mt-4">
+        <a class="btn btn-secondary mx-2" th:href="@{/listaDeProducto}">Seguir Comprando</a>
 
+        <form th:action="@{/vaciar}" method="post" class="mx-2">
+            <button type="submit" class="btn btn-danger">Vaciar Carrito</button>
+        </form>
+    </div>
 </div>
 
 <!-- Agregar Bootstrap JS y dependencias -->
