@@ -35,15 +35,27 @@ public class CarritoRepositorioImpl implements CarritoRepositorio {
 //                .uniqueResult();
 //    }
 
-    @Override //hacer
+//    @Override //hacer
+//    @Transactional
+//    public Carrito obtenerCarritoPorUsuario(Usuario usuario) {
+//        Session session = sessionFactory.getCurrentSession();
+//        String hql = "FROM Carrito WHERE usuario.id = :usuarioId"; // Cambiar a usuario.id para comparar por ID
+//        return session.createQuery(hql, Carrito.class)
+//                .setParameter("usuarioId", usuario.getId()) // Pasar el ID del usuario
+//                .uniqueResult();
+//    }
+
+    @Override
     @Transactional
     public Carrito obtenerCarritoPorUsuario(Usuario usuario) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Carrito WHERE usuario.id = :usuarioId"; // Cambiar a usuario.id para comparar por ID
+        String hql = "SELECT u.carrito FROM Usuario u WHERE u.id = :usuarioId";
         return session.createQuery(hql, Carrito.class)
-                .setParameter("usuarioId", usuario.getId()) // Pasar el ID del usuario
+                .setParameter("usuarioId", usuario.getId())
                 .uniqueResult();
     }
+
+
 
     @Override
     @Transactional//hacer

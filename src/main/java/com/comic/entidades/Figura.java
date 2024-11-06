@@ -43,6 +43,11 @@ public class Figura {
         this.descripcion = descripcion;
     }
 
+    public Figura ( String nombre, Double precio){
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
     public Figura( String nombre){
         this.nombre = nombre;
     }

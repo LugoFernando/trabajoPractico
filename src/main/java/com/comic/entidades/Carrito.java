@@ -31,6 +31,10 @@ public class Carrito {
         return total;
     }
 
+    public void setTotal(double total) {
+        this.total = total;
+    } //ver si esta bien
+
     // Métodos para agregar una figura al carrito
     public void agregarFigura(Figura figura) {
 
@@ -83,4 +87,11 @@ public class Carrito {
         }
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
