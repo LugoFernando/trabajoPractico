@@ -10,4 +10,6 @@ public interface CarritoServicio {
 
 
     void  modificarCarrito(Carrito carrito);
+
+    void eliminarUnCarrito(Usuario usuario);
 }

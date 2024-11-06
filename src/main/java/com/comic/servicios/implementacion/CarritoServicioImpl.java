@@ -7,8 +7,6 @@ import com.comic.servicios.CarritoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
 public class CarritoServicioImpl implements CarritoServicio {
 
@@ -32,5 +30,10 @@ public class CarritoServicioImpl implements CarritoServicio {
     @Override
     public void  modificarCarrito (Carrito carrito){
         carritoRepositorio.modificarCarrito(carrito);
+    }
+
+    @Override
+    public void eliminarUnCarrito(Usuario usuario){
+        carritoRepositorio.eliminarCarritoDeUnUsuario(usuario);
     }
 }

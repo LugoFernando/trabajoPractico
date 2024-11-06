@@ -50,4 +50,15 @@ public class CarritoRepositorioImpl implements CarritoRepositorio {
     public void modificarCarrito(Carrito carrito) {
         sessionFactory.getCurrentSession().saveOrUpdate(carrito);
     }
+
+    @Override
+    @Transactional
+    public void eliminarCarritoDeUnUsuario(Usuario usuario) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "DELETE FROM Carrito WHERE usuario.id = :usuarioId";
+        int deletedEntities = session.createQuery(hql)
+                .setParameter("usuarioId", usuario.getId())
+                .executeUpdate();
+    }
+
 }
