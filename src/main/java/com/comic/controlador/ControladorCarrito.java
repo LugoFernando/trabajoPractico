@@ -35,7 +35,7 @@ public class ControladorCarrito {
 
 
 
-    @PostMapping("/agregar/{id}")
+    @PostMapping("/agregar/{id}")// hacer
     public String agregarFigurasAlCarrito(@PathVariable Long id, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuario"); // Verifica si el usuario está logueado
         if (usuario == null) {
@@ -63,7 +63,7 @@ public class ControladorCarrito {
         return "redirect:/ver"; // Redirige al carrito
     }
 
-    @GetMapping("/ver")
+    @GetMapping("/ver") //hacer
     public String verCarrito(HttpSession session, Model model) {
         Usuario usuario = (Usuario) session.getAttribute("usuario"); // Verifica si el usuario está logueado
         if (usuario == null) {
@@ -83,7 +83,7 @@ public class ControladorCarrito {
         return "carrito";
     }
 
-    @PostMapping("/eliminar/{id}")
+    @PostMapping("/eliminar/{id}") //hacer
     public String eliminarFiguraDelCarrito(@PathVariable Long id, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         if (usuario == null) {
@@ -106,7 +106,7 @@ public class ControladorCarrito {
         return "redirect:/ver";
     }
 
-    @PostMapping("/vaciar")
+    @PostMapping("/vaciar") //hacer
     public String vaciarCarrito(HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         if (usuario == null) {

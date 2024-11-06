@@ -15,6 +15,4 @@ public interface CarritoRepositorio {
     @Transactional
     void modificarCarrito(Carrito carrito);
 
-    @Transactional
-    void eliminarCarritoDeUnUsuario(Usuario usuario);
 }

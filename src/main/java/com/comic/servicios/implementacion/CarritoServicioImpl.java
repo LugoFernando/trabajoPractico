@@ -17,23 +17,19 @@ public class CarritoServicioImpl implements CarritoServicio {
         this.carritoRepositorio = carritoRepositorio;
     }
 
-    @Override
+    @Override//ver
     public void guardarCarrito(Carrito carrito) {
         carritoRepositorio.guardar(carrito);
     }
 
-    @Override
+    @Override//ver
     public Carrito obtenerCarritoPorUsuario(Usuario usuario) {
         return carritoRepositorio.obtenerCarritoPorUsuario(usuario);
     }
 
-    @Override
+    @Override//ver
     public void  modificarCarrito (Carrito carrito){
         carritoRepositorio.modificarCarrito(carrito);
     }
 
-    @Override
-    public void eliminarUnCarrito(Usuario usuario){
-        carritoRepositorio.eliminarCarritoDeUnUsuario(usuario);
     }
-}

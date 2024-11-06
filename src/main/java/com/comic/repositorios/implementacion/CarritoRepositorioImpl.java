@@ -18,7 +18,7 @@ public class CarritoRepositorioImpl implements CarritoRepositorio {
     @Autowired
     public CarritoRepositorioImpl(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;}
 
-    @Override
+    @Override //hacer
     @Transactional
     public void guardar(Carrito carrito) {
         Session session = sessionFactory.getCurrentSession();
@@ -35,7 +35,7 @@ public class CarritoRepositorioImpl implements CarritoRepositorio {
 //                .uniqueResult();
 //    }
 
-    @Override
+    @Override //hacer
     @Transactional
     public Carrito obtenerCarritoPorUsuario(Usuario usuario) {
         Session session = sessionFactory.getCurrentSession();
@@ -46,19 +46,9 @@ public class CarritoRepositorioImpl implements CarritoRepositorio {
     }
 
     @Override
-    @Transactional
+    @Transactional//hacer
     public void modificarCarrito(Carrito carrito) {
         sessionFactory.getCurrentSession().saveOrUpdate(carrito);
-    }
-
-    @Override
-    @Transactional
-    public void eliminarCarritoDeUnUsuario(Usuario usuario) {
-        Session session = sessionFactory.getCurrentSession();
-        String hql = "DELETE FROM Carrito WHERE usuario.id = :usuarioId";
-        int deletedEntities = session.createQuery(hql)
-                .setParameter("usuarioId", usuario.getId())
-                .executeUpdate();
     }
 
 }

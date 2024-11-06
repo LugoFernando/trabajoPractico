@@ -8,8 +8,6 @@ public interface CarritoServicio {
 
     Carrito obtenerCarritoPorUsuario(Usuario usuario);
 
-
     void  modificarCarrito(Carrito carrito);
 
-    void eliminarUnCarrito(Usuario usuario);
 }
