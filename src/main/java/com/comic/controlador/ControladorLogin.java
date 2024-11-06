@@ -2,7 +2,8 @@ package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
 
-import com.comic.entidades.Compra;
+import com.comic.entidades.Carrito;
+import com.comic.entidades.Dto.Compra;
 import com.comic.entidades.Figura;
 import com.comic.entidades.Preferencias;
 import com.comic.servicios.CompraServicio;
@@ -39,18 +40,46 @@ public class ControladorLogin {
 
 
 
+//    @RequestMapping("/login")
+//    public ModelAndView irALogin(HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//
+//        if (session.getAttribute("usuario") != null) {
+//            return new ModelAndView("redirect:/home");
+//        }
+//        else {
+//            ModelMap modelo = new ModelMap();
+//            Usuario usuarioLogeado = new Usuario();
+//            modelo.put("datosLogin", new DatosLogin());
+//            modelo.put("usuario", usuarioLogeado);
+//            return new ModelAndView("login", modelo);
+//        }
+//    }
+
     @RequestMapping("/login")
     public ModelAndView irALogin(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("usuario") != null) {
             return new ModelAndView("redirect:/home");
-        }
-        else {
+        } else {
             ModelMap modelo = new ModelMap();
             Usuario usuarioLogeado = new Usuario();
             modelo.put("datosLogin", new DatosLogin());
             modelo.put("usuario", usuarioLogeado);
+
+            // Recuperar el carrito del usuario si existe
+            Carrito carrito;
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            if (usuario != null && usuario.getCarrito() != null) {
+                carrito = usuario.getCarrito();
+            } else {
+                carrito = new Carrito(usuarioLogeado);  // Crear nuevo carrito si no existe
+            }
+
+            // Guardar el carrito en la sesión
+            session.setAttribute("carrito", carrito);
+
             return new ModelAndView("login", modelo);
         }
     }

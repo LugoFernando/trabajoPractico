@@ -1,7 +1,6 @@
 package com.comic.serviciosTest;
 
-import com.comic.entidades.Compra;
-import com.comic.entidades.Figura;
+import com.comic.entidades.Dto.Compra;
 import com.comic.repositorios.CompraRepositorio;
 import com.comic.servicios.CompraServicio;
 import com.comic.servicios.implementacion.CompraServicioImp;
