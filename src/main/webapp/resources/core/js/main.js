@@ -15,10 +15,8 @@ const createCheckoutButton = (preferenceId_OK) =>{
     }
     generateButton()
 }
-
-
-
 const MP = async () => { //llamado al servidor
+
     try{
         misFiguras = {};
         const response= await fetch('api/mp',{//asincronica

@@ -3,7 +3,7 @@ package com.comic.controladorTest;
 import com.comic.controlador.ControladorLogin;
 import com.comic.controlador.dto.DatosLogin;
 import com.comic.dominio.excepcion.UsuarioExistente;
-import com.comic.entidades.Compra;
+import com.comic.entidades.Dto.Compra;
 import com.comic.entidades.Figura;
 import com.comic.entidades.Preferencias;
 import com.comic.entidades.Usuario;

@@ -63,7 +63,7 @@ public class FiguraControlador {
     }
 
     // mostrar una figura específica por id
-    @GetMapping("/detalleProducto/{id}")
+    @GetMapping("/detalle/{id}")
     public String detalleFigura(@PathVariable Long id, Model model) {
         Figura figura = figuraServicio.obtenerFiguraPorId(id);
         model.addAttribute("figura", figura);
@@ -130,14 +130,6 @@ public class FiguraControlador {
 
         return new ModelAndView("listaDeProducto");
     }
-
-
-
-
-
-
-
-
 
 
 }

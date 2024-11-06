@@ -71,13 +71,17 @@
 </header>
 
 <!-- DIV PRINCIPAL -->
-<div class="container my-5">
 
+<!-- detalle de la compra -->
+
+
+<!-- Boton -->
+<div class="container my-5">
   <p>Comprar Figura</p>
   <button onclick="MP()">Comprar</button>
-
 </div>
 
+<a th:href="@{pagar}" ><button class="btn-principal" id="boton_pagar_envio">Pagar</button></a>
 
 <!-- Pie de Página -->
 <footer class="bg-dark text-white text-center py-3">
@@ -88,7 +92,50 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-<script th:href="@{/js/main.js}"> </script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<script>
+  $(document).ready(function () {
+    // Manejar clic en el botón "Pagar"
+    $("#pagar").click(function () {
+      // Llamar a la función para generar la preferencia de pago
+      generarPreferencia(precioTotal);
+    });
+  });
+
+  function generarPreferencia(precioTotal) {
+    console.log("Iniciando solicitud AJAX...");
+
+    $.ajax({
+      method: "POST",
+      url: "/preferencia",
+      data: { precioTotal: precioTotal }
+    }).done(function(response) {
+      console.log("Respuesta del servidor:", response);
+
+      const mp = new MercadoPago('APP_USR-3efd2cac-65f7-475c-8fb6-3beb5bdda103', {
+        locale: 'es-AR'
+      });
+
+      console.log("MercadoPago inicializado");
+
+      mp.bricks();
+
+      mp.bricks().create("wallet", "wallet_container", {
+        initialization: {
+          preferenceId: response,
+          redirectMode: "blank"
+        },
+      }).catch(function(error) {
+        console.log("Error al crear la wallet:", error);
+      });
+    }).fail(function(xhr, status, error) {
+      console.log("Error en la solicitud AJAX:", error);
+      console.log("Estado:", status);
+      console.log("Respuesta del servidor:", xhr.responseText);
+    });
+  }
+ </script>
 </body>
 
 </html>
