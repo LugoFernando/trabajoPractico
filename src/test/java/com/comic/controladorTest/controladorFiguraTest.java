@@ -34,7 +34,7 @@ public class controladorFiguraTest {
         servicioFiguraMock = mock(FiguraServicio.class);
         figuraControlador = new FiguraControlador(servicioFiguraMock, servicioLoginMock);
     }
-
+    //hola
     @Test
     public void queSeMuestreLaVistaFigurasConListaDeFiguras() {
         List<Figura> figurasMock = List.of(new Figura(), new Figura());
