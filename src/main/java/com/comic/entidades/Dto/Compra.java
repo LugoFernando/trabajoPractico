@@ -40,8 +40,10 @@ public class Compra {
     @Column(name = "precio_total")
     private double precioTotal;
 
+
     public Compra(){
     }
+
 
 
 

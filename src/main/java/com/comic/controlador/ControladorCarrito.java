@@ -146,7 +146,7 @@ public class ControladorCarrito {
             session.setAttribute("carrito", carrito);
         }
 
-        return "redirect:/ver";
+        return "redirect:/home";
     }
 
 

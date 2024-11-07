@@ -19,6 +19,7 @@ public class CompraRepositorioImpl implements CompraRepositorio {
     @Autowired
     public CompraRepositorioImpl(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;}
 
+
     @Override
     @Transactional
     public List<Compra> buscarTodasLasCompras() {

@@ -1,6 +1,7 @@
 package com.comic.controladorTest;
 
 import com.comic.controlador.ControladorCarrito;
+import com.comic.entidades.Carrito;
 import com.comic.entidades.Figura;
 import com.comic.entidades.Usuario;
 import com.comic.servicios.CarritoServicio;
@@ -12,9 +13,12 @@ import org.junit.jupiter.api.Test;
 
 import javax.servlet.http.HttpSession;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 public class CarritoControladorTest {
 
@@ -40,5 +44,28 @@ public class CarritoControladorTest {
         controladorCarrito = new ControladorCarrito(servicioLoginMock, figuraServicioMock, compraServicioMock , carritoServicioMock );
     }
 
+
+//    @Test
+//    public void queMantengaElCarritoExistenteYAgregueFigura() {
+//        Carrito carritoMock = mock(Carrito.class);
+//        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+//        when(sessionMock.getAttribute("carrito")).thenReturn(carritoMock);
+//        when(figuraServicioMock.obtenerFiguraPorId(1L)).thenReturn(figuraMock);
+//
+//        String resultado = controladorCarrito.agregarFigurasAlCarrito(1L, sessionMock);
+//
+//        verify(carritoMock).agregarFigura(figuraMock);
+//        verify(sessionMock, never()).setAttribute(eq("carrito"), any(Carrito.class)); // no deberia crear un nuevo carro
+//        assertThat(resultado, is("redirect:/ver"));
+//    }
+//
+//    @Test
+//    public void queRedirijaALoginSiElUsuarioNoEstaLogeadoEnVerCarrito() {
+//        when(sessionMock.getAttribute("usuario")).thenReturn(null);
+//
+//        String resultado = controladorCarrito.verCarrito(sessionMock, null);
+//
+//        assertThat(resultado, is("redirect:/login"));
+//    }
 
 }

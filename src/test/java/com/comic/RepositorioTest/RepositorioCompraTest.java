@@ -2,6 +2,7 @@ package com.comic.RepositorioTest;
 
 import com.comic.entidades.Dto.Compra;
 import com.comic.entidades.Figura;
+import com.comic.entidades.Pedido;
 import com.comic.entidades.Usuario;
 import com.comic.integracion.config.HibernateTestConfig;
 
@@ -40,80 +41,46 @@ public class RepositorioCompraTest {
         this.compraRepositorio = new CompraRepositorioImpl(sessionFactory);
     }
 
-//    @Test
-//    @Transactional
-//    @Rollback
-//    public void queSeObteganTodosLasComprasQueEstanEnLaBaseDeDatos() {
-//        Compra compraMock1 = new Compra();
-//        Figura figura1 = new Figura("superman");
-//        figura1.setPrecio(100.0);
-//        Figura figura2 = new Figura("batman");
-//        figura2.setPrecio(100.0);
-//        compraMock1.setFiguras(Arrays.asList(figura1, figura2));
-//
-//        Compra compraMock2 = new Compra();
-//        Figura figura3 = new Figura("naruto");
-//        figura3.setPrecio(100.0);
-//        compraMock2.setFiguras(Arrays.asList(figura3));
-//
-//        this.sessionFactory.getCurrentSession().save(compraMock1);
-//        this.sessionFactory.getCurrentSession().save(compraMock2);
-//
-//        List<Compra> compras = this.compraRepositorio.buscarTodasLasCompras();
-//
-//        List<Compra> compraMockObtenida = Arrays.asList(compraMock1, compraMock2);
-//
-//        assertThat(compras, equalTo(compraMockObtenida));
-//        assertThat(compras.size(), equalTo(2));
-//        assertThat(compras.size(), equalTo(compraMockObtenida.size()));
-//    }
-//
+    @Test
+    @Transactional
+    @Rollback
+    public void queSeObteganTodosLasComprasQueEstanEnLaBaseDeDatos() {
+
+        Compra compraMock1 = new Compra();
+
+        Figura figura1 = new Figura("superman");
+        figura1.setPrecio(100.0);
+
+        Pedido pedido1 = new Pedido(1L , figura1 , 10);
+
+        this.sessionFactory.getCurrentSession().save(compraMock1);
+
+        List<Compra> compras = this.compraRepositorio.buscarTodasLasCompras();
+
+        List<Compra> compraMockObtenida = Arrays.asList(compraMock1);
+
+        assertThat(compras, equalTo(compraMockObtenida));
+        assertThat(compras.size(), equalTo(1));
+        assertThat(compras.size(), equalTo(compraMockObtenida.size()));
+    }
+
 //    @Test
 //    @Transactional
 //    @Rollback
 //    public void queSeGuardeUnaCompraNuevaEnLaBaseDeDatos() {
-//        Compra compraTest = new Compra();
-//        Usuario usuarioTest = new Usuario();
-//        usuarioTest.setEmail("prueba@mail.com");
+//        Compra compraMock1 = new Compra();
 //
-//        Figura figuraTest1 = new Figura();
-//        figuraTest1.setDescripcion("Figura 1");
-//        figuraTest1.setEstado("Nuevo");
-//        figuraTest1.setNombre("Batman");
-//        figuraTest1.setPrecio(300.0);
+//        Figura figura1 = new Figura("superman");
+//        figura1.setPrecio(100.0);
 //
-//        Figura figuraTest2 = new Figura();
-//        figuraTest2.setDescripcion("Figura 2");
-//        figuraTest2.setEstado("Nuevo");
-//        figuraTest2.setNombre("Superman");
-//        figuraTest2.setPrecio(350.0);
+//        Pedido pedido1 = new Pedido(1L , figura1 , 10);
 //
-//        List<Figura> figuras = new ArrayList<>();
-//        figuras.add(figuraTest1);
-//        figuras.add(figuraTest2);
+//        this.sessionFactory.getCurrentSession().save(compraMock1);
 //
-//        compraTest.setUsuario(usuarioTest);
-//        compraTest.setFiguras(figuras);
-//        compraTest.setMontoTotal(650.0);
+//        this.compraRepositorio.guardar(compraMock1);
 //
-//        Session session = sessionFactory.getCurrentSession();
-//        session.save(usuarioTest);
-//        session.save(figuraTest1);
-//        session.save(figuraTest2);
-//        session.save(compraTest);
-//        session.flush();
 //
-//        Long idGenerado = compraTest.getId();
 //
-//        // Método a testear
-//        this.compraRepositorio.guardar(compraTest);
-//
-//        String hql = "SELECT c FROM Compra c WHERE c.id = :id";
-//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-//        query.setParameter("id", idGenerado);
-//        Compra compraObtenida = (Compra) query.getSingleResult();
-//
-//        assertThat(compraObtenida, equalTo(compraTest));
 //    }
-//
+
 }
