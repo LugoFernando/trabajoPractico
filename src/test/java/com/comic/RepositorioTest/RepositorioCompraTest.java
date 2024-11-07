@@ -64,23 +64,28 @@ public class RepositorioCompraTest {
         assertThat(compras.size(), equalTo(compraMockObtenida.size()));
     }
 
-//    @Test
-//    @Transactional
-//    @Rollback
-//    public void queSeGuardeUnaCompraNuevaEnLaBaseDeDatos() {
-//        Compra compraMock1 = new Compra();
-//
-//        Figura figura1 = new Figura("superman");
-//        figura1.setPrecio(100.0);
-//
-//        Pedido pedido1 = new Pedido(1L , figura1 , 10);
-//
-//        this.sessionFactory.getCurrentSession().save(compraMock1);
-//
-//        this.compraRepositorio.guardar(compraMock1);
-//
-//
-//
-//    }
+    @Test
+    @Transactional
+    @Rollback
+    public void queSeGuardeLaCompraCorrectamente() {
+
+        Figura figuraMock = new Figura("superman");
+        figuraMock.setPrecio(100.0);
+
+        Pedido pedidoMock = new Pedido(1L, figuraMock, 10);
+
+        Compra compraMock = new Compra();
+        compraMock.setPrecioTotal(1000.0);
+        compraMock.setListaDePedidosAcomprar(List.of(pedidoMock));
+
+        Session session = sessionFactory.getCurrentSession();
+        compraRepositorio.guardar(compraMock);
+
+        Compra compraGuardada = session.get(Compra.class, compraMock.getId());
+
+        assertThat(compraGuardada, equalTo(compraMock));
+        assertThat(compraGuardada.getPrecioTotal(), equalTo(1000.0));
+        assertThat(compraGuardada.getListaDePedidosAcomprar().size(), equalTo(1));
+    }
 
 }
