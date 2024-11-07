@@ -1,6 +1,7 @@
 package com.comic.controlador;
 
 import com.comic.entidades.Carrito;
+import com.comic.entidades.Dto.Compra;
 import com.comic.entidades.Figura;
 import com.comic.entidades.Pedido;
 import com.comic.entidades.Usuario;
@@ -11,11 +12,13 @@ import com.comic.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ControladorCarrito {
@@ -173,6 +176,21 @@ public ModelAndView terminarCompra(HttpSession session) {
     return new ModelAndView("redirect:/home");
 }
 
+    @GetMapping("/compras")
+    public ModelAndView irAlaListaDeCompras(HttpSession session){
+
+        Usuario datos =(Usuario)session.getAttribute("usuario");
+        List<Compra>compras=compraServicio.listarlasCompras();
+        List<Compra>comprasDelUsuarioIndicado=new ArrayList<>();
+        for (Compra compraItem :compras){
+           if(compraItem.getUsuario().getId().equals(datos.getId())) {
+               comprasDelUsuarioIndicado.add(compraItem);
+           }
+        }
+        ModelMap map=new ModelMap();
+        map.put("listaDeComprasDeUsuario",comprasDelUsuarioIndicado);
+        return new ModelAndView("listaDeCompras",map);
+    }
 
 
 

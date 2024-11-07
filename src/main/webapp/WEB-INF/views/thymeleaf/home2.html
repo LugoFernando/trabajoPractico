@@ -28,7 +28,7 @@
 
                     <!-- Opciones condicionales: si el cliente ha iniciado sesión -->
                     <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" href="/mis-pedidos">Mis compras</a>
+                        <a class="nav-link" th:href="@{/compras}">Mis compras</a>
                     </li>
 
 <!--                    <li class="nav-item" th:if="${session.usuario != null}">-->
