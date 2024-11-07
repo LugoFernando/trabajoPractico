@@ -35,77 +35,61 @@ public class controladorFiguraTest {
         figuraControlador = new FiguraControlador(servicioFiguraMock, servicioLoginMock);
     }
 
-    //Guardar
-//    @Test
-//    public void queSeGuardeUnaFigura(){
-//        Figura figuraMock = mock(Figura.class);
-//        MultipartFile multipartFileMock = mock(MultipartFile.class);
-//        String valorEsperado = "redirect:/lista";
-//
-//        String valorObtenido = figuraControlador.guardarFigura(figuraMock, multipartFileMock);
-//
-//        verify(servicioFiguraMock, times(1)).guardarFigura(figuraMock,multipartFileMock);
-//        assertThat(valorEsperado, equalTo(valorObtenido));
-//
-//    }
+    @Test
+    public void queSeMuestreLaVistaFigurasConListaDeFiguras() {
+        List<Figura> figurasMock = List.of(new Figura(), new Figura());
+        when(servicioFiguraMock.listarFiguras()).thenReturn(figurasMock);
 
+        ModelAndView modelAndView = figuraControlador.listarFiguras();
 
-    //Listar Figuras
-//    @Test
-//    public void queSeListenFiguras(){
-//        Model modelMock = mock(Model.class);
-//        String valorEsperado = "figuras";
-//        List<Figura> figurasMock = mock(List.class);
-//        String valorObtenido = figuraControlador.listarFiguras(modelMock);
-//        when(servicioFiguraMock.listarFiguras()).thenReturn(figurasMock);
-//
-//        verify(servicioFiguraMock, times(1)).listarFiguras();
-//        verify(modelMock, times(1)).addAttribute(eq("figuras"), anyList());
-//
-//        assertThat(valorEsperado, equalTo(valorObtenido));
-//
-//    }
+        assertThat(modelAndView.getViewName(), equalTo("figuras"));
+        assertThat(modelAndView.getModel().get("figuras"), equalTo(figurasMock));
+        verify(servicioFiguraMock).listarFiguras();
+    }
 
-    //Crear
-//    @Test
-//    public void queSeCreeUnaFigura(){
-//        Model modelMock = mock(Model.class);
-//        String valorEsperado = "nuevaFigura";
-//
-//        String valorObtenido = figuraControlador.nuevaFiguraForm(modelMock);
-//
-//        verify(modelMock).addAttribute(eq("figura"), ArgumentMatchers.<Figura>any());
-//        assertThat(valorEsperado, equalTo(valorObtenido));
-//
-//    }
+    @Test
+    public void queSeMuestreLaVistaNuevaFiguraConFormularioDeFigura() {
+        ModelAndView modelAndView = figuraControlador.nuevaFiguraForm();
 
-    //Eliminar
-//    @Test
-//    public void queSeElimineUnaFigura(){
-//
-//        String valorEsperado = "redirect:/lista";
-//
-//        String valorObtenido = figuraControlador.eliminarFigura(anyLong());
-//
-//        verify(servicioFiguraMock).eliminarFigura(anyLong());
-//        assertThat(valorEsperado, equalTo(valorObtenido));
-//
-//    }
+        assertThat(modelAndView.getViewName(), equalTo("nuevaFigura"));
+        assertThat(modelAndView.getModel().get("figura"), equalTo(new Figura()));
+    }
 
-    //BuscarPorId
-//    @Test
-//    public void queSeBusqueUnaFiguraPorIDyDevuelvaLaVista(){
-//        Model modelMock = mock(Model.class);
-//        Figura figuraMock = mock(Figura.class);
-//        String valorEsperado = "detalleFigura";
-//        when(servicioFiguraMock.obtenerFiguraPorId(anyLong())).thenReturn(figuraMock);
-//
-//        String valorObtenido = figuraControlador.detalleFigura(anyLong(), modelMock);
-//
-//        verify(modelMock).addAttribute(eq("figura"), ArgumentMatchers.<Figura>any());
-//        assertThat(valorEsperado, equalTo(valorObtenido));
-//
-//    }
+    @Test
+    public void queSeRedirijaALaVistaListaDespuesDeGuardarLaFigura() throws Exception {
+        Figura figuraMock = new Figura();
+        MockMultipartFile imagenMock = new MockMultipartFile("imagen", "imagen.jpg", "image/jpeg", "imagen simulada".getBytes());
+
+        ModelAndView modelAndView = figuraControlador.guardarFigura(figuraMock, imagenMock);
+
+        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
+        verify(servicioFiguraMock).guardarFigura(figuraMock, imagenMock);
+    }
+
+    @Test
+    public void queSeRedirijaALaVistaListaDespuesDeEliminarFigura() {
+        Long idFigura = 1L;
+
+        ModelAndView modelAndView = figuraControlador.eliminarFigura(idFigura);
+
+        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
+        verify(servicioFiguraMock).eliminarFigura(idFigura);
+    }
+
+    @Test
+    public void queSeMuestreLaVistaDetalleFiguraConFiguraEspecifica() {
+        Long idFigura = 1L;
+        Figura figuraMock = new Figura();
+        figuraMock.setId(idFigura);
+        when(servicioFiguraMock.obtenerFiguraPorId(idFigura)).thenReturn(figuraMock);
+
+        ModelAndView modelAndView = figuraControlador.detalleFigura(idFigura);
+
+        assertThat(modelAndView.getViewName(), equalTo("detalleFigura"));
+        assertThat(modelAndView.getModel().get("figura"), equalTo(figuraMock));
+        verify(servicioFiguraMock).obtenerFiguraPorId(idFigura);
+    }
+
 
     //BuscarPorId
     @Test
