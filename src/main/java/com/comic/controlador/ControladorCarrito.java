@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -127,27 +128,50 @@ public class ControladorCarrito {
         return "redirect:/ver";
     }
 
-    @PostMapping("/pagar")
-    public String terminarCompra(HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        if (usuario == null) {
-            return "redirect:/login";
-        }
-        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-        Carrito carrito = usuarioBaseDatos.getCarrito();
-
-        if (carrito != null) {
-
-            compraServicio.guardarCompra(usuarioBaseDatos);
-            carrito.vaciarCarrito();
-            usuarioBaseDatos.setCarrito(carrito);
-
-            servicioLogin.modificarUsuario2(usuarioBaseDatos);
-            session.setAttribute("carrito", carrito);
-        }
-
-        return "redirect:/home";
+//    @PostMapping("/pagar")
+//    public String terminarCompra(HttpSession session) {
+//        Usuario usuario = (Usuario) session.getAttribute("usuario");
+//        if (usuario == null) {
+//            return "redirect:/login";
+//        }
+//        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+//        Carrito carrito = usuarioBaseDatos.getCarrito();
+//
+//        if (carrito != null) {
+//
+//            compraServicio.guardarCompra(usuarioBaseDatos);
+//            carrito.vaciarCarrito();
+//            usuarioBaseDatos.setCarrito(carrito);
+//
+//            servicioLogin.modificarUsuario2(usuarioBaseDatos);
+//            session.setAttribute("carrito", carrito);
+//        }
+//
+//        return "redirect:/home";
+//    }
+@PostMapping("/pagar")
+public ModelAndView terminarCompra(HttpSession session) {
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    if (usuario == null) {
+        return new ModelAndView("redirect:/login");
     }
+
+    Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+    Carrito carrito = usuarioBaseDatos.getCarrito();
+
+    if (carrito != null) {
+        compraServicio.guardarCompra(usuarioBaseDatos);
+        carrito.vaciarCarrito();
+        usuarioBaseDatos.setCarrito(carrito);
+
+        servicioLogin.modificarUsuario2(usuarioBaseDatos);
+        session.setAttribute("carrito", carrito);
+    }
+
+    // Redirige a la vista "home"
+    return new ModelAndView("redirect:/home");
+}
+
 
 
 
