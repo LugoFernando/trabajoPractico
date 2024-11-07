@@ -136,7 +136,7 @@ public class FiguraRepositorioTest {
 
         assertEquals(2, figuraRepositorio.buscarTodo().size());
 
-    }
+    }// testear que no encontro
 
     @Test
     @Transactional

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <!-- Agregar Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <p>Compra confirmada:</p>
+    <p>ID: <span th:text="${compra.id}"></span></p>
+    <p>Total: <span th:text="${compra.total}"></span></p>
+    <p>Usuario: <span th:text="${compra.usuario.nombre}"></span></p>
+</head>0
+</html>

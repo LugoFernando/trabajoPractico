@@ -30,10 +30,10 @@
             <p><strong>Descripción:</strong></p>
             <p th:text="${figura.descripcion}"></p>
 
-            <!-- Botón para comprar -->
-            <div class="mt-4">
-                <a th:href="@{'/comprar/' + ${figura.id}}" class="btn btn-success btn-lg">Comprar</a>
-            </div>
+            <!-- Botón para comprar con estilo verde -->
+            <form th:action="@{/agregar/{id}(id=${figura.id})}" method="post">
+                <button type="submit" class="btn btn-success">Agregar al Carrito</button>
+            </form>
         </div>
     </div>
 

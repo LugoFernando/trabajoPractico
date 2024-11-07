@@ -51,14 +51,14 @@ VALUES
 (2, 'DC'),
 (2, 'MARVEL');
 
---Compra
-INSERT INTO Compra(id, usuario_id, cantidad, precio_total)
-VALUES (1, 1, 2, 42000);
-
---relación entre compra y figuras
-INSERT INTO compra_figuras(compra_id, figura_id)
-VALUES (1, 1),
-(1, 3);
+----Compra
+--INSERT INTO Compra(id, usuario_id, cantidad, precio_total)
+--VALUES (1, 1, 2, 42000);
+--
+----relación entre compra y figuras
+--INSERT INTO compra_figuras(compra_id, figura_id)
+--VALUES (1, 1),
+--(1, 3);
 
 
 

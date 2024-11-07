@@ -2,7 +2,8 @@ package com.comic.controlador;
 
 import com.comic.controlador.dto.DatosLogin;
 
-import com.comic.entidades.Compra;
+import com.comic.entidades.Carrito;
+import com.comic.entidades.Dto.Compra;
 import com.comic.entidades.Figura;
 import com.comic.entidades.Preferencias;
 import com.comic.servicios.CompraServicio;
@@ -39,18 +40,46 @@ public class ControladorLogin {
 
 
 
+//    @RequestMapping("/login")
+//    public ModelAndView irALogin(HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//
+//        if (session.getAttribute("usuario") != null) {
+//            return new ModelAndView("redirect:/home");
+//        }
+//        else {
+//            ModelMap modelo = new ModelMap();
+//            Usuario usuarioLogeado = new Usuario();
+//            modelo.put("datosLogin", new DatosLogin());
+//            modelo.put("usuario", usuarioLogeado);
+//            return new ModelAndView("login", modelo);
+//        }
+//    }
+
     @RequestMapping("/login")
     public ModelAndView irALogin(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("usuario") != null) {
             return new ModelAndView("redirect:/home");
-        }
-        else {
+        } else {
             ModelMap modelo = new ModelMap();
             Usuario usuarioLogeado = new Usuario();
             modelo.put("datosLogin", new DatosLogin());
             modelo.put("usuario", usuarioLogeado);
+
+            // Recuperar el carrito del usuario si existe
+            Carrito carrito;
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            if (usuario != null && usuario.getCarrito() != null) {
+                carrito = usuario.getCarrito();
+            } else {
+                carrito = new Carrito(usuarioLogeado);  // Crear nuevo carrito si no existe
+            }
+
+            // Guardar el carrito en la sesión
+            session.setAttribute("carrito", carrito);
+
             return new ModelAndView("login", modelo);
         }
     }
@@ -231,26 +260,26 @@ public ModelAndView irAHome2(HttpServletRequest request) {
     List<Figura> listaDeFigurasEnBaseDeDatos = figuraServicio.listarFiguras();
     List<Figura> listaDeFigurasQueCoinciden = new ArrayList<>();
 
-    if (datosUsuario != null) {
-        // recupero todas las compras desde el servicio
-        List<Compra> todasLasCompras = compraServicio.listarlasCompras();
-
-        // Filtro solo las compras que pertenecen al usuario actual
-        List<Compra> comprasDelUsuario = todasLasCompras.stream()
-                .filter(compra -> compra.getUsuario().getId().equals(datosUsuario.getId()))
-                .collect(Collectors.toList());
-
-        // Filtrar las figuras compradas por el usuario que coinciden con las figuras en la base de datos
-        for (Compra compra : comprasDelUsuario) {
-            for (Figura figuraComprada : compra.getFiguras()) {
-                // Comparar la figura comprada con las figuras de la base de datos usando contains para coincidencias parciales
-                listaDeFigurasEnBaseDeDatos.stream()
-                        .filter(figura -> figura.getNombre().toLowerCase().contains(figuraComprada.getNombre().toLowerCase()) &&
-                                figura.getPreferenciasList().stream().anyMatch(figuraComprada.getPreferenciasList()::contains))
-                        .forEach(listaDeFigurasQueCoinciden::add);
-            }
-        }
-    }
+//    if (datosUsuario != null) {
+//        // recupero todas las compras desde el servicio
+//        List<Compra> todasLasCompras = compraServicio.listarlasCompras();
+//
+//        // Filtro solo las compras que pertenecen al usuario actual
+//        List<Compra> comprasDelUsuario = todasLasCompras.stream()
+//                .filter(compra -> compra.getUsuario().getId().equals(datosUsuario.getId()))
+//                .collect(Collectors.toList());
+//
+//        // Filtrar las figuras compradas por el usuario que coinciden con las figuras en la base de datos
+//        for (Compra compra : comprasDelUsuario) {
+//            for (Figura figuraComprada : compra.getFiguras()) {
+//                // Comparar la figura comprada con las figuras de la base de datos usando contains para coincidencias parciales
+//                listaDeFigurasEnBaseDeDatos.stream()
+//                        .filter(figura -> figura.getNombre().toLowerCase().contains(figuraComprada.getNombre().toLowerCase()) &&
+//                                figura.getPreferenciasList().stream().anyMatch(figuraComprada.getPreferenciasList()::contains))
+//                        .forEach(listaDeFigurasQueCoinciden::add);
+//            }
+//        }
+//    }
     if (datosUsuario != null) {
         List<Preferencias> preferenciasUsuario = datosUsuario.getPreferenciasList();
 
@@ -263,7 +292,7 @@ public ModelAndView irAHome2(HttpServletRequest request) {
 
     modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
     // Agregar la lista de figuras que coinciden al modelo para usarla en el HTML
-    modelo.addAttribute("figurasCoincidenConCompra", listaDeFigurasQueCoinciden);
+//    modelo.addAttribute("figurasCoincidenConCompra", listaDeFigurasQueCoinciden);
 
     return new ModelAndView("home2", modelo);
 }
