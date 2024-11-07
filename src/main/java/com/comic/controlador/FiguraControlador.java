@@ -34,41 +34,45 @@ public class FiguraControlador {
 
     // pagina para listar todas las figuras
     @GetMapping("/lista")
-    public String listarFiguras(Model model) {
+    public ModelAndView listarFiguras() {
         List<Figura> figuras = figuraServicio.listarFiguras();
-        model.addAttribute("figuras", figuras);
-        return "figuras";// cambiar a model siempre que sea un string
+        ModelAndView modelAndView = new ModelAndView("figuras"); // Asigna la vista "figuras"
+        modelAndView.addObject("figuras", figuras); // Añade la lista de figuras al modelo
+        return modelAndView;
     }
 
     // pagina para el formulario de nueva figura
     @GetMapping("/nueva")
-    public String nuevaFiguraForm(Model model) {
-        model.addAttribute("figura", new Figura());
-        return "nuevaFigura";
+    public ModelAndView nuevaFiguraForm() {
+        ModelAndView modelAndView = new ModelAndView("nuevaFigura"); // Asigna la vista "nuevaFigura"
+        modelAndView.addObject("figura", new Figura()); // Añade un nuevo objeto Figura al modelo
+        return modelAndView;
     }
 
     // guardar una nueva figura
     @PostMapping("/guardar")
-    public String guardarFigura(@ModelAttribute ("figura") Figura figura, @RequestParam("imagen") MultipartFile imagen) {
-        figuraServicio.guardarFigura(figura , imagen);
-        return "redirect:/lista";
+    public ModelAndView guardarFigura(@ModelAttribute("figura") Figura figura, @RequestParam("imagen") MultipartFile imagen) {
+        figuraServicio.guardarFigura(figura, imagen);
+        return new ModelAndView("redirect:/lista"); // Redirige a la lista de figuras
     }
 
 
     // eliminar una figura por id
     @GetMapping("/eliminar/{id}")
-    public String eliminarFigura(@PathVariable Long id) {
+    public ModelAndView eliminarFigura(@PathVariable Long id) {
         figuraServicio.eliminarFigura(id);
-        return "redirect:/lista";
+        return new ModelAndView("redirect:/lista");
     }
 
     // mostrar una figura específica por id
     @GetMapping("/detalle/{id}")
-    public String detalleFigura(@PathVariable Long id, Model model) {
+    public ModelAndView detalleFigura(@PathVariable Long id) {
         Figura figura = figuraServicio.obtenerFiguraPorId(id);
-        model.addAttribute("figura", figura);
-        return "detalleFigura";
+        ModelAndView modelAndView = new ModelAndView("detalleFigura"); // Asigna la vista "detalleFigura"
+        modelAndView.addObject("figura", figura); // Añade el objeto figura al modelo
+        return modelAndView;
     }
+
 
     // mostrar la vista de modificacion
     @GetMapping("/actualizar/{id}")
