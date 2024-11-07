@@ -127,6 +127,30 @@ public class ControladorCarrito {
         return "redirect:/ver";
     }
 
+    @PostMapping("/pagar")
+    public String terminarCompra(HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+        Carrito carrito = usuarioBaseDatos.getCarrito();
+
+        if (carrito != null) {
+
+            compraServicio.guardarCompra(usuarioBaseDatos);
+            carrito.vaciarCarrito();
+            usuarioBaseDatos.setCarrito(carrito);
+
+            servicioLogin.modificarUsuario2(usuarioBaseDatos);
+            session.setAttribute("carrito", carrito);
+        }
+
+        return "redirect:/ver";
+    }
+
+
+
 
 
 }

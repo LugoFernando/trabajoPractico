@@ -63,4 +63,12 @@ public class CarritoRepositorioImpl implements CarritoRepositorio {
         sessionFactory.getCurrentSession().saveOrUpdate(carrito);
     }
 
+    @Override
+    @Transactional
+    public void eliminarCarritoDeLaBD(Carrito carrito){
+        sessionFactory.getCurrentSession().delete(carrito);
+    }
+
+
+
 }
