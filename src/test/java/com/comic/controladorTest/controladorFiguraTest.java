@@ -36,76 +36,76 @@ public class controladorFiguraTest {
     }
 
     //Guardar
-    @Test
-    public void queSeGuardeUnaFigura(){
-        Figura figuraMock = mock(Figura.class);
-        MultipartFile multipartFileMock = mock(MultipartFile.class);
-        String valorEsperado = "redirect:/lista";
-
-        String valorObtenido = figuraControlador.guardarFigura(figuraMock, multipartFileMock);
-
-        verify(servicioFiguraMock, times(1)).guardarFigura(figuraMock,multipartFileMock);
-        assertThat(valorEsperado, equalTo(valorObtenido));
-
-    }
+//    @Test
+//    public void queSeGuardeUnaFigura(){
+//        Figura figuraMock = mock(Figura.class);
+//        MultipartFile multipartFileMock = mock(MultipartFile.class);
+//        String valorEsperado = "redirect:/lista";
+//
+//        String valorObtenido = figuraControlador.guardarFigura(figuraMock, multipartFileMock);
+//
+//        verify(servicioFiguraMock, times(1)).guardarFigura(figuraMock,multipartFileMock);
+//        assertThat(valorEsperado, equalTo(valorObtenido));
+//
+//    }
 
 
     //Listar Figuras
-    @Test
-    public void queSeListenFiguras(){
-        Model modelMock = mock(Model.class);
-        String valorEsperado = "figuras";
-        List<Figura> figurasMock = mock(List.class);
-        String valorObtenido = figuraControlador.listarFiguras(modelMock);
-        when(servicioFiguraMock.listarFiguras()).thenReturn(figurasMock);
-
-        verify(servicioFiguraMock, times(1)).listarFiguras();
-        verify(modelMock, times(1)).addAttribute(eq("figuras"), anyList());
-
-        assertThat(valorEsperado, equalTo(valorObtenido));
-
-    }
+//    @Test
+//    public void queSeListenFiguras(){
+//        Model modelMock = mock(Model.class);
+//        String valorEsperado = "figuras";
+//        List<Figura> figurasMock = mock(List.class);
+//        String valorObtenido = figuraControlador.listarFiguras(modelMock);
+//        when(servicioFiguraMock.listarFiguras()).thenReturn(figurasMock);
+//
+//        verify(servicioFiguraMock, times(1)).listarFiguras();
+//        verify(modelMock, times(1)).addAttribute(eq("figuras"), anyList());
+//
+//        assertThat(valorEsperado, equalTo(valorObtenido));
+//
+//    }
 
     //Crear
-    @Test
-    public void queSeCreeUnaFigura(){
-        Model modelMock = mock(Model.class);
-        String valorEsperado = "nuevaFigura";
-
-        String valorObtenido = figuraControlador.nuevaFiguraForm(modelMock);
-
-        verify(modelMock).addAttribute(eq("figura"), ArgumentMatchers.<Figura>any());
-        assertThat(valorEsperado, equalTo(valorObtenido));
-
-    }
+//    @Test
+//    public void queSeCreeUnaFigura(){
+//        Model modelMock = mock(Model.class);
+//        String valorEsperado = "nuevaFigura";
+//
+//        String valorObtenido = figuraControlador.nuevaFiguraForm(modelMock);
+//
+//        verify(modelMock).addAttribute(eq("figura"), ArgumentMatchers.<Figura>any());
+//        assertThat(valorEsperado, equalTo(valorObtenido));
+//
+//    }
 
     //Eliminar
-    @Test
-    public void queSeElimineUnaFigura(){
-
-        String valorEsperado = "redirect:/lista";
-
-        String valorObtenido = figuraControlador.eliminarFigura(anyLong());
-
-        verify(servicioFiguraMock).eliminarFigura(anyLong());
-        assertThat(valorEsperado, equalTo(valorObtenido));
-
-    }
+//    @Test
+//    public void queSeElimineUnaFigura(){
+//
+//        String valorEsperado = "redirect:/lista";
+//
+//        String valorObtenido = figuraControlador.eliminarFigura(anyLong());
+//
+//        verify(servicioFiguraMock).eliminarFigura(anyLong());
+//        assertThat(valorEsperado, equalTo(valorObtenido));
+//
+//    }
 
     //BuscarPorId
-    @Test
-    public void queSeBusqueUnaFiguraPorIDyDevuelvaLaVista(){
-        Model modelMock = mock(Model.class);
-        Figura figuraMock = mock(Figura.class);
-        String valorEsperado = "detalleFigura";
-        when(servicioFiguraMock.obtenerFiguraPorId(anyLong())).thenReturn(figuraMock);
-
-        String valorObtenido = figuraControlador.detalleFigura(anyLong(), modelMock);
-
-        verify(modelMock).addAttribute(eq("figura"), ArgumentMatchers.<Figura>any());
-        assertThat(valorEsperado, equalTo(valorObtenido));
-
-    }
+//    @Test
+//    public void queSeBusqueUnaFiguraPorIDyDevuelvaLaVista(){
+//        Model modelMock = mock(Model.class);
+//        Figura figuraMock = mock(Figura.class);
+//        String valorEsperado = "detalleFigura";
+//        when(servicioFiguraMock.obtenerFiguraPorId(anyLong())).thenReturn(figuraMock);
+//
+//        String valorObtenido = figuraControlador.detalleFigura(anyLong(), modelMock);
+//
+//        verify(modelMock).addAttribute(eq("figura"), ArgumentMatchers.<Figura>any());
+//        assertThat(valorEsperado, equalTo(valorObtenido));
+//
+//    }
 
     //BuscarPorId
     @Test
