@@ -128,26 +128,55 @@ public class ControladorCarrito {
         return new ModelAndView("redirect:/ver");
     }
 
-    @PostMapping("/pagar")
-    public ModelAndView terminarCompra(HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        if (usuario == null) {
-            return new ModelAndView("redirect:/login");
-        }
 
-        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-        Carrito carrito = usuarioBaseDatos.getCarrito();
-
-        if (carrito != null) {
-            compraServicio.guardarCompra(usuarioBaseDatos);
-            carrito.vaciarCarrito();
-            usuarioBaseDatos.setCarrito(carrito);
-
-            servicioLogin.modificarUsuario2(usuarioBaseDatos);
-            session.setAttribute("carrito", carrito);
-        }
-
-        return new ModelAndView("redirect:/home");
+//    @PostMapping("/pagar")
+//    public String terminarCompra(HttpSession session) {
+//        Usuario usuario = (Usuario) session.getAttribute("usuario");
+//        if (usuario == null) {
+//            return "redirect:/login";
+//        }
+//        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+//        Carrito carrito = usuarioBaseDatos.getCarrito();
+//
+//        if (carrito != null) {
+//
+//            compraServicio.guardarCompra(usuarioBaseDatos);
+//            carrito.vaciarCarrito();
+//            usuarioBaseDatos.setCarrito(carrito);
+//
+//            servicioLogin.modificarUsuario2(usuarioBaseDatos);
+//            session.setAttribute("carrito", carrito);
+//        }
+//
+//        return "redirect:/home";
+//    }
+@PostMapping("/pagar")
+public ModelAndView terminarCompra(HttpSession session) {
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    if (usuario == null) {
+        return new ModelAndView("redirect:/login");
     }
+
+    Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+    Carrito carrito = usuarioBaseDatos.getCarrito();
+
+    if (carrito != null) {
+        compraServicio.guardarCompra(usuarioBaseDatos);
+        carrito.vaciarCarrito();
+        usuarioBaseDatos.setCarrito(carrito);
+
+        servicioLogin.modificarUsuario2(usuarioBaseDatos);
+        session.setAttribute("carrito", carrito);
+    }
+
+    // Redirige a la vista "home"
+    return new ModelAndView("redirect:/home");
+}
+
+
+
+
+
+
 
 }
