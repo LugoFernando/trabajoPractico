@@ -17,12 +17,17 @@ public class HibernateTestConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/prueba");
         dataSource.setUsername("root");
         dataSource.setPassword("123456");
+//        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+//        dataSource.setUrl("jdbc:hsqldb:mem:db_");
+//        dataSource.setUsername("sa");
+//        dataSource.setPassword("");
         return dataSource;
     }
+
 
     @Bean
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
@@ -43,8 +48,8 @@ public class HibernateTestConfig {
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-//        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+//        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.hbm2ddl.auto", "create");
         return properties;
     }
 }
