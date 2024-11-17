@@ -3,7 +3,6 @@ package com.comic.controlador;
 import com.comic.entidades.Carrito;
 import com.comic.entidades.Dto.Compra;
 import com.comic.entidades.Figura;
-import com.comic.entidades.Pedido;
 import com.comic.entidades.Usuario;
 import com.comic.servicios.CarritoServicio;
 import com.comic.servicios.CompraServicio;
@@ -11,7 +10,6 @@ import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -78,6 +76,9 @@ public class ControladorCarrito {
         if (carrito == null) {
             carrito = new Carrito(usuario);
         }
+
+        //TODO : son unos giles
+        //List<Compra> compras = compraServicio.listarlasCompras();
 
         ModelAndView modelAndView = new ModelAndView("carrito");
         modelAndView.addObject("pedidos", carrito.getPedidos());
