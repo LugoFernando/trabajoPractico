@@ -167,9 +167,10 @@ public ModelAndView terminarCompra(HttpSession session) {
         compraServicio.guardarCompra(usuarioBaseDatos);
         carrito.vaciarCarrito();
         usuarioBaseDatos.setCarrito(carrito);
-
+        //problema detectado aca borra el id asociado
         servicioLogin.modificarUsuario2(usuarioBaseDatos);
         session.setAttribute("carrito", carrito);
+
     }
 
     // Redirige a la vista "home"

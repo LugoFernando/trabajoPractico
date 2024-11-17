@@ -50,6 +50,11 @@ public class ServicioLoginImpl implements ServicioLogin {
     }
 
     @Override
+    public void modificarUsuario3(Usuario usuario) {
+
+    }
+
+    @Override
     public void modificarCarrito(Usuario usuario){
         Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario.getEmail(), usuario.getPassword());
         usuarioEncontrado.setCarrito(usuario.getCarrito());
