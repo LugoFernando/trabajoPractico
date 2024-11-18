@@ -38,6 +38,17 @@
 <!--            <version>${spring.version}</version> &lt;!&ndash; Asegúrate de que tu versión sea la correcta &ndash;&gt;-->
 <!--        </dependency>-->
 
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -145,9 +156,6 @@
 
     <build>
 
-
-
-
         <plugins>
 
             <plugin>
@@ -159,7 +167,6 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-
 
 
             <plugin>
