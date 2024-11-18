@@ -4,10 +4,7 @@ import com.comic.entidades.Carrito;
 import com.comic.entidades.Dto.Compra;
 import com.comic.entidades.Figura;
 import com.comic.entidades.Usuario;
-import com.comic.servicios.CarritoServicio;
-import com.comic.servicios.CompraServicio;
-import com.comic.servicios.FiguraServicio;
-import com.comic.servicios.ServicioLogin;
+import com.comic.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +24,18 @@ public class ControladorCarrito {
     private FiguraServicio figuraServicio;
     private CompraServicio compraServicio;
     private CarritoServicio carritoServicio;
+    private EmailServicio emailServicio;
+
+
 
     @Autowired
-    public ControladorCarrito(ServicioLogin servicioLogin , FiguraServicio figuraServicio , CompraServicio compraServicio , CarritoServicio carritoServicio) {
+    public ControladorCarrito(ServicioLogin servicioLogin , FiguraServicio figuraServicio , CompraServicio compraServicio , CarritoServicio carritoServicio, EmailServicio emailServicio) {
         this.servicioLogin =servicioLogin;
         this.figuraServicio=figuraServicio;
         this.compraServicio=compraServicio;
         this.carritoServicio=carritoServicio;
+        this.emailServicio=emailServicio;
+
     }
 
 
@@ -155,7 +158,7 @@ public class ControladorCarrito {
 //        return "redirect:/home";
 //    }
 @PostMapping("/pagar")
-public ModelAndView terminarCompra(HttpSession session) {
+public ModelAndView terminarCompra(HttpSession session) throws IOException {
     Usuario usuario = (Usuario) session.getAttribute("usuario");
     if (usuario == null) {
         return new ModelAndView("redirect:/login");
@@ -171,6 +174,7 @@ public ModelAndView terminarCompra(HttpSession session) {
 
         servicioLogin.modificarUsuario2(usuarioBaseDatos);
         session.setAttribute("carrito", carrito);
+        emailServicio.mandarEmail();
     }
 
     // Redirige a la vista "home"
