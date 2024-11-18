@@ -80,30 +80,6 @@
 </div>
 
 
-<!-- Sección de Productos destacados -->
-<!--<div class="container my-5">
-    <h2 class="text-center mb-4">Figuras que coinciden con tus preferencias</h2>
-    <div class="row">
-        <div th:if="${figurasFiltradas != null && !figurasFiltradas.isEmpty()}">
-            <div th:each="figura : ${figurasFiltradas}" class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}" class="card-img-top" alt="Imagen de Figura">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${figura.nombre}">Nombre de Figura</h5>
-                        <p class="card-text" th:text="${figura.descripcion}">Descripción de Figura</p>
-                        <p class="card-text" th:text="${figura.precio} + ' $'">Precio de Figura</p>
-                        <a class="btn btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div th:if="${figurasFiltradas == null || figurasFiltradas.isEmpty()}">
-            <p class="text-center">No hay figuras que coincidan con tus preferencias en este momento.</p>
-        </div>
-    </div>
-</div>-->
-
-
 <!-- Sección de Productos destacados en Carrusel -->
 <div class="container my-5">
     <h3 class="text-center mb-4">Figuras que coinciden con tus preferencias</h3>
@@ -148,7 +124,6 @@
 </div>
 
 
-
 <!-- Sección de Productos por compra-->
 <div class="container my-5">
     <h2 class="text-center mb-4">Figuras relacionadas con tus compras</h2>
@@ -170,7 +145,9 @@
             <p class="text-center">no hay figuras recomendadas segun tus compras.</p>
         </div>
     </div>
-</div>
+</div></div>
+
+
 
 
 <!-- Pie de Página -->
