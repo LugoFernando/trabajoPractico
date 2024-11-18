@@ -66,7 +66,11 @@ public class FiguraControlador {
 
     // mostrar una figura específica por id
     @GetMapping("/detalle/{id}")
+<<<<<<< HEAD
     public ModelAndView detalleFigura(@PathVariable Long id) {
+=======
+    public String detalleFigura(@PathVariable Long id, Model model) {
+>>>>>>> 7095581c6f8fceadea0e2ff0feeaae72c25b07b3
         Figura figura = figuraServicio.obtenerFiguraPorId(id);
         ModelAndView modelAndView = new ModelAndView("detalleFigura"); // Asigna la vista "detalleFigura"
         modelAndView.addObject("figura", figura); // Añade el objeto figura al modelo
@@ -134,14 +138,6 @@ public class FiguraControlador {
 
         return new ModelAndView("listaDeProducto");
     }
-
-
-
-
-
-
-
-
 
 
 }

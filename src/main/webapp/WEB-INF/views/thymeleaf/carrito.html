@@ -44,6 +44,10 @@
 
     <!-- Botones para seguir comprando y vaciar carrito -->
     <div class="d-flex justify-content-center mt-4">
+            <a th:href="@{/checkOut}" class="btn btn-primary">Proceder al Pago con Mercado Pago</a>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
         <a class="btn btn-secondary mx-2" th:href="@{/listaDeProducto}">Seguir Comprando</a>
 
         <form th:action="@{/vaciar}" method="post" class="mx-2">
@@ -60,5 +64,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 </body>
 </html>
