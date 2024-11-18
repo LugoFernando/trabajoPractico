@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalle de Compra</title>
+</head>
+<body>
+<h1>Detalle de Compra</h1>
+
+<h2>Compra ID: <span th:text="${compra.id}"></span></h2>
+<!--<h3>Usuario: <span th:text="${compra.usuario.nombre}"></span></h3>-->
+<h3>Precio Total: $<span th:text="${precioTotal}"></span></h3>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Figura</th>
+        <th>Cantidad</th>
+        <th>Precio Unitario</th>
+        <th>Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pedido : ${pedidoCarritos}">
+        <td th:text="${pedido.figura.nombre}"></td>
+        <td th:text="${pedido.cantidad}"></td>
+        <td th:text="${pedido.figura.precio}"></td>
+        <td th:text="${pedido.figura.precio * pedido.cantidad}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/compras}">Volver a Lista de Compras</a>
+</body>
+</html>

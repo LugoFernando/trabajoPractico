@@ -53,6 +53,11 @@ public class CompraServicioImp implements CompraServicio {
         compraRepositorio.guardar(compraNueva);
     }
 
+    @Override
+    public Compra buscarCompraPorId(Long id){
+        return compraRepositorio.buscarCompraPorId(id);
+    }
+
 
 
 }

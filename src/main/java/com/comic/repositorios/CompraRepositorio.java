@@ -12,4 +12,7 @@ public interface CompraRepositorio {
 
     @Transactional
     void guardar(Compra compra);
+
+    @Transactional
+    Compra buscarCompraPorId(Long id);
 }

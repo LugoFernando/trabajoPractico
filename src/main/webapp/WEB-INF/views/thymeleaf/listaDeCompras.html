@@ -51,6 +51,9 @@
                  <!-- Asegúrate de tener este campo en tu entidad -->
                 <td th:text="${compra.cantidad}">0</td>
                 <td th:text="${compra.precioTotal} + ' $'">0.00 $</td>
+                <td>
+                    <a th:href="@{/compras/detalle/{id}(id=${compra.id})}">Ver Detalle</a>
+                </td>
             </tr>
             </tbody>
         </table>

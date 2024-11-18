@@ -35,5 +35,14 @@ public class CompraRepositorioImpl implements CompraRepositorio {
         session.save(compra);
     }
 
+    @Override
+    @Transactional
+    public Compra buscarCompraPorId(Long id) {
+        return (Compra) sessionFactory.getCurrentSession()
+                .createQuery("FROM Compra c WHERE c.id = :id")
+                .setParameter("id", id)
+                .uniqueResult();
+    }
+
 
 }
