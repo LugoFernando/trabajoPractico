@@ -19,6 +19,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Precio</th>
+                <th scope="col">Imagen</th>
                 <th scope="col">Acciones</th> <!-- Columna para el botón de eliminar -->
             </tr>
             </thead>
@@ -28,6 +29,9 @@
                 <td th:text="${pedidoCarrito.figura.nombre}">Nombre de la Figura</td>
                 <td th:text="${pedidoCarrito.figura.descripcion}">Descripción de la Figura</td>
                 <td th:text="${pedidoCarrito.figura.precio}">Precio de la Figura</td>
+                <td>
+                    <img th:src="'data:image/png;base64,' + ${pedidoCarrito.figura.cadena()}" alt="Foto" width="100" class="img-thumbnail">
+                </td>
                 <td>
                     <!-- Botón de eliminar -->
                     <form th:action="@{'/eliminar/' + ${pedidoCarrito.figura.id}}" method="post" style="display:inline;">

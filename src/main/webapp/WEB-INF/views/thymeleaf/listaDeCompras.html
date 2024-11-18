@@ -52,7 +52,7 @@
                 <td th:text="${compra.cantidad}">0</td>
                 <td th:text="${compra.precioTotal} + ' $'">0.00 $</td>
                 <td>
-                    <a th:href="@{/compras/detalle/{id}(id=${compra.id})}">Ver Detalle</a>
+                    <a th:href="@{/compras/detalle/{id}(id=${compra.id})}" class="btn btn-success">Ver Detalle</a>
                 </td>
             </tr>
             </tbody>

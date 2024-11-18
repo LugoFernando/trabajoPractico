@@ -102,22 +102,28 @@
         </div>
     </div>
 </div>-->
+
+
 <!-- Sección de Productos destacados en Carrusel -->
 <div class="container my-5">
-    <h2 class="text-center mb-4">Figuras que coinciden con tus preferencias</h2>
+    <h3 class="text-center mb-4">Figuras que coinciden con tus preferencias</h3>
     <div th:if="${figurasFiltradas != null && !figurasFiltradas.isEmpty()}">
         <div id="carouselFiguras" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div th:each="figura, iterStat : ${figurasFiltradas}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
                     <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-8">
-                            <div class="card">
-                                <img th:src="'data:image/png;base64,' + ${figura.cadena()}" class="card-img-top" alt="Imagen de Figura">
-                                <div class="card-body">
-                                    <h5 class="card-title" th:text="${figura.nombre}">Nombre de Figura</h5>
-                                    <p class="card-text" th:text="${figura.descripcion}">Descripción de Figura</p>
-                                    <p class="card-text" th:text="${figura.precio} + ' $'">Precio de Figura</p>
-                                    <a class="btn btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
+                        <div class="col-lg-5 col-md-7">
+                            <div class="card shadow-sm" style="height: 100%; width: 100%;">
+                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 250px; overflow: hidden;">
+                                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}"
+                                         alt="Imagen de Figura"
+                                         style="max-width: 100%; max-height: 100%; object-fit: contain; object-position: center;">
+                                </div>
+                                <div class="card-body p-4">
+                                    <h5 class="card-title text-truncate" th:text="${figura.nombre}">Nombre de Figura</h5>
+                                    <p class="card-text small text-muted text-truncate" th:text="${figura.descripcion}">Descripción de Figura</p>
+                                    <p class="card-text fw-bold" th:text="${figura.precio} + ' $'">Precio</p>
+                                    <a class="btn btn-lg btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
                                 </div>
                             </div>
                         </div>
@@ -140,6 +146,8 @@
         <p class="text-center">No hay figuras que coincidan con tus preferencias en este momento.</p>
     </div>
 </div>
+
+
 
 <!-- Sección de Productos por compra-->
 <div class="container my-5">
