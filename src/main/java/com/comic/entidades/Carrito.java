@@ -12,18 +12,18 @@ public class Carrito {
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Pedido> pedidos = new ArrayList<>();
+    private List<PedidoCarrito> pedidoCarritos = new ArrayList<>();
 
     private double total;
 
     public Carrito() {
-        this.pedidos = new ArrayList<>();
+        this.pedidoCarritos = new ArrayList<>();
         this.total = 0.0;
     }
 
     // Constructor con parámetros
     public Carrito(Usuario usuario) {
-        this.pedidos = new ArrayList<>();
+        this.pedidoCarritos = new ArrayList<>();
         this.total = 0.0;
     }
 
@@ -40,9 +40,9 @@ public class Carrito {
 
         boolean encontro = false;
 
-        for (Pedido pedido : pedidos) {
-            if (pedido.getFigura() == figura) {
-                pedido.setCantidad(pedido.getCantidad() + 1);
+        for (PedidoCarrito pedidoCarrito : pedidoCarritos) {
+            if (pedidoCarrito.getFigura() == figura) {
+                pedidoCarrito.setCantidad(pedidoCarrito.getCantidad() + 1);
 
                 encontro = true;
 
@@ -51,39 +51,39 @@ public class Carrito {
         }
 
         if (!encontro) {
-            pedidos.add(new Pedido(figura, 1));
+            pedidoCarritos.add(new PedidoCarrito(figura, 1));
         }
         this.total += figura.getPrecio();
     }
 
     // Método para vaciar el carrito
     public void vaciarCarrito() {
-        this.pedidos.clear();
+        this.pedidoCarritos.clear();
         this.total = 0.0;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
+    public List<PedidoCarrito> getPedidos() {
+        return pedidoCarritos;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    public void setPedidos(List<PedidoCarrito> pedidoCarritos) {
+        this.pedidoCarritos = pedidoCarritos;
     }
 
     public void eliminarFigura(Figura figura) {
-        Pedido pedidoAEliminar = null;
+        PedidoCarrito pedidoCarritoAEliminar = null;
 
-        for (Pedido pedido : pedidos) {
-            if (pedido.getFigura().equals(figura)) {
+        for (PedidoCarrito pedidoCarrito : pedidoCarritos) {
+            if (pedidoCarrito.getFigura().equals(figura)) {
                 // Resta el precio
-                this.total -= pedido.getFigura().getPrecio() * pedido.getCantidad();
-                pedidoAEliminar = pedido;
+                this.total -= pedidoCarrito.getFigura().getPrecio() * pedidoCarrito.getCantidad();
+                pedidoCarritoAEliminar = pedidoCarrito;
                 break;
             }
         }
 
-        if (pedidoAEliminar != null) {
-            pedidos.remove(pedidoAEliminar);
+        if (pedidoCarritoAEliminar != null) {
+            pedidoCarritos.remove(pedidoCarritoAEliminar);
         }
     }
 

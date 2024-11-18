@@ -24,13 +24,13 @@
             </thead>
             <tbody>
             <!-- Itera a través de las figuras del carrito -->
-            <tr th:each="pedido : ${pedidos}">
-                <td th:text="${pedido.figura.nombre}">Nombre de la Figura</td>
-                <td th:text="${pedido.figura.descripcion}">Descripción de la Figura</td>
-                <td th:text="${pedido.figura.precio}">Precio de la Figura</td>
+            <tr th:each="pedidoCarrito : ${pedidos}">
+                <td th:text="${pedidoCarrito.figura.nombre}">Nombre de la Figura</td>
+                <td th:text="${pedidoCarrito.figura.descripcion}">Descripción de la Figura</td>
+                <td th:text="${pedidoCarrito.figura.precio}">Precio de la Figura</td>
                 <td>
                     <!-- Botón de eliminar -->
-                    <form th:action="@{'/eliminar/' + ${pedido.figura.id}}" method="post" style="display:inline;">
+                    <form th:action="@{'/eliminar/' + ${pedidoCarrito.figura.id}}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
                 </td>
