@@ -15,7 +15,7 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PedidoCompra> pedidoCarritos = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -2,6 +2,7 @@ package com.comic.repositorios.implementacion;
 
 import com.comic.entidades.Dto.Compra;
 import com.comic.repositorios.CompraRepositorio;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ public class CompraRepositorioImpl implements CompraRepositorio {
     public List<Compra> buscarTodasLasCompras() {
         String hql = "SELECT c FROM Compra c";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        List<Compra> resultList =  (List<Compra>)query.getResultList();
+
+        for (Compra o : resultList) {
+            Hibernate.initialize(o.getListaDePedidosAcomprar());
+        }
+
         return query.getResultList();
     }
 

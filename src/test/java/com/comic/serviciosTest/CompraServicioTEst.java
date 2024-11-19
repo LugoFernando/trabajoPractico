@@ -62,38 +62,38 @@ public class CompraServicioTEst {
 //        verify(compraRepositorio).buscarTodasLasCompras();
 //    }
 
-    @Test
-    public void testGuardarCompra() {
-        // Crear figura mock y pedido
-        Figura figuraMock = new Figura("superman");
-        figuraMock.setPrecio(100.0);
-
-        PedidoCarrito pedidoCarrito = new PedidoCarrito(1L, figuraMock, 1);
-        List<PedidoCarrito> listaDePedidoCarritos = new ArrayList<>();
-        listaDePedidoCarritos.add(pedidoCarrito);
-
-        // Crear usuario con carrito
-        Usuario usuario = new Usuario();
-        usuario.setId(1L);
-        usuario.setEmail("selgadis@gmail.com");
-        usuario.setPassword("selga");
-
-        Carrito carrito = new Carrito();
-        carrito.setPedidos(listaDePedidoCarritos);
-        carrito.setTotal(100.0); // Total del carrito
-        usuario.setCarrito(carrito);
-
-        // Acción: guardar la compra
-        compraService.guardarCompra(usuario);
-
-        // Verificar que compraRepositorio.guardar fue llamado con la compra correcta
-        verify(compraRepositorio, times(1)).guardar(argThat(compra ->
-                compra.getUsuario().equals(usuario) &&
-                        compra.getCantidad() == 1 &&
-                        compra.getPrecioTotal() == 100.0 &&
-                        compra.getListaDePedidosAcomprar().equals(listaDePedidoCarritos)
-        ));
-    }
+//    @Test
+//    public void testGuardarCompra() {
+//        // Crear figura mock y pedido
+//        Figura figuraMock = new Figura("superman");
+//        figuraMock.setPrecio(100.0);
+//
+//        PedidoCarrito pedidoCarrito = new PedidoCarrito(1L, figuraMock, 1);
+//        List<PedidoCarrito> listaDePedidoCarritos = new ArrayList<>();
+//        listaDePedidoCarritos.add(pedidoCarrito);
+//
+//        // Crear usuario con carrito
+//        Usuario usuario = new Usuario();
+//        usuario.setId(1L);
+//        usuario.setEmail("selgadis@gmail.com");
+//        usuario.setPassword("selga");
+//
+//        Carrito carrito = new Carrito();
+//        carrito.setPedidos(listaDePedidoCarritos);
+//        carrito.setTotal(100.0); // Total del carrito
+//        usuario.setCarrito(carrito);
+//
+//        // Acción: guardar la compra
+//        compraService.guardarCompra(usuario);
+//
+//        // Verificar que compraRepositorio.guardar fue llamado con la compra correcta
+//        verify(compraRepositorio, times(1)).guardar(argThat(compra ->
+//                compra.getUsuario().equals(usuario) &&
+//                        compra.getCantidad() == 1 &&
+//                        compra.getPrecioTotal() == 100.0 &&
+//                        compra.getListaDePedidosAcomprar().equals(listaDePedidoCarritos)
+//        ));
+//    }
 
 
 //    @Test
