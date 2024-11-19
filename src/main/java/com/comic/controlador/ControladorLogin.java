@@ -204,26 +204,7 @@ public class ControladorLogin {
     }
 
 
-//    @RequestMapping(path = "/home", method = RequestMethod.GET)
-//    public ModelAndView irAHome(HttpServletRequest request) {
-//        List<Figura>listaDeFiguras=figuraServicio.listarFiguras();
-//        List<Figura>figurasCoincidenConPreferenciasUsuario=new ArrayList<>();
-//        ModelMap modelo = new ModelMap();
-//        HttpSession session = request.getSession();
-//        Usuario datosUsuario=(Usuario)session.getAttribute("usuario");
-//        if (datosUsuario != null) {
-//            List<Preferencias> preferenciasUsuario = datosUsuario.getPreferenciasList();
-//
-//            figurasCoincidenConPreferenciasUsuario = listaDeFiguras.stream()
-//                    .filter(figura -> figura.getPreferenciasList().stream()
-//                            .anyMatch(preferenciasUsuario::contains))
-//                    .collect(Collectors.toList()); // busca en la lista completa de figuras coincidencias en base a las preferencias
-//        }
-//
-//
-//        modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
-//        return new ModelAndView("home2",modelo);
-//    }
+
 
 
 

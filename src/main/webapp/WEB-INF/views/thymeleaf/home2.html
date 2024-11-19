@@ -12,63 +12,8 @@
 <body>
 <!-- Barra de Navegación -->
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Tienda de Figuras</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+<header th:replace="layout :: header"></header>
 
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/listaDeProducto}">Productos</a>
-                    </li>
-
-                    <!-- Opciones condicionales: si el cliente ha iniciado sesión -->
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" th:href="@{/compras}">Mis compras</a>
-                    </li>
-
-<!--                    <li class="nav-item" th:if="${session.usuario != null}">-->
-<!--                        <a class="nav-link" href="/mis-ventas">Mis ventas</a>-->
-<!--                    </li>-->
-
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" th:href="@{/lista}">Mis publicaciones</a>
-                    </li>
-
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" th:href="@{/cuenta}">Mi cuenta</a>
-                    </li>
-
-                    <!-- Opciones de iniciar/cerrar sesión -->
-
-                    <li class="nav-item" th:if="${session.usuario == null}">
-                        <a class="nav-link" th:href="@{/}">Iniciar sesión</a>
-                    </li>
-                    <li class="nav-item" th:if="${session.usuario == null}">
-                        <a class="nav-link" th:href="@{/registrar}">Registrarme</a>
-                    </li>
-
-                    <li class="nav-item" th:if="${session.usuario != null}">
-<!--                       <a class="nav-link" href="/logout">Cerrar sesión</a>-->
-                        <a th:href="@{/logout}" class="nav-link">Cerrar sesión</a>
-                    </li>
-
-                    <!-- Carrito -->
-
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" href="#" th:href="@{/ver}">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 
 <!-- Banner Principal -->
 <div class="container my-5">
@@ -166,6 +111,7 @@
         <p class="text-center">No hay figuras recomendadas según tus compras.</p>
     </div>
 </div>
+
 
 
 
