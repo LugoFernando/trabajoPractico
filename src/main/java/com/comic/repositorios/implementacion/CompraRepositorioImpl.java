@@ -44,10 +44,18 @@ public class CompraRepositorioImpl implements CompraRepositorio {
     @Override
     @Transactional
     public Compra buscarCompraPorId(Long id) {
-        return (Compra) sessionFactory.getCurrentSession()
+        // Realizar la consulta para obtener la compra
+        Compra compra = (Compra) sessionFactory.getCurrentSession()
                 .createQuery("FROM Compra c WHERE c.id = :id")
                 .setParameter("id", id)
                 .uniqueResult();
+
+        // Inicializar la colección de pedidos si la compra no es nula
+        if (compra != null) {
+            Hibernate.initialize(compra.getListaDePedidosAcomprar());
+        }
+
+        return compra;
     }
 
 
