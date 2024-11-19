@@ -4,8 +4,13 @@ import com.comic.entidades.Carrito;
 import com.comic.entidades.Usuario;
 import com.comic.repositorios.CarritoRepositorio;
 import com.comic.servicios.CarritoServicio;
+import com.comic.servicios.EmailServicio;
+import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.io.IOException;
 
 @Service
 public class CarritoServicioImpl implements CarritoServicio {
@@ -32,4 +37,6 @@ public class CarritoServicioImpl implements CarritoServicio {
         carritoRepositorio.modificarCarrito(carrito);
     }
 
+
     }
+

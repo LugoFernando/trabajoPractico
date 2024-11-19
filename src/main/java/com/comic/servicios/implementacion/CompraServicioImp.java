@@ -11,10 +11,12 @@ import com.comic.servicios.CompraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("CompraServicio")
+
 public class CompraServicioImp implements CompraServicio {
 
     private CompraRepositorio compraRepositorio;
