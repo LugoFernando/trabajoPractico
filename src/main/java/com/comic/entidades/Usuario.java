@@ -30,6 +30,11 @@ public class Usuario {
     @JoinColumn(name = "carrito_id")
     private Carrito carrito;
 
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "usuario_id")
+//    private List<Figura> listaFigura = new ArrayList<>();
+
+
     public Carrito getCarrito() {
         return carrito;
     }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalle de Compra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<header th:replace="layout :: header"></header>
+
+
+
+<div class="container mt-5">
+    <!-- Título principal -->
+    <div class="mb-4">
+        <h1 class="text-primary fw-bold fs-3">Detalle de Compra</h1>
+    </div>
+
+    <!-- Tarjeta con información de la compra -->
+    <div class="card shadow p-4 mb-4">
+        <h2>Compra Nro: <span th:text="${compra.id}"></span></h2>
+        <!--<h3>Usuario: <span th:text="${compra.usuario.nombre}"></span></h3>-->
+    </div>
+
+    <!-- Tabla centrada -->
+    <div class="d-flex justify-content-center my-4">
+        <table class="table table-striped table-bordered shadow w-75">
+            <thead class="table-dark">
+            <tr>
+                <th>Figura</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Imagen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pedido : ${pedidoCarritos}">
+                <td th:text="${pedido.figura.nombre}"></td>
+                <td th:text="${pedido.cantidad}"></td>
+                <td th:text="${pedido.figura.precio}"></td>
+                <td>
+                    <img th:src="'data:image/png;base64,' + ${pedido.figura.cadena()}" alt="Foto" width="100" class="img-thumbnail">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Precio total -->
+    <div class="text-center">
+        <h3 class="text-success fw-bold">Precio Total: $<span th:text="${precioTotal}"></span></h3>
+    </div>
+
+    <!-- Botón de regreso -->
+    <div class="text-center mt-4">
+        <a th:href="@{/compras}" class="btn btn-primary btn-lg">Volver a Lista de Compras</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

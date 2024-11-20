@@ -31,8 +31,7 @@ public class CompraRepositorioImpl implements CompraRepositorio {
         for (Compra o : resultList) {
             Hibernate.initialize(o.getListaDePedidosAcomprar());
         }
-
-        return query.getResultList();
+        return resultList;
     }
 
     @Override
@@ -40,6 +39,23 @@ public class CompraRepositorioImpl implements CompraRepositorio {
     public void guardar(Compra compra) {
         Session session = sessionFactory.getCurrentSession();
         session.save(compra);
+    }
+
+    @Override
+    @Transactional
+    public Compra buscarCompraPorId(Long id) {
+        // Realizar la consulta para obtener la compra
+        Compra compra = (Compra) sessionFactory.getCurrentSession()
+                .createQuery("FROM Compra c WHERE c.id = :id")
+                .setParameter("id", id)
+                .uniqueResult();
+
+        // Inicializar la colección de pedidos si la compra no es nula
+        if (compra != null) {
+            Hibernate.initialize(compra.getListaDePedidosAcomprar());
+        }
+
+        return compra;
     }
 
 

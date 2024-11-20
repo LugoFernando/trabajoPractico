@@ -197,6 +197,26 @@ public ModelAndView terminarCompra(HttpSession session) throws IOException {
         return new ModelAndView("listaDeCompras",map);
     }
 
+    @GetMapping("/compras/detalle/{id}")
+    public ModelAndView verDetalleCompra(@PathVariable Long id, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        Compra compra = compraServicio.buscarCompraPorId(id);
+
+        //  usuario logeado
+        if (compra == null || !compra.getUsuario().getId().equals(usuario.getId())) {
+            return new ModelAndView("error", new ModelMap("mensaje", "No tienes acceso a esta compra."));
+        }
+
+        // Preparar los datos para la vista
+        ModelMap map = new ModelMap();
+        map.put("compra", compra);
+        map.put("pedidoCarritos", compra.getListaDePedidosAcomprar());
+        map.put("precioTotal", compra.getPrecioTotal());
+
+        return new ModelAndView("detalleCompra", map);
+    }
+
 
 
 
