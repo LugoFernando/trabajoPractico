@@ -42,7 +42,7 @@
     <!-- Muestra el total del carrito -->
     <h3 class="mt-4">Total: $<span th:text="${total}">0.00</span></h3>
 
-    <!-- Botones para seguir comprando y vaciar carrito -->
+    <!-- Botones para seguir comprando, vaciar carrito y pagar -->
     <div class="d-flex justify-content-center mt-4">
         <a class="btn btn-secondary mx-2" th:href="@{/listaDeProducto}">Seguir Comprando</a>
 
@@ -50,9 +50,29 @@
             <button type="submit" class="btn btn-danger">Vaciar Carrito</button>
         </form>
 
-        <form th:action="@{/pagar}" method="post" class="mx-2">
-            <button type="submit" class="btn btn-danger">Pagar</button>
+        <form th:action="@{/pagar}" method="post" id="form-pagar" class="mx-2">
+            <button type="button" class="btn btn-danger" id="btn-pagar">Pagar</button>
         </form>
+    </div>
+</div>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmacionModalLabel">¡Compra Exitosa!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                La compra se realizó exitosamente. Puedes ver tus compras en "Mis compras" y te enviamos un comprobante a tu email.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmar-pago">Aceptar</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -60,5 +80,25 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script para el manejo del popup -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnPagar = document.getElementById("btn-pagar");
+        const formPagar = document.getElementById("form-pagar");
+        const confirmarPago = document.getElementById("confirmar-pago");
+
+        btnPagar.addEventListener("click", function () {
+            // Muestra el modal de confirmación
+            $("#confirmacionModal").modal("show");
+        });
+
+        confirmarPago.addEventListener("click", function () {
+            // Oculta el modal y envía el formulario
+            $("#confirmacionModal").modal("hide");
+            formPagar.submit();
+        });
+    });
+</script>
 </body>
 </html>
