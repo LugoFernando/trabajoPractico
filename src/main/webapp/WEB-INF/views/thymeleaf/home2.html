@@ -12,63 +12,8 @@
 <body>
 <!-- Barra de Navegación -->
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Tienda de Figuras</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+<header th:replace="layout :: header"></header>
 
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/listaDeProducto}">Productos</a>
-                    </li>
-
-                    <!-- Opciones condicionales: si el cliente ha iniciado sesión -->
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" th:href="@{/compras}">Mis compras</a>
-                    </li>
-
-<!--                    <li class="nav-item" th:if="${session.usuario != null}">-->
-<!--                        <a class="nav-link" href="/mis-ventas">Mis ventas</a>-->
-<!--                    </li>-->
-
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" th:href="@{/lista}">Mis publicaciones</a>
-                    </li>
-
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" th:href="@{/cuenta}">Mi cuenta</a>
-                    </li>
-
-                    <!-- Opciones de iniciar/cerrar sesión -->
-
-                    <li class="nav-item" th:if="${session.usuario == null}">
-                        <a class="nav-link" th:href="@{/}">Iniciar sesión</a>
-                    </li>
-                    <li class="nav-item" th:if="${session.usuario == null}">
-                        <a class="nav-link" th:href="@{/registrar}">Registrarme</a>
-                    </li>
-
-                    <li class="nav-item" th:if="${session.usuario != null}">
-<!--                       <a class="nav-link" href="/logout">Cerrar sesión</a>-->
-                        <a th:href="@{/logout}" class="nav-link">Cerrar sesión</a>
-                    </li>
-
-                    <!-- Carrito -->
-
-                    <li class="nav-item" th:if="${session.usuario != null}">
-                        <a class="nav-link" href="#" th:href="@{/ver}">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 
 <!-- Banner Principal -->
 <div class="container my-5">
@@ -80,44 +25,26 @@
 </div>
 
 
-<!-- Sección de Productos destacados -->
-<!--<div class="container my-5">
-    <h2 class="text-center mb-4">Figuras que coinciden con tus preferencias</h2>
-    <div class="row">
-        <div th:if="${figurasFiltradas != null && !figurasFiltradas.isEmpty()}">
-            <div th:each="figura : ${figurasFiltradas}" class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}" class="card-img-top" alt="Imagen de Figura">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${figura.nombre}">Nombre de Figura</h5>
-                        <p class="card-text" th:text="${figura.descripcion}">Descripción de Figura</p>
-                        <p class="card-text" th:text="${figura.precio} + ' $'">Precio de Figura</p>
-                        <a class="btn btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div th:if="${figurasFiltradas == null || figurasFiltradas.isEmpty()}">
-            <p class="text-center">No hay figuras que coincidan con tus preferencias en este momento.</p>
-        </div>
-    </div>
-</div>-->
 <!-- Sección de Productos destacados en Carrusel -->
 <div class="container my-5">
-    <h2 class="text-center mb-4">Figuras que coinciden con tus preferencias</h2>
+    <h3 class="text-center mb-4">Figuras que coinciden con tus preferencias</h3>
     <div th:if="${figurasFiltradas != null && !figurasFiltradas.isEmpty()}">
         <div id="carouselFiguras" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div th:each="figura, iterStat : ${figurasFiltradas}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
                     <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-8">
-                            <div class="card">
-                                <img th:src="'data:image/png;base64,' + ${figura.cadena()}" class="card-img-top" alt="Imagen de Figura">
-                                <div class="card-body">
-                                    <h5 class="card-title" th:text="${figura.nombre}">Nombre de Figura</h5>
-                                    <p class="card-text" th:text="${figura.descripcion}">Descripción de Figura</p>
-                                    <p class="card-text" th:text="${figura.precio} + ' $'">Precio de Figura</p>
-                                    <a class="btn btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
+                        <div class="col-lg-5 col-md-7">
+                            <div class="card shadow-sm" style="height: 100%; width: 100%;">
+                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 250px; overflow: hidden;">
+                                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}"
+                                         alt="Imagen de Figura"
+                                         style="max-width: 100%; max-height: 100%; object-fit: contain; object-position: center;">
+                                </div>
+                                <div class="card-body p-4">
+                                    <h5 class="card-title text-truncate" th:text="${figura.nombre}">Nombre de Figura</h5>
+                                    <p class="card-text small text-muted text-truncate" th:text="${figura.descripcion}">Descripción de Figura</p>
+                                    <p class="card-text fw-bold" th:text="${figura.precio} + ' $'">Precio</p>
+                                    <a class="btn btn-lg btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
                                 </div>
                             </div>
                         </div>
@@ -141,35 +68,60 @@
     </div>
 </div>
 
-<!-- Sección de Productos por compra-->
+
+
 <div class="container my-5">
     <h2 class="text-center mb-4">Figuras relacionadas con tus compras</h2>
-    <div class="row">
-        <div th:if="${figurasCoincidenConCompra != null && !figurasCoincidenConCompra.isEmpty()}">
-            <div th:each="figura : ${figurasCoincidenConCompra}" class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}" class="card-img-top" alt="Imagen de Figura">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${figura.nombre}">Nombre de Figura</h5>
-                        <p class="card-text" th:text="${figura.descripcion}">Descripción de Figura</p>
-                        <p class="card-text" th:text="${figura.precio} + ' $'">Precio de Figura</p>
-                        <a class="btn btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
+    <div th:if="${figurasCoincidenConCompra != null && !figurasCoincidenConCompra.isEmpty()}">
+        <div id="carouselCompras" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div th:each="figura, iterStat : ${figurasCoincidenConCompra}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-7">
+                            <div class="card shadow-sm" style="width: 100%; height: 100%;">
+                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 250px; overflow: hidden;">
+                                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}"
+                                         alt="Imagen de Figura"
+                                         style="max-width: 100%; max-height: 100%; object-fit: contain; object-position: center;">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title text-truncate" th:text="${figura.nombre}">Nombre de Figura</h5>
+                                    <p class="card-text small text-muted text-truncate" th:text="${figura.descripcion}">Descripción de Figura</p>
+                                    <p class="card-text fw-bold" th:text="${figura.precio} + ' $'">Precio</p>
+                                    <a class="btn btn-success w-100" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Controles del carrusel -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselCompras" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselCompras" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
         </div>
-        <div th:if="${figurasCoincidenConCompra == null || figurasCoincidenConCompra.isEmpty()}">
-            <p class="text-center">no hay figuras recomendadas segun tus compras.</p>
-        </div>
+    </div>
+    <div th:if="${figurasCoincidenConCompra == null || figurasCoincidenConCompra.isEmpty()}">
+        <p class="text-center">No hay figuras recomendadas según tus compras.</p>
     </div>
 </div>
 
 
-<!-- Pie de Página -->
-<footer class="bg-dark text-white text-center py-3">
-    <p>&copy; 2024 Tienda de Figuras. Todos los derechos reservados.</p>
-    <p><a href="#" class="text-white">Política de Privacidad</a> | <a href="#" class="text-white">Términos y Condiciones</a></p>
-</footer>
+
+<footer th:replace="layout :: footer"></footer>
+
+
+<!--&lt;!&ndash; Pie de Página &ndash;&gt;-->
+<!--<footer class="bg-dark text-white text-center py-3">-->
+<!--    <p>&copy; 2024 Tienda de Figuras. Todos los derechos reservados.</p>-->
+<!--    <p><a href="#" class="text-white">Política de Privacidad</a> | <a href="#" class="text-white">Términos y Condiciones</a></p>-->
+<!--</footer>-->
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>

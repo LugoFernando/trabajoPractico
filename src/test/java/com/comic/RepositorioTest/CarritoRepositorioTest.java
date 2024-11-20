@@ -21,8 +21,7 @@ import javax.transaction.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HibernateTestConfig.class})
@@ -109,5 +108,35 @@ public class CarritoRepositorioTest {
         assertNotNull(carritoModificado);
         assertEquals(200.0, carritoModificado.getTotal(), 0.01);
     }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void queElimineCarritoDeLaBD() {
+        Usuario usuario = new Usuario();
+        usuario.setEmail("usuario@test.com");
+        usuario.setPassword("password");
+
+        Carrito carrito = new Carrito();
+        usuario.setCarrito(carrito);
+
+        Session session = sessionFactory.getCurrentSession();
+        session.save(usuario);
+        session.flush();
+
+        Carrito carritoPersistido = session.get(Carrito.class, carrito.getId());
+        assertNotNull(carritoPersistido);
+
+        usuario.setCarrito(null);
+        session.update(usuario);
+        session.flush();
+
+        carritoRepositorio.eliminarCarritoDeLaBD(carrito);
+        session.flush();
+
+        Carrito carritoEliminado = session.get(Carrito.class, carrito.getId());
+        assertNull(carritoEliminado);
+    }
+
 
 }

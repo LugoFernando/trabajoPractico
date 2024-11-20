@@ -1,27 +1,52 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Enlace a Bootstrap -->
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+<header th:replace="layout :: header"></header>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Taller Web I</title>
-
-
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
-
-
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <!-- Opcional: Agregar un poco de estilo personalizado para centrar la tarjeta -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin-top: 50px; /* Para separar el contenido del encabezado fijo */
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #loginbox {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        #loginbox h3 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        #ir-a-login {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Tienda de Figuras</a>
-</nav>
 
 <main role="main" class="container">
-    <div class="container">
-        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="login-container">
+        <div id="loginbox">
             <form th:action="@{/registrarme}" method="POST" th:object="${nuevoUsuario}">
+                <h3>Registrarse</h3>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Ingrese su Email</label>
@@ -60,8 +85,6 @@
         </div>
     </div>
 </main>
-
-
 
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 </body>

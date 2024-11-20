@@ -11,4 +11,6 @@ public interface CompraServicio {
 
 
     void guardarCompra(Usuario usuario);
+
+    Compra buscarCompraPorId(Long id);
 }
