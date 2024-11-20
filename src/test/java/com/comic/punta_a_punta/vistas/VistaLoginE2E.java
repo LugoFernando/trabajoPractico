@@ -17,8 +17,8 @@ public class VistaLoginE2E {
     static void abrirNavegador() {
         playwright = Playwright.create();
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-                .setHeadless(false) // Cambiar a true si no necesitas interfaz gráfica
-                .setSlowMo(800)); // Ralentiza las acciones para observarlas
+                .setHeadless(false)
+                .setSlowMo(800));
     }
 
     @AfterAll
@@ -51,9 +51,7 @@ public class VistaLoginE2E {
         assertEquals("Error: Usuario o clave incorrecta", mensajeError);
     }
 
-    /**
-     * Prueba: Navegar al registro desde la página de login.
-     */
+
     @Test
     void testIrARegistro() {
 

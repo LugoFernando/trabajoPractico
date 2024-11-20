@@ -38,13 +38,12 @@ public class VistaRegistrarE2E {
 
     @Test
     void testRegistroConDatosValidos() {
-        // Actuar
+
         vistaRegistrar.escribirEmail("fer@gmail.com");
         vistaRegistrar.escribirPassword("123");
         vistaRegistrar.escribirConfirmPassword("123");
         vistaRegistrar.darClickEnRegistrarme();
 
-        // Assert: Verificar que redirige correctamente
         String urlActual = vistaRegistrar.obtenerURLActual();
         assertTrue(urlActual.contains("/login"));
     }
@@ -63,16 +62,16 @@ public class VistaRegistrarE2E {
 
     @Test
     void testRegistroConUsuarioExistente() {
-        // Actuar
+
         vistaRegistrar.escribirEmail("selgadis@gmail.com");  // Usuario ya registrado
         vistaRegistrar.escribirPassword("selga");
         vistaRegistrar.escribirConfirmPassword("selga");
         vistaRegistrar.darClickEnRegistrarme();
 
-        // Obtener el mensaje de error
+
         String mensajeError = vistaRegistrar.obtenerMensajeDeError();
 
-        // Assert: Verificar que el mensaje de error es el esperado
+
         assertEquals("Error El usuario ya existe", mensajeError);
     }
 
