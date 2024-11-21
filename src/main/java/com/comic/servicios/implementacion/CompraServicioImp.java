@@ -40,7 +40,6 @@ public class CompraServicioImp implements CompraServicio {
         Compra compraNueva = new Compra();
         Carrito nuevoCarrito = usuario.getCarrito();
 
-        //
         List<PedidoCompra> pedidoCompras = new ArrayList<>();
 
         for (PedidoCarrito pedidoA : nuevoCarrito.getPedidos()){

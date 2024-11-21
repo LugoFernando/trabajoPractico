@@ -73,18 +73,15 @@ public class FiguraServicioTest {
         Figura figuraMock = new Figura();
         figuraMock.setNombre("Ironman");
 
-        //creacion de multiparfile
         byte[] contenidoImagen = "imagen simulada".getBytes();
         MockMultipartFile mockImagen = new MockMultipartFile("imagen", "imagen.jpg", "image/jpeg", contenidoImagen);
 
-        //metodo
         figuraServicio.guardarFigura(figuraMock, mockImagen);
 
         // convertilo a byte
         byte[] imagenBase64Esperada = Base64.getEncoder().encode(contenidoImagen);
-        assertArrayEquals(imagenBase64Esperada, figuraMock.getImagen());
 
-        // verificacion
+        assertArrayEquals(imagenBase64Esperada, figuraMock.getImagen());
         verify(figuraRepositorio).guardar(figuraMock);
     }
 
@@ -98,7 +95,6 @@ public class FiguraServicioTest {
         String textoBusqueda = "Batman";
         when(this.figuraRepositorio.darUnaListaBuscandoUnaPalabra(textoBusqueda)).thenReturn(figurasMock);
 
-        // Ejecución
         List<Figura> figuras = this.figuraServicio.buscarSegunTexto(textoBusqueda);
 
         // verificacion
@@ -123,38 +119,29 @@ public class FiguraServicioTest {
 
     @Test
     public void QueSeActulizeLosDatosDeUnaFiguraGuardadaConImagen() throws IOException {
-        // mocks
         Figura figuraMock = new Figura();
         figuraMock.setNombre("Superman");
 
-        // crear un archivo multipar
         byte[] contenidoImagen = "imagen simulada".getBytes();
         MockMultipartFile mockImagen = new MockMultipartFile("imagen", "imagen.jpg", "image/jpeg", contenidoImagen);
 
-        // ejecucion
         figuraServicio.actualizar(figuraMock, mockImagen);
 
-        // convierte la imagen a Base64
         byte[] imagenBase64Esperada = Base64.getEncoder().encode(contenidoImagen);
-        assertArrayEquals(imagenBase64Esperada, figuraMock.getImagen());
 
-        // verificar que el repo se actulizo
+        assertArrayEquals(imagenBase64Esperada, figuraMock.getImagen());
         verify(figuraRepositorio).actualizarFigura(figuraMock);
     }
 
     @Test
     public void QueSeActulizeLosDatosDeUnaFiguraGuardadaSinCambiarLaImagen() {
-        //mock
+
         Figura figuraMock = new Figura();
         figuraMock.setNombre("Superman");
 
-        // ejecucion
         figuraServicio.actualizar(figuraMock, null);
 
-        // ver que no cambio la imagen
         assertNull(figuraMock.getImagen());
-
-        // verificacion del cambio
         verify(figuraRepositorio).actualizarFigura(figuraMock);
     }
 

@@ -42,24 +42,23 @@ public class ControladorCarrito {
 
     @PostMapping("/agregar/{id}")
     public ModelAndView agregarFigurasAlCarrito(@PathVariable Long id, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario"); // Verifica si el usuario está logueado
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
         if (usuario == null) {
-            return new ModelAndView("redirect:/login"); // Redirige al login si no está logueado
+            return new ModelAndView("redirect:/login");
         }
 
         Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-        Figura figura = figuraServicio.obtenerFiguraPorId(id); // Obtiene la figura
-
+        Figura figura = figuraServicio.obtenerFiguraPorId(id);
         Carrito carrito = usuarioBaseDatos.getCarrito();
         if (carrito == null) {
-            carrito = new Carrito(usuario); // Crea un nuevo carrito si no existe
+            carrito = new Carrito(usuario);
         }
 
-        carrito.agregarFigura(figura); // Agrega la figura al carrito
+        carrito.agregarFigura(figura);
         usuarioBaseDatos.setCarrito(carrito);
 
-        servicioLogin.modificarUsuario2(usuarioBaseDatos); // Actualiza el usuario en la base de datos
-        session.setAttribute("carrito", carrito); // Actualiza el carrito en la sesión
+        servicioLogin.modificarUsuario2(usuarioBaseDatos);
+        session.setAttribute("carrito", carrito);
         session.setAttribute("usuario", usuarioBaseDatos);
 
         return new ModelAndView("redirect:/ver");
@@ -79,9 +78,6 @@ public class ControladorCarrito {
         if (carrito == null) {
             carrito = new Carrito(usuario);
         }
-
-        //TODO : son unos giles
-        //List<Compra> compras = compraServicio.listarlasCompras();
 
         ModelAndView modelAndView = new ModelAndView("carrito");
         modelAndView.addObject("pedidos", carrito.getPedidos());
@@ -136,50 +132,29 @@ public class ControladorCarrito {
     }
 
 
-//    @PostMapping("/pagar")
-//    public String terminarCompra(HttpSession session) {
-//        Usuario usuario = (Usuario) session.getAttribute("usuario");
-//        if (usuario == null) {
-//            return "redirect:/login";
-//        }
-//        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-//        Carrito carrito = usuarioBaseDatos.getCarrito();
-//
-//        if (carrito != null) {
-//
-//            compraServicio.guardarCompra(usuarioBaseDatos);
-//            carrito.vaciarCarrito();
-//            usuarioBaseDatos.setCarrito(carrito);
-//
-//            servicioLogin.modificarUsuario2(usuarioBaseDatos);
-//            session.setAttribute("carrito", carrito);
-//        }
-//
-//        return "redirect:/home";
-//    }
-@PostMapping("/pagar")
-public ModelAndView terminarCompra(HttpSession session) throws IOException {
-    Usuario usuario = (Usuario) session.getAttribute("usuario");
-    if (usuario == null) {
-        return new ModelAndView("redirect:/login");
+
+    @PostMapping("/pagar")
+    public ModelAndView terminarCompra(HttpSession session) throws IOException {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
+        Carrito carrito = usuarioBaseDatos.getCarrito();
+
+        if (carrito != null) {
+            compraServicio.guardarCompra(usuarioBaseDatos);
+            carrito.vaciarCarrito();
+            usuarioBaseDatos.setCarrito(carrito);
+
+            servicioLogin.modificarUsuario2(usuarioBaseDatos);
+            session.setAttribute("carrito", carrito);
+            emailServicio.mandarEmail();
+        }
+
+        return new ModelAndView("redirect:/home");
     }
-
-    Usuario usuarioBaseDatos = servicioLogin.consultarUsuario(usuario.getEmail(), usuario.getPassword());
-    Carrito carrito = usuarioBaseDatos.getCarrito();
-
-    if (carrito != null) {
-        compraServicio.guardarCompra(usuarioBaseDatos);
-        carrito.vaciarCarrito();
-        usuarioBaseDatos.setCarrito(carrito);
-
-        servicioLogin.modificarUsuario2(usuarioBaseDatos);
-        session.setAttribute("carrito", carrito);
-        emailServicio.mandarEmail();
-    }
-
-    // Redirige a la vista "home"
-    return new ModelAndView("redirect:/home");
-}
 
     @GetMapping("/compras")
     public ModelAndView irAlaListaDeCompras(HttpSession session){
@@ -203,12 +178,10 @@ public ModelAndView terminarCompra(HttpSession session) throws IOException {
 
         Compra compra = compraServicio.buscarCompraPorId(id);
 
-        //  usuario logeado
         if (compra == null || !compra.getUsuario().getId().equals(usuario.getId())) {
             return new ModelAndView("error", new ModelMap("mensaje", "No tienes acceso a esta compra."));
         }
 
-        // Preparar los datos para la vista
         ModelMap map = new ModelMap();
         map.put("compra", compra);
         map.put("pedidoCarritos", compra.getListaDePedidosAcomprar());

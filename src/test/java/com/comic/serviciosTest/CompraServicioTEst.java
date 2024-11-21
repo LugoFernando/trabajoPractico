@@ -1,22 +1,22 @@
 package com.comic.serviciosTest;
 
-import com.comic.entidades.Carrito;
+import com.comic.entidades.*;
 import com.comic.entidades.Dto.Compra;
-import com.comic.entidades.Figura;
-import com.comic.entidades.PedidoCarrito;
-import com.comic.entidades.Usuario;
 import com.comic.repositorios.CarritoRepositorio;
 import com.comic.repositorios.CompraRepositorio;
 import com.comic.servicios.implementacion.CompraServicioImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 public class CompraServicioTEst {
@@ -35,116 +35,94 @@ public class CompraServicioTEst {
 
     }
 
-//    @Test
-//    public void queSeObtengaUnaListaConTodosLasCompras(){
-//        List<Compra> comprasMock = new ArrayList<>();
-//        Figura figuraMock = new Figura("superman");
-//        figuraMock.setPrecio(100.0);
-//        Pedido pedido = new Pedido(1L,figuraMock,1);
-//        List<Pedido>listaDePedidos=new ArrayList<>();
-//        listaDePedidos.add(pedido);
-//        Usuario usuario =new Usuario();
-//        usuario.setId(1L);
-//        usuario.setEmail("selgadis@gmail.com");
-//        usuario.setPassword("selga");
-//        Compra compra1=new Compra();
-//        compra1.setId(1L);
-//        compra1.setCantidad(1);
-//        compra1.setPrecioTotal(100.0);
-//        compra1.setUsuario(usuario);
-//        compra1.setListaDePedidosAcomprar(listaDePedidos);
-//
-//
-//
-//        List<Compra> figuras = this.compraServicio.listarlasCompras();
-//
-//        assertThat(figuras, equalTo(comprasMock));
-//        verify(compraRepositorio).buscarTodasLasCompras();
-//    }
 
-//    @Test
-//    public void testGuardarCompra() {
-//        // Crear figura mock y pedido
-//        Figura figuraMock = new Figura("superman");
-//        figuraMock.setPrecio(100.0);
-//
-//        PedidoCarrito pedidoCarrito = new PedidoCarrito(1L, figuraMock, 1);
-//        List<PedidoCarrito> listaDePedidoCarritos = new ArrayList<>();
-//        listaDePedidoCarritos.add(pedidoCarrito);
-//
-//        // Crear usuario con carrito
-//        Usuario usuario = new Usuario();
-//        usuario.setId(1L);
-//        usuario.setEmail("selgadis@gmail.com");
-//        usuario.setPassword("selga");
-//
-//        Carrito carrito = new Carrito();
-//        carrito.setPedidos(listaDePedidoCarritos);
-//        carrito.setTotal(100.0); // Total del carrito
-//        usuario.setCarrito(carrito);
-//
-//        // Acción: guardar la compra
-//        compraService.guardarCompra(usuario);
-//
-//        // Verificar que compraRepositorio.guardar fue llamado con la compra correcta
-//        verify(compraRepositorio, times(1)).guardar(argThat(compra ->
-//                compra.getUsuario().equals(usuario) &&
-//                        compra.getCantidad() == 1 &&
-//                        compra.getPrecioTotal() == 100.0 &&
-//                        compra.getListaDePedidosAcomprar().equals(listaDePedidoCarritos)
-//        ));
-//    }
+    @Test
+    public void queSeObtengaUnaListaDeTodasLasCompras() {
+        Compra compraMock1 = new Compra();
+        compraMock1.setId(1L);
+
+        Compra compraMock2 = new Compra();
+        compraMock2.setId(2L);
+
+        List<Compra> comprasMock = Arrays.asList(compraMock1, compraMock2);
+
+        when(compraRepositorio.buscarTodasLasCompras()).thenReturn(comprasMock);
+
+        List<Compra> compras = compraService.listarlasCompras();
+
+        assertThat(compras, equalTo(comprasMock));
+        assertThat(compras.size(), equalTo(2));
+        verify(compraRepositorio).buscarTodasLasCompras();
+    }
+
+    @Test
+    public void queGuardeUnaCompraBasadaEnElCarritoDeUsuario() {
+
+        Usuario usuarioMock = new Usuario();
+        Carrito carritoMock = new Carrito();
 
 
-//    @Test
-//    public void testListarLasCompras() {
-//        // Crear figura mock y pedido
-//        Figura figuraMock = new Figura("superman");
-//        figuraMock.setPrecio(100.0);
-//
-//        PedidoCarrito pedidoCarrito = new PedidoCarrito(1L, figuraMock, 1);
-//        List<PedidoCarrito> listaDePedidoCarritos = new ArrayList<>();
-//        listaDePedidoCarritos.add(pedidoCarrito);
-//
-//        // Crear usuario con carrito
-//        Usuario usuario = new Usuario();
-//        usuario.setId(1L);
-//        usuario.setEmail("selgadis@gmail.com");
-//        usuario.setPassword("selga");
-//
-//        Carrito carrito = new Carrito();
-//        carrito.setPedidos(listaDePedidoCarritos);
-//        carrito.setTotal(100.0);
-//        usuario.setCarrito(carrito);
-//
-//        // Crear compra
-//        Compra compraEsperada = new Compra();
-//        compraEsperada.setId(1L);
-//        compraEsperada.setCantidad(1);
-//        compraEsperada.setPrecioTotal(100.0);
-//        compraEsperada.setUsuario(usuario);
-//        compraEsperada.setListaDePedidosAcomprar(listaDePedidoCarritos);
-//
-//        // Simular la llamada al repositorio
-//        when(compraRepositorio.buscarTodasLasCompras()).thenReturn(List.of(compraEsperada));
-//
-//        // Acción
-//        List<Compra> resultado = compraService.listarlasCompras();
-//
-//        // Verificación
-//        assertThat(resultado, hasSize(1)); // Debe devolver una sola compra
-//        Compra compraObtenida = resultado.get(0);
-//
-//        // Validar la compra obtenida
-//        assertThat(compraObtenida.getUsuario(), equalTo(usuario));
-//        assertThat(compraObtenida.getListaDePedidosAcomprar(), equalTo(listaDePedidoCarritos));
-//        assertThat(compraObtenida.getPrecioTotal(), equalTo(100.0));
-//        assertThat(compraObtenida.getCantidad(), equalTo(1.0));
-//
-//        // Verificar que el repositorio fue llamado
-//        verify(compraRepositorio, times(1)).buscarTodasLasCompras();
-//    }
-//
-//
+        Figura figuraMock = new Figura();
+        figuraMock.setId(1L);
+        figuraMock.setPrecio(100.0);
+
+        PedidoCarrito pedidoMock = new PedidoCarrito(figuraMock, 2);
+        carritoMock.agregarFigura(figuraMock);
+
+        usuarioMock.setCarrito(carritoMock);
+
+        compraService.guardarCompra(usuarioMock);
+
+
+        ArgumentCaptor<Compra> compraCaptor = ArgumentCaptor.forClass(Compra.class);
+        verify(compraRepositorio).guardar(compraCaptor.capture());
+
+        Compra compraGuardada = compraCaptor.getValue();
+
+        assertNotNull(compraGuardada);
+        assertThat(compraGuardada.getUsuario(), equalTo(usuarioMock));
+        assertThat(compraGuardada.getCantidad(), equalTo((double) usuarioMock.getCarrito().getPedidos().size()));
+        assertThat(compraGuardada.getPrecioTotal(), equalTo(usuarioMock.getCarrito().getTotal()));
+        assertThat(compraGuardada.getListaDePedidosAcomprar().size(), equalTo(usuarioMock.getCarrito().getPedidos().size()));
+
+        PedidoCompra pedidoCompra = compraGuardada.getListaDePedidosAcomprar().get(0);
+        PedidoCarrito pedidoCarrito = usuarioMock.getCarrito().getPedidos().get(0);
+
+        assertThat(pedidoCompra.getFigura(), equalTo(pedidoCarrito.getFigura()));
+        assertThat(pedidoCompra.getCantidad(), equalTo(pedidoCarrito.getCantidad()));
+    }
+
+    @Test
+    public void queSeObtengaUnaCompraPorId() {
+
+        Long idCompra = 1L;
+        Figura figuraMock = new Figura();
+        figuraMock.setId(1L);
+        figuraMock.setPrecio(200.0);
+        figuraMock.setNombre("Figura Mock");
+
+        PedidoCompra pedidoMock = new PedidoCompra(null, figuraMock, 3);
+
+        Compra compraMock = new Compra();
+        compraMock.setId(idCompra);
+        compraMock.setCantidad(1);
+        compraMock.setPrecioTotal(600.0);
+        compraMock.setListaDePedidosAcomprar(List.of(pedidoMock));
+
+        when(compraRepositorio.buscarCompraPorId(idCompra)).thenReturn(compraMock);
+
+        Compra compraObtenida = compraService.buscarCompraPorId(idCompra);
+
+        assertNotNull(compraObtenida);
+        assertThat(compraObtenida.getId(), equalTo(idCompra));
+        assertThat(compraObtenida.getCantidad(), equalTo(1.0));
+        assertThat(compraObtenida.getPrecioTotal(), equalTo(600.0));
+        assertThat(compraObtenida.getListaDePedidosAcomprar().size(), equalTo(1));
+
+        PedidoCompra pedidoObtenido = compraObtenida.getListaDePedidosAcomprar().get(0);
+        assertThat(pedidoObtenido.getFigura(), equalTo(figuraMock));
+        assertThat(pedidoObtenido.getCantidad(), equalTo(3));
+        verify(compraRepositorio).buscarCompraPorId(idCompra);
+    }
 
 }
