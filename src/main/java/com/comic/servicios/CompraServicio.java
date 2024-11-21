@@ -10,7 +10,7 @@ public interface CompraServicio {
     List<Compra> listarlasCompras();
 
 
-    void guardarCompra(Usuario usuario);
+    Compra guardarCompra(Usuario usuario);
 
     Compra buscarCompraPorId(Long id);
 }

@@ -144,13 +144,13 @@ public class ControladorCarrito {
         Carrito carrito = usuarioBaseDatos.getCarrito();
 
         if (carrito != null) {
-            compraServicio.guardarCompra(usuarioBaseDatos);
+            Compra compraEmail=compraServicio.guardarCompra(usuarioBaseDatos);
             carrito.vaciarCarrito();
             usuarioBaseDatos.setCarrito(carrito);
 
             servicioLogin.modificarUsuario2(usuarioBaseDatos);
             session.setAttribute("carrito", carrito);
-            emailServicio.mandarEmail();
+            emailServicio.mandarEmail(compraEmail);
         }
 
         return new ModelAndView("redirect:/home");

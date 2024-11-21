@@ -36,7 +36,7 @@ public class CompraServicioImp implements CompraServicio {
     }
 
     @Override
-    public void guardarCompra(Usuario usuario){
+    public Compra guardarCompra(Usuario usuario){
         Compra compraNueva = new Compra();
         Carrito nuevoCarrito = usuario.getCarrito();
 
@@ -52,6 +52,7 @@ public class CompraServicioImp implements CompraServicio {
         compraNueva.setUsuario(usuario);
 
         compraRepositorio.guardar(compraNueva);
+        return compraNueva;
     }
 
     @Override
