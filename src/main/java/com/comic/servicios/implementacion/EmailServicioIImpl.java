@@ -15,7 +15,7 @@ public class EmailServicioIImpl implements EmailServicio{
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(mediaType, "{\"from\":{\"email\":\"hello@demomailtrap.com\",\"name\":\"Mailtrap Test\"},\"to\":[{\"email\":\"selgadisselga@gmail.com\"}],\"subject\":\"You are awesome!\",\"text\":\"Congrats for sending test email with Mailtrap!\",\"category\":\"Integration Test\"}");
+            RequestBody body = RequestBody.create(mediaType, "{\"from\":{\"email\":\"hello@demomailtrap.com\",\"name\":\"Tus Figuras\"},\"to\":[{\"email\":\"selgadisselga@gmail.com\"}],\"subject\":\"Gracias por elegirnos!\",\"text\":\"dentro de poco podras te va a llegar un email con los detalles de tu compra,Recorda que podes ver los detalles en la web en la seccion mis compras!\",\"category\":\"Integration Test\"}");
             Request request = new Request.Builder()
                     .url("https://send.api.mailtrap.io/api/send")
                     .method("POST", body)
