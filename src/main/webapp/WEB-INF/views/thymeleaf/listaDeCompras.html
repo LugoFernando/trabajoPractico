@@ -29,7 +29,9 @@
             <tr th:each="compra, iterStat : ${listaDeComprasDeUsuario}">
                 <td th:text="${iterStat.index + 1}">1</td>
                  <!-- Asegúrate de tener este campo en tu entidad -->
-                <td th:text="${compra.cantidad}">0</td>
+                <td th:text="${#numbers.formatDecimal(compra.cantidad, 0, 0)}">0</td>
+
+
                 <td th:text="${compra.precioTotal} + ' $'">0.00 $</td>
                 <td>
                     <a th:href="@{/compras/detalle/{id}(id=${compra.id})}" class="btn btn-success">Ver Detalle</a>

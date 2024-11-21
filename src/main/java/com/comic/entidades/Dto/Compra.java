@@ -23,7 +23,7 @@ public class Compra {
     private Usuario usuario;
 
     @Column(name = "cantidad")
-    private double cantidad;
+    private Integer cantidad;
 
     @Column(name = "precio_total")
     private double precioTotal;
@@ -61,7 +61,7 @@ public class Compra {
         return cantidad;
     }
 
-    public void setCantidad(double cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
