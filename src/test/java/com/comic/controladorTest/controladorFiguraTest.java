@@ -91,7 +91,6 @@ public class controladorFiguraTest {
     }
 
 
-    //BuscarPorId
     @Test
     public void queSeBusqueUnaFiguraPorIDyDevuelvaUnaFigura(){
         Figura figuraMock = mock(Figura.class);
@@ -103,7 +102,6 @@ public class controladorFiguraTest {
         assertThat(figuraMock, equalTo(valorObtenido));
     }
 
-    //vistaTodasLasFiguras
     @Test
     public void queSeRedirijaALaVistaConTodasLasFiguras(){
             String valorEsperado = "listaDeProducto";
@@ -113,7 +111,6 @@ public class controladorFiguraTest {
     }
 
 
-    //NoEcontrarFiguraPorDescripciónOTitulo
     @Test
     public void queNoSeRedirijaALaVistaListaDeProductosEnBaseAUnaBusquedaAlNoEncontrarCoincidencia(){
         Model modelMock = mock(Model.class);
@@ -132,7 +129,6 @@ public class controladorFiguraTest {
 
     }
 
-    //EcontrarFiguraPorDescripciónOTitulo
     @Test
     public void queSeRedirijaALaVistaListaDeProductosEnBaseAUnaBusquedaAlEncontrarCoincidencia(){
         Model modelMock = mock(Model.class);
@@ -160,7 +156,6 @@ public class controladorFiguraTest {
 
         ModelAndView modelAndView = figuraControlador.vistaActualizarFigura(1L);
 
-        //verificacion
         assertThat(modelAndView.getViewName(), equalTo("modificarFigura"));
         assertThat(modelAndView.getModel().get("figura"), equalTo(figuraMock));
         verify(servicioFiguraMock).obtenerFiguraPorId(1L);
@@ -184,7 +179,7 @@ public class controladorFiguraTest {
         figuraMock.setId(1L);
         when(servicioFiguraMock.obtenerFiguraPorId(1L)).thenReturn(figuraMock);
 
-        // ejecuto
+
         ModelAndView modelAndView = figuraControlador.vistaActualizarFigura(1L);
 
         assertThat(modelAndView.getViewName(), equalTo("modificarFigura"));
@@ -194,10 +189,10 @@ public class controladorFiguraTest {
 
     @Test
     public void queSeRedirigaALaVistaListaEnElCasoQueNoSeEncuentraLaId() {
-        // simulacion
+
         when(servicioFiguraMock.obtenerFiguraPorId(1L)).thenReturn(null);
 
-        // ejecutar
+
         ModelAndView modelAndView = figuraControlador.vistaActualizarFigura(1L);
 
         assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
