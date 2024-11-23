@@ -56,7 +56,10 @@ public class FiguraControlador {
 
     // guardar una nueva figura
     @PostMapping("/guardar")
-    public ModelAndView guardarFigura(@ModelAttribute("figura") Figura figura, @RequestParam("imagen") MultipartFile imagen) {
+    public ModelAndView guardarFigura(@ModelAttribute("figura") Figura figura, @RequestParam("imagen") MultipartFile imagen,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
+        figura.setUsuario(datosUsuario);
         figuraServicio.guardarFigura(figura, imagen);
         return new ModelAndView("redirect:/lista"); // Redirige a la lista de figuras
     }
