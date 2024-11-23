@@ -8,6 +8,7 @@ public interface FiguraRepositorio {
 
 
     List<Figura> buscarTodo();
+    List<Figura> buscarFiguraPorIDUsurio(Long id);
 
     void guardar(Figura figura);
 

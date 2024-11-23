@@ -29,6 +29,10 @@ public class Figura {
     @Enumerated(EnumType.STRING)  // Almacenar el enum como un String
     private List<Preferencias> preferenciasList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     @Lob
     private byte[] imagen;
 

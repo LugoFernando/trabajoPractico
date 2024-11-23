@@ -20,4 +20,7 @@ public interface FiguraServicio {
     List<Figura> buscarSegunTexto(String texto);
 
     void actualizar(Figura figura, MultipartFile imagen);
+
+    List<Figura>traerListaDeFIgurasPorUsuario(Long id);
+
 }

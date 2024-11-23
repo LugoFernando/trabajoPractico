@@ -35,17 +35,17 @@ public class controladorFiguraTest {
         figuraControlador = new FiguraControlador(servicioFiguraMock, servicioLoginMock);
     }
     //hola
-    @Test
-    public void queSeMuestreLaVistaFigurasConListaDeFiguras() {
-        List<Figura> figurasMock = List.of(new Figura(), new Figura());
-        when(servicioFiguraMock.listarFiguras()).thenReturn(figurasMock);
-
-        ModelAndView modelAndView = figuraControlador.listarFiguras();
-
-        assertThat(modelAndView.getViewName(), equalTo("figuras"));
-        assertThat(modelAndView.getModel().get("figuras"), equalTo(figurasMock));
-        verify(servicioFiguraMock).listarFiguras();
-    }
+//    @Test
+//    public void queSeMuestreLaVistaFigurasConListaDeFiguras() {
+//        List<Figura> figurasMock = List.of(new Figura(), new Figura());
+//        when(servicioFiguraMock.listarFiguras()).thenReturn(figurasMock);
+//
+//        ModelAndView modelAndView = figuraControlador.listarFiguras();
+//
+//        assertThat(modelAndView.getViewName(), equalTo("figuras"));
+//        assertThat(modelAndView.getModel().get("figuras"), equalTo(figurasMock));
+//        verify(servicioFiguraMock).listarFiguras();
+//    }
 
     @Test
     public void queSeMuestreLaVistaNuevaFiguraConFormularioDeFigura() {

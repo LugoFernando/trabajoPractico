@@ -25,6 +25,9 @@ public class Usuario {
     @Fetch(FetchMode.SUBSELECT)  // Añadir FetchMode.SUBSELECT para evitar MultipleBagFetchException
     private List<Preferencias> preferenciasList = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="usuario_id")
+    private List<Figura>figurasDelUsuario=new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "carrito_id")

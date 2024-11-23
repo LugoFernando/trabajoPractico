@@ -28,6 +28,14 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
     }
 
     @Override
+    public List<Figura> buscarFiguraPorIDUsurio(Long id) {
+        String hql = "SELECT f FROM Figura f WHERE f.usuario.id = :usuarioId";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("usuarioId", id); 
+        return query.getResultList();
+    }
+
+    @Override
     @Transactional
     public void guardar(Figura figura) {
         this.sessionFactory.getCurrentSession().save(figura);

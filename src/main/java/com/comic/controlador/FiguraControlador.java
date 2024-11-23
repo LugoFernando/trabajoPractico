@@ -1,6 +1,7 @@
 package com.comic.controlador;
 
 import com.comic.entidades.Figura;
+import com.comic.entidades.Usuario;
 import com.comic.servicios.FiguraServicio;
 import com.comic.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -34,8 +37,10 @@ public class FiguraControlador {
 
     // pagina para listar todas las figuras
     @GetMapping("/lista")
-    public ModelAndView listarFiguras() {
-        List<Figura> figuras = figuraServicio.listarFiguras();
+    public ModelAndView listarFiguras(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
+        List<Figura> figuras = figuraServicio.traerListaDeFIgurasPorUsuario(datosUsuario.getId());
         ModelAndView modelAndView = new ModelAndView("figuras"); // Asigna la vista "figuras"
         modelAndView.addObject("figuras", figuras); // Añade la lista de figuras al modelo
         return modelAndView;

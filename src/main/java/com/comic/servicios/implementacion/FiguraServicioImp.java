@@ -84,4 +84,9 @@ public class FiguraServicioImp implements FiguraServicio {
         }
         figuraRepositorio.actualizarFigura(figura);
     }
+
+    @Override
+    public List<Figura> traerListaDeFIgurasPorUsuario(Long id) {
+        return figuraRepositorio.buscarFiguraPorIDUsurio(id);
+    }
 }
