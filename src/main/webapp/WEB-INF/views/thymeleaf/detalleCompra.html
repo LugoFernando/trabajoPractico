@@ -37,7 +37,7 @@
             <tr th:each="pedido : ${pedidoCarritos}">
                 <td th:text="${pedido.figura.nombre}"></td>
                 <td th:text="${pedido.cantidad}"></td>
-                <td th:text="${pedido.figura.precio}"></td>
+                <td th:text="${pedido.precio}"></td>
                 <td>
                     <img th:src="'data:image/png;base64,' + ${pedido.figura.cadena()}" alt="Foto" width="100" class="img-thumbnail">
                 </td>

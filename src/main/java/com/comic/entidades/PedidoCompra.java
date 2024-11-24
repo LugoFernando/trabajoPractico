@@ -15,6 +15,8 @@ public class PedidoCompra {
 
     private int cantidad;
 
+    private Double precio;
+
     public PedidoCompra() {
     }
 
@@ -47,5 +49,13 @@ public class PedidoCompra {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 }
