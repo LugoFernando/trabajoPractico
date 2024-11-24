@@ -211,8 +211,8 @@ public class ControladorLogin {
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome2(HttpServletRequest request) {
         ModelMap modelo = new ModelMap();
-        List<Figura>figurasCoincidenConPreferenciasUsuario=new ArrayList<>();//preferencias del metodo q tenia antes
-        List<Figura>listaDeFiguras=figuraServicio.listarFiguras();//preferencias del metodo q tenia antes
+        List<Figura> figurasCoincidenConPreferenciasUsuario = new ArrayList<>(); // preferencia del método que tenías antes
+        List<Figura> listaDeFiguras = figuraServicio.listarFiguras(); // preferencia del método que tenías antes
         HttpSession session = request.getSession();
         Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
 
@@ -228,39 +228,37 @@ public class ControladorLogin {
             List<Compra> comprasDelUsuario = todasLasCompras.stream()
                     .filter(compra -> compra.getUsuario().getId().equals(datosUsuario.getId()))
                     .collect(Collectors.toList());
-            //List<Pedido>listaDePedidosDeTodasLasComprasDelUsuario=new ArrayList<>();
 
             // Filtrar las figuras compradas por el usuario que coinciden con las figuras en la base de datos
             for (Compra compra : comprasDelUsuario) {
-                for (PedidoCompra listaDePedidosXCompra: compra.getListaDePedidosAcomprar()) {
+                for (PedidoCompra listaDePedidosXCompra : compra.getListaDePedidosAcomprar()) {
                     // Comparar la figura comprada con las figuras de la base de datos usando contains para coincidencias parciales
-
-
                     listaDeFigurasEnBaseDeDatos.stream()
                             .filter(figura -> figura.getNombre().toLowerCase().contains(listaDePedidosXCompra.getFigura().getNombre().toLowerCase()) ||
                                     figura.getPreferenciasList().stream().anyMatch(listaDePedidosXCompra.getFigura().getPreferenciasList()::contains))
+                            .filter(Figura::isActivo) // Filtrar solo las figuras activas
                             .forEach(listaDeFigurasQueCoinciden::add);
-
                 }
             }
         }
+
         if (datosUsuario != null) {
             List<Preferencias> preferenciasUsuario = datosUsuario.getPreferenciasList();
 
             figurasCoincidenConPreferenciasUsuario = listaDeFiguras.stream()
                     .filter(figura -> figura.getPreferenciasList().stream()
                             .anyMatch(preferenciasUsuario::contains))
-                    .collect(Collectors.toList()); // busca en la lista completa de figuras coincidencias en base a las preferencias
+                    .filter(Figura::isActivo) // Filtrar solo las figuras activas
+                    .collect(Collectors.toList()); // Busca en la lista completa de figuras coincidencias en base a las preferencias
         }
 
-
-        modelo.put("figurasFiltradas",figurasCoincidenConPreferenciasUsuario);
+        modelo.put("figurasFiltradas", figurasCoincidenConPreferenciasUsuario);
         // Agregar la lista de figuras que coinciden al modelo para usarla en el HTML
         modelo.addAttribute("figurasCoincidenConCompra", listaDeFigurasQueCoinciden);
 
         return new ModelAndView("home2", modelo);
-
     }
+
 
 
 
