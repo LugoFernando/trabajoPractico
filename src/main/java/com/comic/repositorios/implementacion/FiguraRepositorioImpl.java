@@ -88,15 +88,31 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
     }
 
 
+//    @Override
+//    @Transactional
+//    public List<Figura> darUnaListaBuscandoUnaPalabra(String palabra) {
+//        String hql = "SELECT f FROM Figura f " +
+//                "LEFT JOIN f.preferenciasList pref " +
+//                "WHERE f.nombre LIKE :palabra " +
+//                "OR f.precio LIKE :palabra " +
+//                "OR f.descripcion LIKE :palabra " +
+//                "OR pref LIKE :palabra";
+//
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("palabra", "%" + palabra + "%");
+//        return query.getResultList();
+//    }
+
     @Override
     @Transactional
     public List<Figura> darUnaListaBuscandoUnaPalabra(String palabra) {
         String hql = "SELECT f FROM Figura f " +
                 "LEFT JOIN f.preferenciasList pref " +
-                "WHERE f.nombre LIKE :palabra " +
+                "WHERE f.activo = true AND (" +
+                "f.nombre LIKE :palabra " +
                 "OR f.precio LIKE :palabra " +
                 "OR f.descripcion LIKE :palabra " +
-                "OR pref LIKE :palabra";
+                "OR pref LIKE :palabra)";
 
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("palabra", "%" + palabra + "%");
@@ -107,6 +123,14 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
     @Transactional
     public void actualizar(Figura figura) {
         this.sessionFactory.getCurrentSession().update(figura);
+    }
+
+    @Override
+    public List<Figura> listarFigurasActivas() {
+        String hql = "FROM Figura f WHERE f.activo = true";
+        return sessionFactory.getCurrentSession()
+                .createQuery(hql, Figura.class)
+                .getResultList();
     }
 
 

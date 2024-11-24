@@ -94,5 +94,10 @@ public class FiguraServicioImp implements FiguraServicio {
         return figuraRepositorio.buscarFiguraPorIDUsurio(id);
     }
 
+    @Override
+    public List<Figura> listarFigurasActivas() {
+        return figuraRepositorio.listarFigurasActivas();
+    }
+
 
 }

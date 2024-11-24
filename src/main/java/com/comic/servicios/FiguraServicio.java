@@ -23,4 +23,5 @@ public interface FiguraServicio {
 
     List<Figura>traerListaDeFIgurasPorUsuario(Long id);
 
+    List<Figura> listarFigurasActivas();
 }

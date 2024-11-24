@@ -24,4 +24,6 @@ public interface FiguraRepositorio {
 
     @Transactional
     void actualizar(Figura figura);
+
+    List<Figura> listarFigurasActivas();
 }

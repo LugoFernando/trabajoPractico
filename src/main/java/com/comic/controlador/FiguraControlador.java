@@ -78,7 +78,7 @@ public class FiguraControlador {
     // eliminar una figura por id
     @GetMapping("/eliminar/{id}")
     public ModelAndView eliminarFigura(@PathVariable Long id) {
-        figuraServicio.eliminarFigura(id); // Cambia a inactivo
+        figuraServicio.eliminarFigura(id);
         return new ModelAndView("redirect:/lista");
     }
 
@@ -110,16 +110,16 @@ public class FiguraControlador {
     @PostMapping("/actualizar")
     public ModelAndView actualizarFigura(@ModelAttribute Figura figura, @RequestParam("archivoImagen") MultipartFile archivoImagen) {
         try {
-            // Cambiar la imagen solo si se proporciona un nuevo archivo
+            // cambia img
             if (!archivoImagen.isEmpty()) {
                 figura.setImagen(archivoImagen.getBytes());
             }
 
             figuraServicio.actualizar(figura , archivoImagen);
-            return new ModelAndView("redirect:/lista"); // Redirigir a la lista de figuras
+            return new ModelAndView("redirect:/lista");
         } catch (Exception e) {
             // Manejo de errores (opcional)
-            return new ModelAndView("error"); // Redirigir a una vista de error
+            return new ModelAndView("error");
         }
     }
 
@@ -137,21 +137,37 @@ public class FiguraControlador {
 
 
 
+//    @RequestMapping(path = "/listaDeProducto", method = RequestMethod.GET)
+//    public ModelAndView irAProductos(Model model, @RequestParam(value = "palabraBuscada", required = false) String palabraBuscada) {
+//
+//        List<Figura> figuras;
+//        if (palabraBuscada != null && !palabraBuscada.isEmpty()) {
+//            figuras = figuraServicio.buscarSegunTexto(palabraBuscada); // busca figuras que coincidan
+//            model.addAttribute("palabraBuscada", palabraBuscada); //  añade el resultado al model
+//        } else {
+//            figuras = figuraServicio.listarFiguras();
+//        }
+//        // añade la lista
+//        model.addAttribute("figuras", figuras);
+//
+//        return new ModelAndView("listaDeProducto");
+//    }
+
     @RequestMapping(path = "/listaDeProducto", method = RequestMethod.GET)
     public ModelAndView irAProductos(Model model, @RequestParam(value = "palabraBuscada", required = false) String palabraBuscada) {
 
         List<Figura> figuras;
         if (palabraBuscada != null && !palabraBuscada.isEmpty()) {
-            figuras = figuraServicio.buscarSegunTexto(palabraBuscada); // busca figuras que coincidan
-            model.addAttribute("palabraBuscada", palabraBuscada); //  añade el resultado al model
+            figuras = figuraServicio.buscarSegunTexto(palabraBuscada);
+            model.addAttribute("palabraBuscada", palabraBuscada);
         } else {
-            figuras = figuraServicio.listarFiguras();
+            figuras = figuraServicio.listarFigurasActivas();
         }
-        // añade la lista
-        model.addAttribute("figuras", figuras);
 
+        model.addAttribute("figuras", figuras);
         return new ModelAndView("listaDeProducto");
     }
+
 
 
 
