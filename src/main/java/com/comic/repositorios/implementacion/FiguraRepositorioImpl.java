@@ -27,13 +27,25 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
         return query.getResultList();
     }
 
+//    @Override
+//    public List<Figura> buscarFiguraPorIDUsurio(Long id) {
+//        String hql = "SELECT f FROM Figura f WHERE f.usuario.id = :usuarioId";
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("usuarioId", id);
+//        return query.getResultList();
+//    }
+
     @Override
-    public List<Figura> buscarFiguraPorIDUsurio(Long id) {
-        String hql = "SELECT f FROM Figura f WHERE f.usuario.id = :usuarioId";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("usuarioId", id); 
-        return query.getResultList();
+    @Transactional
+    public List<Figura> buscarFiguraPorIDUsurio(Long usuarioId) {
+        String hql = "FROM Figura f WHERE f.usuario.id = :usuarioId AND f.activo = true";
+        return this.sessionFactory
+                .getCurrentSession()
+                .createQuery(hql, Figura.class)
+                .setParameter("usuarioId", usuarioId)
+                .getResultList();
     }
+
 
     @Override
     @Transactional
@@ -89,6 +101,12 @@ public class FiguraRepositorioImpl implements FiguraRepositorio {
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("palabra", "%" + palabra + "%");
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void actualizar(Figura figura) {
+        this.sessionFactory.getCurrentSession().update(figura);
     }
 
 

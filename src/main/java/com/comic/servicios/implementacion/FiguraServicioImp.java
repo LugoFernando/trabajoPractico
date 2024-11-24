@@ -51,7 +51,11 @@ public class FiguraServicioImp implements FiguraServicio {
 
     @Override
     public void eliminarFigura(Long id) {
-        figuraRepositorio.BorrarPorId(id);
+        Figura figura = figuraRepositorio.buscarPorId(id);
+        if (figura != null) {
+            figura.setActivo(false); // Marcar como inactivo
+            figuraRepositorio.actualizar(figura); // Guardar los cambios
+        }
     }
 
 //    @Override  (ver si es mejor tener en el servicio o en el repo)
@@ -89,4 +93,6 @@ public class FiguraServicioImp implements FiguraServicio {
     public List<Figura> traerListaDeFIgurasPorUsuario(Long id) {
         return figuraRepositorio.buscarFiguraPorIDUsurio(id);
     }
+
+
 }

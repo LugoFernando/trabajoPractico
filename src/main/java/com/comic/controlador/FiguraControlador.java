@@ -35,22 +35,32 @@ public class FiguraControlador {
 
 
 
-    // pagina para listar todas las figuras
+    // pagina para listar todas las figuras de usuario
+//    @GetMapping("/lista")
+//    public ModelAndView listarFiguras(HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
+//        List<Figura> figuras = figuraServicio.traerListaDeFIgurasPorUsuario(datosUsuario.getId());
+//        ModelAndView modelAndView = new ModelAndView("figuras"); // Asigna la vista "figuras"
+//        modelAndView.addObject("figuras", figuras); // Añade la lista de figuras al modelo
+//        return modelAndView;
+//    }
+
     @GetMapping("/lista")
     public ModelAndView listarFiguras(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
         List<Figura> figuras = figuraServicio.traerListaDeFIgurasPorUsuario(datosUsuario.getId());
-        ModelAndView modelAndView = new ModelAndView("figuras"); // Asigna la vista "figuras"
-        modelAndView.addObject("figuras", figuras); // Añade la lista de figuras al modelo
+        ModelAndView modelAndView = new ModelAndView("figuras");
+        modelAndView.addObject("figuras", figuras);
         return modelAndView;
     }
 
     // pagina para el formulario de nueva figura
     @GetMapping("/nueva")
     public ModelAndView nuevaFiguraForm() {
-        ModelAndView modelAndView = new ModelAndView("nuevaFigura"); // Asigna la vista "nuevaFigura"
-        modelAndView.addObject("figura", new Figura()); // Añade un nuevo objeto Figura al modelo
+        ModelAndView modelAndView = new ModelAndView("nuevaFigura");
+        modelAndView.addObject("figura", new Figura());
         return modelAndView;
     }
 
@@ -61,14 +71,14 @@ public class FiguraControlador {
         Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
         figura.setUsuario(datosUsuario);
         figuraServicio.guardarFigura(figura, imagen);
-        return new ModelAndView("redirect:/lista"); // Redirige a la lista de figuras
+        return new ModelAndView("redirect:/lista");
     }
 
 
     // eliminar una figura por id
     @GetMapping("/eliminar/{id}")
     public ModelAndView eliminarFigura(@PathVariable Long id) {
-        figuraServicio.eliminarFigura(id);
+        figuraServicio.eliminarFigura(id); // Cambia a inactivo
         return new ModelAndView("redirect:/lista");
     }
 
@@ -76,8 +86,8 @@ public class FiguraControlador {
     @GetMapping("/detalle/{id}")
     public ModelAndView detalleFigura(@PathVariable Long id) {
         Figura figura = figuraServicio.obtenerFiguraPorId(id);
-        ModelAndView modelAndView = new ModelAndView("detalleFigura"); // Asigna la vista "detalleFigura"
-        modelAndView.addObject("figura", figura); // Añade el objeto figura al modelo
+        ModelAndView modelAndView = new ModelAndView("detalleFigura");
+        modelAndView.addObject("figura", figura);
         return modelAndView;
     }
 

@@ -21,6 +21,9 @@ public class Figura {
     private String estado;
     @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "activo")
+    private Boolean activo = true;
+
 
 
     @ElementCollection(fetch = FetchType.EAGER,targetClass = Preferencias.class)
@@ -45,6 +48,16 @@ public class Figura {
         this.precio = precio;
         this.estado = estado;
         this.descripcion = descripcion;
+
+    }
+
+    public Figura(Long id, String nombre, Double precio, String estado, String descripcion , Boolean activo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.estado = estado;
+        this.descripcion = descripcion;
+        this.activo=activo;
     }
 
     public Figura ( String nombre, Double precio){
@@ -100,7 +113,6 @@ public class Figura {
 
     public void setPrecio(Double precio) {this.precio = precio;}
 
-
     public byte[] getImagen() {
         return imagen;
     }
@@ -108,7 +120,6 @@ public class Figura {
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
-
 
     public String cadena(){
        return new String(this.imagen);
@@ -120,6 +131,14 @@ public class Figura {
 
     public void setPreferenciasList(List<Preferencias> preferenciasList) {
         this.preferenciasList = preferenciasList;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     @Override

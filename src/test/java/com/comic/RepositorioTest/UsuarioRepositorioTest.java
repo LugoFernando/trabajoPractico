@@ -89,7 +89,7 @@ public class UsuarioRepositorioTest {
         List<Preferencias> lista = new ArrayList<>();
         lista.add(Preferencias.MARVEL);
         lista.add(Preferencias.DC);
-        lista.add(Preferencias.MANGA);
+        lista.add(Preferencias.ANIME);
 
         Usuario usuario =new Usuario();
         usuario.setEmail("selgadis24@gmail.com");
@@ -104,7 +104,7 @@ public class UsuarioRepositorioTest {
         Usuario usuarioObtenido = (Usuario)query.getSingleResult();
 
 
-        assertThat(usuarioObtenido.getPreferenciasList(), containsInAnyOrder(Preferencias.MARVEL, Preferencias.DC, Preferencias.MANGA));
+        assertThat(usuarioObtenido.getPreferenciasList(), containsInAnyOrder(Preferencias.MARVEL, Preferencias.DC, Preferencias.ANIME));
 
 
 

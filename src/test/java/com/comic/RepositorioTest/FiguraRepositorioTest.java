@@ -206,7 +206,7 @@ public class FiguraRepositorioTest {
         figura1.getPreferenciasList().add(Preferencias.MARVEL);
 
         Figura figura2 = new Figura(2L, "batman", 2000.0, "Nuevo", "figura en bolsa");
-        figura2.getPreferenciasList().add(Preferencias.MANGA);
+        figura2.getPreferenciasList().add(Preferencias.ANIME);
 
         Figura figura3 = new Figura(3L, "naruto", 2000.0, "Nuevo", "figura sin uso");
         figura3.getPreferenciasList().add(Preferencias.MARVEL);
