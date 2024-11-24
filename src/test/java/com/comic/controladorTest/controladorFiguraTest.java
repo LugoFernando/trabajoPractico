@@ -112,22 +112,21 @@ public class controladorFiguraTest {
 
 
     @Test
-    public void queNoSeRedirijaALaVistaListaDeProductosEnBaseAUnaBusquedaAlNoEncontrarCoincidencia(){
+    public void queNoSeRedirijaALaVistaListaDeProductosEnBaseAUnaBusquedaAlNoEncontrarCoincidencia() {
         Model modelMock = mock(Model.class);
         String valorEsperado = "listaDeProducto";
         List<Figura> figurasMock = mock(List.class);
 
-        when(servicioFiguraMock.listarFiguras()).thenReturn(figurasMock);
-        ModelAndView valorObtenido = figuraControlador.irAProductos(modelMock,null);
+        when(servicioFiguraMock.listarFigurasActivas()).thenReturn(figurasMock);
+        ModelAndView valorObtenido = figuraControlador.irAProductos(modelMock, null);
 
         verify(modelMock, times(0)).addAttribute(eq("palabraBuscada"), anyString());
         verify(modelMock, times(1)).addAttribute(eq("figuras"), anyList());
-        verify(servicioFiguraMock, times(1)).listarFiguras();
+        verify(servicioFiguraMock, times(1)).listarFigurasActivas();
         verify(servicioFiguraMock, times(0)).buscarSegunTexto(anyString());
-
         assertThat(valorEsperado, equalTo(valorObtenido.getViewName()));
-
     }
+
 
     @Test
     public void queSeRedirijaALaVistaListaDeProductosEnBaseAUnaBusquedaAlEncontrarCoincidencia(){
