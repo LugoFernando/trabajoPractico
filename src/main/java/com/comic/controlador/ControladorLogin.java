@@ -237,7 +237,7 @@ public class ControladorLogin {
 
 
                     listaDeFigurasEnBaseDeDatos.stream()
-                            .filter(figura -> figura.getNombre().toLowerCase().contains(listaDePedidosXCompra.getFigura().getNombre().toLowerCase()) &&
+                            .filter(figura -> figura.getNombre().toLowerCase().contains(listaDePedidosXCompra.getFigura().getNombre().toLowerCase()) ||
                                     figura.getPreferenciasList().stream().anyMatch(listaDePedidosXCompra.getFigura().getPreferenciasList()::contains))
                             .forEach(listaDeFigurasQueCoinciden::add);
 
