@@ -77,17 +77,32 @@ public class FiguraServicioImp implements FiguraServicio {
         return figuraRepositorio.buscarTodo();
     }
 
-    @Override
-    public void actualizar(Figura figura , MultipartFile imagen) {
-        if(imagen != null) {
-            try {
-                figura.setImagen(Base64.getEncoder().encode(imagen.getBytes()));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+//    @Override
+//    public void actualizar(Figura figura , MultipartFile imagen) {
+//        if(imagen != null) {
+//            try {
+//                figura.setImagen(Base64.getEncoder().encode(imagen.getBytes()));
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        figuraRepositorio.actualizarFigura(figura);
+//    }
+@Override
+public void actualizar(Figura figura, MultipartFile imagen) {
+    if (imagen != null && !imagen.isEmpty()) {  // Verificar que la imagen no esté vacía
+        try {
+            // Solo actualizar la imagen si se ha recibido un archivo de imagen
+            figura.setImagen(Base64.getEncoder().encode(imagen.getBytes()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        figuraRepositorio.actualizarFigura(figura);
     }
+
+    // Actualizar la figura en la base de datos (sin necesidad de modificar la imagen si no se recibió)
+    figuraRepositorio.actualizarFigura(figura);
+}
+
 
     @Override
     public List<Figura> traerListaDeFIgurasPorUsuario(Long id) {

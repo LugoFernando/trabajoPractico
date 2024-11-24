@@ -107,21 +107,45 @@ public class FiguraControlador {
 
 
     // actualizar la figura
+//    @PostMapping("/actualizar")
+//    public ModelAndView actualizarFigura(@ModelAttribute Figura figura, @RequestParam("archivoImagen") MultipartFile archivoImagen) {
+//        try {
+//            // cambia img
+//            if (!archivoImagen.isEmpty()) {
+//                figura.setImagen(archivoImagen.getBytes());
+//            }
+//
+//            figuraServicio.actualizar(figura , archivoImagen);
+//            return new ModelAndView("redirect:/lista");
+//        } catch (Exception e) {
+//            // Manejo de errores (opcional)
+//            return new ModelAndView("error");
+//        }
+//    }
+
     @PostMapping("/actualizar")
     public ModelAndView actualizarFigura(@ModelAttribute Figura figura, @RequestParam("archivoImagen") MultipartFile archivoImagen) {
         try {
-            // cambia img
+            // Si el archivo de imagen no está vacío, actualizamos la imagen
             if (!archivoImagen.isEmpty()) {
-                figura.setImagen(archivoImagen.getBytes());
+                figura.setImagen(archivoImagen.getBytes());  // Guardar la nueva imagen
+            } else {
+                // Si no se recibió una nueva imagen, se mantiene la imagen anterior
+                Figura figuraAnterior = figuraServicio.obtenerFiguraPorId(figura.getId()); // Obtén la figura actual desde la base de datos
+                figura.setImagen(figuraAnterior.getImagen());  // Mantén la imagen anterior
             }
 
-            figuraServicio.actualizar(figura , archivoImagen);
+            // Actualizamos la figura con la imagen (o sin ella si no se modificó)
+            figuraServicio.actualizar(figura, archivoImagen);
+
+            // Redirigir a la lista de figuras
             return new ModelAndView("redirect:/lista");
         } catch (Exception e) {
             // Manejo de errores (opcional)
             return new ModelAndView("error");
         }
     }
+
 
 
     @GetMapping("/productos")
