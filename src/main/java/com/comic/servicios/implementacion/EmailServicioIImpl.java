@@ -28,7 +28,7 @@ public class EmailServicioIImpl implements EmailServicio{
 
     public void mandarEmail(Compra compra) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
-
+        int cantidad = (int) compra.getCantidad();
 
         String htmlContent = "<!DOCTYPE html>" +
                 "<html lang=\"es\">" +
@@ -74,7 +74,7 @@ public class EmailServicioIImpl implements EmailServicio{
                 "        <p>Estos son los detalles de tu compra:</p>" +
                 "        <div class=\"email-details\">" +
                 "            <p><strong>Número de compra:</strong> " + compra.getId() + "</p>" +
-                "            <p><strong>Cantidad de productos:</strong> " + compra.getCantidad() + "</p>" +
+                "            <p><strong>Cantidad de productos:</strong> " + cantidad + "</p>" +
                 "            <p><strong>Monto total:</strong> $" + compra.getPrecioTotal() + "</p>" +
                 "        </div>" +
                 "    </div>" +
