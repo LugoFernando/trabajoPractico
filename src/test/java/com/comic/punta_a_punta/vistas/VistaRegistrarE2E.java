@@ -63,7 +63,7 @@ public class VistaRegistrarE2E {
     @Test
     void testRegistroConUsuarioExistente() {
 
-        vistaRegistrar.escribirEmail("selgadis@gmail.com");  // Usuario ya registrado
+        vistaRegistrar.escribirEmail("selgadisselga@gmail.com");  // Usuario ya registrado
         vistaRegistrar.escribirPassword("selga");
         vistaRegistrar.escribirConfirmPassword("selga");
         vistaRegistrar.darClickEnRegistrarme();

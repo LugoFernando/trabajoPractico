@@ -74,7 +74,7 @@ public class VistaLoginE2E {
     @Test
     void testLoginConCredencialesValidas() {
         // Actuar
-        vistaLogin.escribirEMAIL("selgadis@gmail.com");
+        vistaLogin.escribirEMAIL("selgadisselga@gmail.com");
         vistaLogin.escribirClave("selga");
         vistaLogin.darClickEnIniciarSesion();
 
