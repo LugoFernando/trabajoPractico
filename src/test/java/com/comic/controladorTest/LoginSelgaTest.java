@@ -243,6 +243,7 @@ public class LoginSelgaTest {
         preferenciasEsperadas.add(Preferencias.DC);
         preferenciasEsperadas.add(Preferencias.COMIC);
         preferenciasEsperadas.add(Preferencias.ANIME);
+
         ModelAndView modelAndView = controladorLogin.irAgregarPreferencias(requestMock);
 
 

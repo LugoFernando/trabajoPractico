@@ -15,7 +15,7 @@
 
     <!-- Formulario de búsqueda -->
     <form class="d-flex mb-4" method="get">
-        <input class="form-control me-2" type="search" name="palabraBuscada" th:value="${palabraBuscada}" placeholder="Buscar por nombre" aria-label="Buscar">
+        <input class="form-control me-2" type="search" name="palabraBuscada" th:value="${palabraBuscada}" placeholder="Ingresa lo que estas buscando aquí" aria-label="Buscar">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
 
@@ -41,6 +41,8 @@
         <a class="btn btn-secondary" th:href="@{/home}">Volver Al Inicio</a>
     </div>
 </div>
+
+<footer th:replace="layout :: footer"></footer>
 
 <!--Bootstrap JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

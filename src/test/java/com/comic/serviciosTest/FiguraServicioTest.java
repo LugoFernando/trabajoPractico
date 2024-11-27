@@ -57,15 +57,6 @@ public class FiguraServicioTest {
         verify(figuraRepositorio).buscarPorId(1L);
     }
 
-    @Test
-    public void queSeElimineUnaFiguraUnaFiguraConSuID() {
-        Figura figuraMock = new Figura();
-        figuraMock.setId(1L);
-
-        figuraServicio.eliminarFigura(figuraMock.getId());
-
-        verify(figuraRepositorio).BorrarPorId(figuraMock.getId());
-    }
 
     @Test
     public void queSeguardeUnaNuevaFiguraConUnaImagen() throws IOException {

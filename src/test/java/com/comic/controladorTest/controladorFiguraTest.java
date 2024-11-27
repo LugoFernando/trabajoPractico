@@ -126,8 +126,6 @@ public class controladorFiguraTest {
         verify(servicioFiguraMock, times(0)).buscarSegunTexto(anyString());
         assertThat(valorEsperado, equalTo(valorObtenido.getViewName()));
     }
-
-
     @Test
     public void queSeRedirijaALaVistaListaDeProductosEnBaseAUnaBusquedaAlEncontrarCoincidencia(){
         Model modelMock = mock(Model.class);
