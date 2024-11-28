@@ -7,8 +7,12 @@ import com.comic.repositorios.RepositorioUsuario;
 import com.comic.servicios.implementacion.ServicioLoginImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -26,7 +30,6 @@ public class ServiceLoginTest {
         repositorioUsuarioMock = mock(RepositorioUsuario.class);
         servicioLogin = new ServicioLoginImpl(repositorioUsuarioMock);
         datos=new DatosLogin("selgadis25@gmail.com","123456");
-        // Mock de Usuario
         usuarioMock = new Usuario();
         usuarioMock.setEmail("selgadis25@gmail.com");
         usuarioMock.setPassword("123456");
@@ -67,7 +70,7 @@ public class ServiceLoginTest {
 
 
         assertThrows(UsuarioExistente.class, () -> {
-            servicioLogin.registrar(usuarioMock); // Esta línea debe lanzar la excepción
+            servicioLogin.registrar(usuarioMock);
         });
 
 
@@ -82,10 +85,19 @@ public class ServiceLoginTest {
         servicioLogin.registrar(usuarioMock);
 
         verify(repositorioUsuarioMock, times(1)).guardar(usuarioMock);
-
-
     }
 
+    @Test
+    public void verificarQueSeModifiqueElCarritoCuandoElUsuarioExista() {
+        when(repositorioUsuarioMock.buscarUsuario("selgadis25@gmail.com", "123456"))
+                .thenReturn(usuarioMock);
 
+        Usuario usuarioModificado = new Usuario();
+        usuarioModificado.setEmail("selgadis25@gmail.com");
+        usuarioModificado.setPassword("123456");
+        servicioLogin.modificarCarrito(usuarioModificado);
+
+        verify(repositorioUsuarioMock, times(1)).modificar(usuarioMock);
+    }
 
 }

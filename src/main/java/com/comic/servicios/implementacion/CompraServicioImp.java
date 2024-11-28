@@ -43,7 +43,6 @@ public class CompraServicioImp implements CompraServicio {
         List<PedidoCompra> pedidoCompras = new ArrayList<>();
 
         for (PedidoCarrito pedidoA : nuevoCarrito.getPedidos()){
-//            pedidoCompras.add(new PedidoCompra(null, pedidoA.getFigura(), pedidoA.getCantidad()));
             PedidoCompra nuevoPedidoCompra= new PedidoCompra(null, pedidoA.getFigura(), pedidoA.getCantidad());
             nuevoPedidoCompra.setPrecio(pedidoA.getFigura().getPrecio());
             pedidoCompras.add(nuevoPedidoCompra);

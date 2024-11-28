@@ -125,10 +125,8 @@ public class CarritoControladorTest {
         when(servicioLoginMock.consultarUsuario("test@ejemplo.com", "password123")).thenReturn(usuarioMock);
         when(usuarioMock.getCarrito()).thenReturn(null);
 
-        // Actuar
         ModelAndView result = controladorCarrito.verCarrito(sessionMock);
 
-        // Verificar
         assertNotNull(result);
         assertEquals("carrito", result.getViewName());
         assertNotNull(result.getModel().get("pedidos"));
@@ -198,7 +196,6 @@ public class CarritoControladorTest {
         verify(carritoMock).vaciarCarrito();
         verify(servicioLoginMock).modificarUsuario2(usuarioBaseDatosMock);
         verify(sessionMock).setAttribute("carrito", carritoMock);
-        //verify(emailServicioMock).mandarEmail();
         assertNotNull(result);
         assertEquals("redirect:/home", result.getViewName());
     }
@@ -206,7 +203,6 @@ public class CarritoControladorTest {
 
     @Test
     public void queSeMuestreLaListaDeComprasDelUsuarioLogeado() {
-        // Preparar
         Usuario usuarioMock = mock(Usuario.class);
         List<Compra> comprasMock = new ArrayList<>();
         Compra compraMock1 = mock(Compra.class);
@@ -235,7 +231,6 @@ public class CarritoControladorTest {
 
     @Test
     public void queNoMuestreComprasDeOtrosUsuarios() {
-        // Preparar
         Usuario usuarioMock = mock(Usuario.class);
         Usuario otroUsuarioMock = mock(Usuario.class);
         List<Compra> comprasMock = new ArrayList<>();

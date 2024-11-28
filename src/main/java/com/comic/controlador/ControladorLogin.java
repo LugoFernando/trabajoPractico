@@ -47,16 +47,14 @@ public class ControladorLogin {
             modelo.put("datosLogin", new DatosLogin());
             modelo.put("usuario", usuarioLogeado);
 
-            // Recuperar el carrito del usuario si existe
             Carrito carrito;
             Usuario usuario = (Usuario) session.getAttribute("usuario");
             if (usuario != null && usuario.getCarrito() != null) {
                 carrito = usuario.getCarrito();
             } else {
-                carrito = new Carrito(usuarioLogeado);  // Crear nuevo carrito si no existe
+                carrito = new Carrito(usuarioLogeado);
             }
 
-            // Guardar el carrito en la sesión
             session.setAttribute("carrito", carrito);
 
             return new ModelAndView("login", modelo);
@@ -83,10 +81,8 @@ public class ControladorLogin {
         HttpSession session =request.getSession();
         Usuario datos =(Usuario)session.getAttribute("usuario");
         ModelMap modelo =new ModelMap();
-        // Obtiene la lista de preferencias del enum
         List<Preferencias> allPreferencias = Arrays.asList(Preferencias.values());
 
-        // Filtra las preferencias que ya están en preferenciasList del usuario
         List<Preferencias> availablePreferencias = allPreferencias.stream()
                 .filter(preferencia -> !datos.getPreferenciasList().contains(preferencia))
                 .collect(Collectors.toList());
@@ -116,38 +112,31 @@ public class ControladorLogin {
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-        // Agrega las preferencias seleccionadas a la lista del usuario
         if (usuario != null && preferencias != null) {
             for (Preferencias preferencia : preferencias) {
-                // Verifica si la preferencia ya está en la lista del usuario
                 if (!usuario.getPreferenciasList().contains(preferencia)) {
-                    usuario.getPreferenciasList().add(preferencia); // Aquí se agrega la preferencia
+                    usuario.getPreferenciasList().add(preferencia);
                 }
             }
         }
-       // Usuario usuarioBuscado= servicioLogin.consultarUsuario(usuario.getEmail(),usuario.getPassword());
         servicioLogin.modificarUusuario(usuario);
 
-        // Puedes redirigir a otra página después de guardar
-        return "redirect:/cuenta"; // O la página que desees
+        return "redirect:/cuenta";
     }
     @RequestMapping(path = "/guardar-preferencias-eliminadas", method = RequestMethod.POST)
     public String guardarPreferenciasDespuesDeEliminar(@RequestParam(value = "preferencias", required = false) List<Preferencias> preferencias, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-        // Elimina las preferencias seleccionadas de la lista del usuario
         if (usuario != null && preferencias != null) {
-            // Iteramos sobre la lista de preferencias a quitar
             for (Preferencias preferencia : preferencias) {
-                // Verificamos si la preferencia está en la lista del usuario
                 if (usuario.getPreferenciasList().contains(preferencia)) {
-                    usuario.getPreferenciasList().remove(preferencia); // Aquí se elimina la preferencia
+                    usuario.getPreferenciasList().remove(preferencia);
                 }
             }
         }
         servicioLogin.modificarUusuario(usuario);
-        return "redirect:/cuenta"; // Redirige a la cuenta después de quitar las preferencias
+        return "redirect:/cuenta";
     }
 
 
@@ -181,10 +170,8 @@ public class ControladorLogin {
     public ModelAndView registrarme(@ModelAttribute("nuevoUsuario") Usuario usuario, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
-        // Recuperar la confirmación de la contraseña del formulario
         String confirmPassword = request.getParameter("confirmPassword");
 
-        // Validar si las contraseñas coinciden
         if (!usuario.getPassword().equals(confirmPassword)) {
             model.put("error", "Las contraseñas no coinciden");
             return new ModelAndView("registrar", model);
@@ -211,32 +198,27 @@ public class ControladorLogin {
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome2(HttpServletRequest request) {
         ModelMap modelo = new ModelMap();
-        List<Figura> figurasCoincidenConPreferenciasUsuario = new ArrayList<>(); // preferencia del método que tenías antes
-        List<Figura> listaDeFiguras = figuraServicio.listarFiguras(); // preferencia del método que tenías antes
+        List<Figura> figurasCoincidenConPreferenciasUsuario = new ArrayList<>();
+        List<Figura> listaDeFiguras = figuraServicio.listarFiguras();
         HttpSession session = request.getSession();
         Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
 
-        // Obtener todas las figuras disponibles en la base de datos
         List<Figura> listaDeFigurasEnBaseDeDatos = figuraServicio.listarFiguras();
         List<Figura> listaDeFigurasQueCoinciden = new ArrayList<>();
 
         if (datosUsuario != null) {
-            // recupero todas las compras desde el servicio
             List<Compra> todasLasCompras = compraServicio.listarlasCompras();
 
-            // Filtro solo las compras que pertenecen al usuario actual
             List<Compra> comprasDelUsuario = todasLasCompras.stream()
                     .filter(compra -> compra.getUsuario().getId().equals(datosUsuario.getId()))
                     .collect(Collectors.toList());
 
-            // Filtrar las figuras compradas por el usuario que coinciden con las figuras en la base de datos
             for (Compra compra : comprasDelUsuario) {
                 for (PedidoCompra listaDePedidosXCompra : compra.getListaDePedidosAcomprar()) {
-                    // Comparar la figura comprada con las figuras de la base de datos usando contains para coincidencias parciales
                     listaDeFigurasEnBaseDeDatos.stream()
                             .filter(figura -> figura.getNombre().toLowerCase().contains(listaDePedidosXCompra.getFigura().getNombre().toLowerCase()) ||
                                     figura.getPreferenciasList().stream().anyMatch(listaDePedidosXCompra.getFigura().getPreferenciasList()::contains))
-                            .filter(Figura::isActivo) // Filtrar solo las figuras activas
+                            .filter(Figura::isActivo)
                             .forEach(listaDeFigurasQueCoinciden::add);
                 }
             }
@@ -248,14 +230,12 @@ public class ControladorLogin {
             figurasCoincidenConPreferenciasUsuario = listaDeFiguras.stream()
                     .filter(figura -> figura.getPreferenciasList().stream()
                             .anyMatch(preferenciasUsuario::contains))
-                    .filter(Figura::isActivo) // Filtrar solo las figuras activas
-                    .collect(Collectors.toList()); // Busca en la lista completa de figuras coincidencias en base a las preferencias
+                    .filter(Figura::isActivo)
+                    .collect(Collectors.toList());
         }
 
         modelo.put("figurasFiltradas", figurasCoincidenConPreferenciasUsuario);
-        // Agregar la lista de figuras que coinciden al modelo para usarla en el HTML
         modelo.addAttribute("figurasCoincidenConCompra", listaDeFigurasQueCoinciden);
-
         return new ModelAndView("home2", modelo);
     }
 
@@ -274,11 +254,10 @@ public class ControladorLogin {
 
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false); // Obtener la sesión sin crear una nueva
+        HttpSession session = request.getSession(false);
         if (session != null) {
-            session.invalidate(); // Invalidar la sesión actual
-        }
-        return new ModelAndView("redirect:/home"); // Redirigir a la página de inicio
+            session.invalidate();         }
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(path = "/moificarDatosUsuario", method = RequestMethod.GET)

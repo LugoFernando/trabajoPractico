@@ -12,6 +12,9 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -34,18 +37,30 @@ public class controladorFiguraTest {
         servicioFiguraMock = mock(FiguraServicio.class);
         figuraControlador = new FiguraControlador(servicioFiguraMock, servicioLoginMock);
     }
-    //hola
-//    @Test
-//    public void queSeMuestreLaVistaFigurasConListaDeFiguras() {
-//        List<Figura> figurasMock = List.of(new Figura(), new Figura());
-//        when(servicioFiguraMock.listarFiguras()).thenReturn(figurasMock);
-//
-//        ModelAndView modelAndView = figuraControlador.listarFiguras();
-//
-//        assertThat(modelAndView.getViewName(), equalTo("figuras"));
-//        assertThat(modelAndView.getModel().get("figuras"), equalTo(figurasMock));
-//        verify(servicioFiguraMock).listarFiguras();
-//    }
+
+
+    @Test
+    public void queSeMuestreLaVistaFigurasConListaDeFigurasDelUsuario() {
+        HttpServletRequest requestMock = mock(HttpServletRequest.class);
+        HttpSession sessionMock = mock(HttpSession.class);
+        Usuario usuarioMock = new Usuario();
+        usuarioMock.setId(1L);
+
+        List<Figura> figurasMock = List.of(new Figura(), new Figura());
+
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+        when(servicioFiguraMock.traerListaDeFIgurasPorUsuario(usuarioMock.getId())).thenReturn(figurasMock);
+
+        ModelAndView modelAndView = figuraControlador.listarFiguras(requestMock);
+
+        assertThat(modelAndView.getViewName(), equalTo("figuras"));
+        assertThat(modelAndView.getModel().get("figuras"), equalTo(figurasMock));
+        verify(requestMock).getSession();
+        verify(sessionMock).getAttribute("usuario");
+        verify(servicioFiguraMock).traerListaDeFIgurasPorUsuario(usuarioMock.getId());
+    }
+
 
     @Test
     public void queSeMuestreLaVistaNuevaFiguraConFormularioDeFigura() {
@@ -55,16 +70,30 @@ public class controladorFiguraTest {
         assertThat(modelAndView.getModel().get("figura"), equalTo(new Figura()));
     }
 
-//    @Test
-//    public void queSeRedirijaALaVistaListaDespuesDeGuardarLaFigura() throws Exception {
-//        Figura figuraMock = new Figura();
-//        MockMultipartFile imagenMock = new MockMultipartFile("imagen", "imagen.jpg", "image/jpeg", "imagen simulada".getBytes());
-//
-//        ModelAndView modelAndView = figuraControlador.guardarFigura(figuraMock, imagenMock);
-//
-//        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
-//        verify(servicioFiguraMock).guardarFigura(figuraMock, imagenMock);
-//    }
+    @Test
+    public void queSeGuardeLaFiguraYRedirijaALaVistaLista() throws Exception {
+        HttpServletRequest requestMock = mock(HttpServletRequest.class);
+        HttpSession sessionMock = mock(HttpSession.class);
+        MultipartFile imagenMock = mock(MultipartFile.class);
+
+        Usuario usuarioMock = new Usuario();
+        usuarioMock.setId(1L);
+
+        Figura figuraMock = new Figura();
+        figuraMock.setNombre("Batman");
+
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+
+        ModelAndView modelAndView = figuraControlador.guardarFigura(figuraMock, imagenMock, requestMock);
+
+        assertThat(modelAndView.getViewName(), equalTo("redirect:/lista"));
+        assertThat(figuraMock.getUsuario(), equalTo(usuarioMock));
+        verify(servicioFiguraMock).guardarFigura(figuraMock, imagenMock);
+        verify(requestMock).getSession();
+        verify(sessionMock).getAttribute("usuario");
+    }
+
 
     @Test
     public void queSeRedirijaALaVistaListaDespuesDeEliminarFigura() {

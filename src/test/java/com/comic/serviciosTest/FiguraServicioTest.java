@@ -88,7 +88,6 @@ public class FiguraServicioTest {
 
         List<Figura> figuras = this.figuraServicio.buscarSegunTexto(textoBusqueda);
 
-        // verificacion
         assertThat(figuras, equalTo(figurasMock));
         verify(figuraRepositorio).darUnaListaBuscandoUnaPalabra(textoBusqueda);
         verify(figuraRepositorio, never()).buscarTodo(); // no se llamó a buscarTodo
@@ -96,7 +95,6 @@ public class FiguraServicioTest {
 
     @Test
     public void queSeObtenganTodaLaListaDeFigurasEnElCasoQueNoSeColoqueNingunTextoEnElBuscador()  {
-        //mokeo
         List<Figura> figurasMock = new ArrayList<>();
 
         when(this.figuraRepositorio.buscarTodo()).thenReturn(figurasMock);
@@ -136,9 +134,20 @@ public class FiguraServicioTest {
         verify(figuraRepositorio).actualizarFigura(figuraMock);
     }
 
+    @Test
+    public void queSeElimineFiguraYSeMarqueComoInactiva() {
 
+        Long idFigura = 1L;
+        Figura figuraMock = new Figura();
+        figuraMock.setId(idFigura);
+        figuraMock.setActivo(true);
 
+        when(figuraRepositorio.buscarPorId(idFigura)).thenReturn(figuraMock);
 
+        figuraServicio.eliminarFigura(idFigura);
 
+        assertThat(figuraMock.isActivo(), equalTo(false));
+        verify(figuraRepositorio).actualizar(figuraMock);
 
+    }
 }

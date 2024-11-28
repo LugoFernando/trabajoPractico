@@ -53,20 +53,11 @@ public class FiguraServicioImp implements FiguraServicio {
     public void eliminarFigura(Long id) {
         Figura figura = figuraRepositorio.buscarPorId(id);
         if (figura != null) {
-            figura.setActivo(false); // Marcar como inactivo
-            figuraRepositorio.actualizar(figura); // Guardar los cambios
+            figura.setActivo(false);
+            figuraRepositorio.actualizar(figura);
         }
     }
 
-//    @Override  (ver si es mejor tener en el servicio o en el repo)
-//    public void eliminarFigura(Long id) {
-//        Figura figura = figuraRepositorio.buscarPorId(id); // Método que busca la figura por ID
-//        if (figura == null) {
-//            throw new FiguraNotFoundException("No se puede eliminar la figura, ya que no existe con el id: " + id);
-//        }
-//        figuraRepositorio.BorrarPorId(id); // Eliminar la figura si existe
-        //hola
-//    }
 
 
     @Override
@@ -77,31 +68,18 @@ public class FiguraServicioImp implements FiguraServicio {
         return figuraRepositorio.buscarTodo();
     }
 
-//    @Override
-//    public void actualizar(Figura figura , MultipartFile imagen) {
-//        if(imagen != null) {
-//            try {
-//                figura.setImagen(Base64.getEncoder().encode(imagen.getBytes()));
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        figuraRepositorio.actualizarFigura(figura);
-//    }
-@Override
-public void actualizar(Figura figura, MultipartFile imagen) {
-    if (imagen != null && !imagen.isEmpty()) {  // Verificar que la imagen no esté vacía
-        try {
-            // Solo actualizar la imagen si se ha recibido un archivo de imagen
-            figura.setImagen(Base64.getEncoder().encode(imagen.getBytes()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    // Actualizar la figura en la base de datos (sin necesidad de modificar la imagen si no se recibió)
-    figuraRepositorio.actualizarFigura(figura);
-}
+    @Override
+    public void actualizar(Figura figura, MultipartFile imagen) {
+        if (imagen != null && !imagen.isEmpty()) {
+            try {
+                figura.setImagen(Base64.getEncoder().encode(imagen.getBytes()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        figuraRepositorio.actualizarFigura(figura);
+    }
 
 
     @Override

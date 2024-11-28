@@ -35,16 +35,7 @@ public class FiguraControlador {
 
 
 
-    // pagina para listar todas las figuras de usuario
-//    @GetMapping("/lista")
-//    public ModelAndView listarFiguras(HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        Usuario datosUsuario = (Usuario) session.getAttribute("usuario");
-//        List<Figura> figuras = figuraServicio.traerListaDeFIgurasPorUsuario(datosUsuario.getId());
-//        ModelAndView modelAndView = new ModelAndView("figuras"); // Asigna la vista "figuras"
-//        modelAndView.addObject("figuras", figuras); // Añade la lista de figuras al modelo
-//        return modelAndView;
-//    }
+
 
     @GetMapping("/lista")
     public ModelAndView listarFiguras(HttpServletRequest request) {
@@ -106,39 +97,17 @@ public class FiguraControlador {
 
 
 
-    // actualizar la figura
-//    @PostMapping("/actualizar")
-//    public ModelAndView actualizarFigura(@ModelAttribute Figura figura, @RequestParam("archivoImagen") MultipartFile archivoImagen) {
-//        try {
-//            // cambia img
-//            if (!archivoImagen.isEmpty()) {
-//                figura.setImagen(archivoImagen.getBytes());
-//            }
-//
-//            figuraServicio.actualizar(figura , archivoImagen);
-//            return new ModelAndView("redirect:/lista");
-//        } catch (Exception e) {
-//            // Manejo de errores (opcional)
-//            return new ModelAndView("error");
-//        }
-//    }
-
     @PostMapping("/actualizar")
     public ModelAndView actualizarFigura(@ModelAttribute Figura figura, @RequestParam("archivoImagen") MultipartFile archivoImagen) {
         try {
-            // Si el archivo de imagen no está vacío, actualizamos la imagen
             if (!archivoImagen.isEmpty()) {
                 figura.setImagen(archivoImagen.getBytes());  // Guardar la nueva imagen
             } else {
-                // Si no se recibió una nueva imagen, se mantiene la imagen anterior
                 Figura figuraAnterior = figuraServicio.obtenerFiguraPorId(figura.getId()); // Obtén la figura actual desde la base de datos
                 figura.setImagen(figuraAnterior.getImagen());  // Mantén la imagen anterior
             }
 
-            // Actualizamos la figura con la imagen (o sin ella si no se modificó)
             figuraServicio.actualizar(figura, archivoImagen);
-
-            // Redirigir a la lista de figuras
             return new ModelAndView("redirect:/lista");
         } catch (Exception e) {
             // Manejo de errores (opcional)
@@ -159,23 +128,6 @@ public class FiguraControlador {
         return "listaDeProducto";
     }
 
-
-
-//    @RequestMapping(path = "/listaDeProducto", method = RequestMethod.GET)
-//    public ModelAndView irAProductos(Model model, @RequestParam(value = "palabraBuscada", required = false) String palabraBuscada) {
-//
-//        List<Figura> figuras;
-//        if (palabraBuscada != null && !palabraBuscada.isEmpty()) {
-//            figuras = figuraServicio.buscarSegunTexto(palabraBuscada); // busca figuras que coincidan
-//            model.addAttribute("palabraBuscada", palabraBuscada); //  añade el resultado al model
-//        } else {
-//            figuras = figuraServicio.listarFiguras();
-//        }
-//        // añade la lista
-//        model.addAttribute("figuras", figuras);
-//
-//        return new ModelAndView("listaDeProducto");
-//    }
 
     @RequestMapping(path = "/listaDeProducto", method = RequestMethod.GET)
     public ModelAndView irAProductos(Model model, @RequestParam(value = "palabraBuscada", required = false) String palabraBuscada) {
