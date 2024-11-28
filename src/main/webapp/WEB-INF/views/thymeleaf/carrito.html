@@ -1,22 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras</title>
-    <!-- Agregar Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .img-thumbnail {
+            object-fit: contain;
+        }
+    </style>
 </head>
 
-
+<body>
 <header th:replace="layout :: header"></header>
 
-
-<body>
-<div class="container my-5">
+<main class="container my-5">
     <h1 class="text-center">Carrito de Compras</h1>
 
-    <!-- Tabla de figuras en el carrito -->
     <div class="table-responsive mt-4">
         <table class="table table-striped">
             <thead class="table-dark">
@@ -25,11 +38,10 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Imagen</th>
-                <th scope="col">Acciones</th> <!-- Columna para el botón de eliminar -->
+                <th scope="col">Acciones</th>
             </tr>
             </thead>
             <tbody>
-            <!-- Itera a través de las figuras del carrito -->
             <tr th:each="pedidoCarrito : ${pedidos}">
                 <td th:text="${pedidoCarrito.figura.nombre}">Nombre de la Figura</td>
                 <td th:text="${pedidoCarrito.figura.descripcion}">Descripción de la Figura</td>
@@ -38,7 +50,6 @@
                     <img th:src="'data:image/png;base64,' + ${pedidoCarrito.figura.cadena()}" alt="Foto" width="100" class="img-thumbnail">
                 </td>
                 <td>
-                    <!-- Botón de eliminar -->
                     <form th:action="@{'/eliminar/' + ${pedidoCarrito.figura.id}}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
@@ -48,10 +59,8 @@
         </table>
     </div>
 
-    <!-- Muestra el total del carrito -->
     <h3 class="mt-4">Total: $<span th:text="${total}">0.00</span></h3>
 
-    <!-- Botones para seguir comprando, vaciar carrito y pagar -->
     <div class="d-flex justify-content-center mt-4">
         <a class="btn btn-secondary mx-2" th:href="@{/listaDeProducto}">Seguir Comprando</a>
 
@@ -64,34 +73,15 @@
             <button type="button" class="btn btn-success" id="btn-pagar">Pagar</button>
         </form>
     </div>
-</div>
+</main>
 
-<!-- Modal de confirmación -->
-<div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmacionModalLabel">¡Compra Exitosa!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                La compra se realizó exitosamente. Puedes ver tus compras en "Mis compras" y te enviamos un comprobante a tu email.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="confirmar-pago">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<footer th:replace="layout :: footer"></footer>
 
-<!-- Agregar Bootstrap JS y dependencias -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Script para el manejo del popup -->
+<!-- pop -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const btnPagar = document.getElementById("btn-pagar");
@@ -99,12 +89,10 @@
         const confirmarPago = document.getElementById("confirmar-pago");
 
         btnPagar.addEventListener("click", function () {
-            // Muestra el modal de confirmación
             $("#confirmacionModal").modal("show");
         });
 
         confirmarPago.addEventListener("click", function () {
-            // Oculta el modal y envía el formulario
             $("#confirmacionModal").modal("hide");
             formPagar.submit();
         });

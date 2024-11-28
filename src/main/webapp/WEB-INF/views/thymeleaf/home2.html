@@ -1,128 +1,4 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="es" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>Tienda de Figuras</title>-->
-<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <link rel="stylesheet" th:href="@{/css/styles.css}">-->
-<!--    <script src="https://kit.fontawesome.com/2edf5860bb.js" crossorigin="anonymous"></script>-->
-<!--</head>-->
-<!--<body>-->
-<!--&lt;!&ndash; Barra de Navegación &ndash;&gt;-->
 
-<!--<header th:replace="layout :: header"></header>-->
-
-
-<!--&lt;!&ndash; Banner Principal &ndash;&gt;-->
-<!--<div class="container my-5">-->
-<!--    <div class="jumbotron text-center py-5" style="background-color: #1e1e1e; color: #f5f5f5;">-->
-<!--        <h1 class="display-4">¡Bienvenido a Mis Figuras!</h1>-->
-<!--        <p class="lead">La figura que buscas está aquí.</p>-->
-<!--        <a class="btn btn-lg" th:href="@{/listaDeProducto}" role="button"-->
-<!--           style="background-color: #f5e1c8; color: #1e1e1e; border: none;">Ver Catálogo</a>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-
-<!--&lt;!&ndash; Sección de Productos destacados en Carrusel &ndash;&gt;-->
-<!--<div class="container my-5">-->
-<!--    <h3 class="text-center mb-4">Figuras que coinciden con tus preferencias</h3>-->
-<!--    <div th:if="${figurasFiltradas != null && !figurasFiltradas.isEmpty()}">-->
-<!--        <div id="carouselFiguras" class="carousel slide" data-bs-ride="carousel">-->
-<!--            <div class="carousel-inner">-->
-<!--                <div th:each="figura, iterStat : ${figurasFiltradas}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">-->
-<!--                    <div class="row justify-content-center">-->
-<!--                        <div class="col-lg-5 col-md-7">-->
-<!--                            <div class="card shadow-sm" style="height: 100%; width: 100%;">-->
-<!--                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 250px; overflow: hidden;">-->
-<!--                                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}"-->
-<!--                                         alt="Imagen de Figura"-->
-<!--                                         style="max-width: 100%; max-height: 100%; object-fit: contain; object-position: center;">-->
-<!--                                </div>-->
-<!--                                <div class="card-body p-4">-->
-<!--                                    <h5 class="card-title text-truncate" th:text="${figura.nombre}">Nombre de Figura</h5>-->
-<!--                                    <p class="card-text small text-muted text-truncate" th:text="${figura.descripcion}">Descripción de Figura</p>-->
-<!--                                    <p class="card-text fw-bold" th:text="${figura.precio} + ' $'">Precio</p>-->
-<!--                                    <a class="btn btn-lg btn-success" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; Controles del carrusel &ndash;&gt;-->
-<!--            <button class="carousel-control-prev" type="button" data-bs-target="#carouselFiguras" data-bs-slide="prev">-->
-<!--                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                <span class="visually-hidden">Anterior</span>-->
-<!--            </button>-->
-<!--            <button class="carousel-control-next" type="button" data-bs-target="#carouselFiguras" data-bs-slide="next">-->
-<!--                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                <span class="visually-hidden">Siguiente</span>-->
-<!--            </button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div th:if="${figurasFiltradas == null || figurasFiltradas.isEmpty()}">-->
-<!--        <p class="text-center">No hay figuras que coincidan con tus preferencias en este momento.</p>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-
-<!--<div class="container my-5">-->
-<!--    <h3 class="text-center mb-4">Figuras relacionadas con tus compras</h3>-->
-<!--    <div th:if="${figurasCoincidenConCompra != null && !figurasCoincidenConCompra.isEmpty()}">-->
-<!--        <div id="carouselCompras" class="carousel slide" data-bs-ride="carousel">-->
-<!--            <div class="carousel-inner">-->
-<!--                <div th:each="figura, iterStat : ${figurasCoincidenConCompra}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">-->
-<!--                    <div class="row justify-content-center">-->
-<!--                        <div class="col-lg-5 col-md-7">-->
-<!--                            <div class="card shadow-sm" style="width: 100%; height: 100%;">-->
-<!--                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 250px; overflow: hidden;">-->
-<!--                                    <img th:src="'data:image/png;base64,' + ${figura.cadena()}"-->
-<!--                                         alt="Imagen de Figura"-->
-<!--                                         style="max-width: 100%; max-height: 100%; object-fit: contain; object-position: center;">-->
-<!--                                </div>-->
-<!--                                <div class="card-body">-->
-<!--                                    <h5 class="card-title text-truncate" th:text="${figura.nombre}">Nombre de Figura</h5>-->
-<!--                                    <p class="card-text small text-muted text-truncate" th:text="${figura.descripcion}">Descripción de Figura</p>-->
-<!--                                    <p class="card-text fw-bold" th:text="${figura.precio} + ' $'">Precio</p>-->
-<!--                                    <a class="btn btn-success w-100" th:href="@{'/detalle/' + ${figura.id}}">Ver</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; Controles del carrusel &ndash;&gt;-->
-<!--            <button class="carousel-control-prev" type="button" data-bs-target="#carouselCompras" data-bs-slide="prev">-->
-<!--                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                <span class="visually-hidden">Anterior</span>-->
-<!--            </button>-->
-<!--            <button class="carousel-control-next" type="button" data-bs-target="#carouselCompras" data-bs-slide="next">-->
-<!--                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                <span class="visually-hidden">Siguiente</span>-->
-<!--            </button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div th:if="${figurasCoincidenConCompra == null || figurasCoincidenConCompra.isEmpty()}">-->
-<!--        <p class="text-center">No hay figuras recomendadas según tus compras.</p>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-
-<!--<footer th:replace="layout :: footer"></footer>-->
-
-
-<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>-->
-<!--</body>-->
-<!--</html>-->
 
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
@@ -130,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda de Figuras</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="https://kit.fontawesome.com/2edf5860bb.js" crossorigin="anonymous"></script>
@@ -160,7 +35,6 @@
     </style>
 </head>
 <body>
-<!-- Barra de Navegación -->
 <header th:replace="layout :: header"></header>
 
 
@@ -181,7 +55,6 @@
 
 
 
-<!-- Sección de Productos destacados en Carrusel -->
 <div class="container my-5">
     <h3 class="text-center mb-4">Figuras que coinciden con tus preferencias</h3>
     <div th:if="${figurasFiltradas != null && !figurasFiltradas.isEmpty()}">
@@ -208,7 +81,6 @@
                 </div>
             </div>
 
-            <!-- Controles del carrusel -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselFiguras" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Anterior</span>
@@ -224,7 +96,6 @@
     </div>
 </div>
 
-<!-- Figuras relacionadas con compras -->
 <div class="container my-5">
     <h3 class="text-center mb-4">Figuras relacionadas con tus compras</h3>
     <div th:if="${figurasCoincidenConCompra != null && !figurasCoincidenConCompra.isEmpty()}">
@@ -251,7 +122,6 @@
                 </div>
             </div>
 
-            <!-- Controles del carrusel -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselCompras" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Anterior</span>
@@ -269,7 +139,6 @@
 
 <footer th:replace="layout :: footer"></footer>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
