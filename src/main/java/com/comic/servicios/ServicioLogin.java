@@ -6,6 +6,9 @@ import com.comic.entidades.Usuario;
 public interface ServicioLogin {
 
     Usuario consultarUsuario(String email, String password);
+
+    Usuario consultarUsuarioSoloPorEmail(String email);
+
     void registrar(Usuario usuario) throws UsuarioExistente;
     void modificarUusuario(Usuario usuario);
     void modificarUsuario2(Usuario usuario);

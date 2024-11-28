@@ -26,11 +26,16 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .add(Restrictions.eq("email", email))
                 .add(Restrictions.eq("password", password))
                 .uniqueResult();
-        //        if (usuario == null) {
-//            throw new UsuarioNoEncontradoException("Usuario no encontrado con el email y contraseña proporcionados.");
-//        }
-//
-//        return usuario;
+
+    }
+
+    @Override
+    public Usuario buscarUsuarioSoloPorEmail(String email) {
+
+        final Session session = sessionFactory.getCurrentSession();
+        return (Usuario) session.createCriteria(Usuario.class)
+                .add(Restrictions.eq("email", email))
+                .uniqueResult();
 
     }
 

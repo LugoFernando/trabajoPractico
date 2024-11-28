@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 public interface RepositorioUsuario {
 
     Usuario buscarUsuario(String email, String password);
+
+    Usuario buscarUsuarioSoloPorEmail(String email);
+
     void guardar(Usuario usuario);
     Usuario buscar(String email);
     void modificar(Usuario usuario);

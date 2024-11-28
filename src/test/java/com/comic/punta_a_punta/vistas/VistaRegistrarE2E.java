@@ -72,7 +72,7 @@ public class VistaRegistrarE2E {
         String mensajeError = vistaRegistrar.obtenerMensajeDeError();
 
 
-        assertEquals("Error El usuario ya existe", mensajeError);
+        assertEquals("Error Correo electrónico ya está registrado", mensajeError);
     }
 
 

@@ -166,9 +166,39 @@ public class ControladorLogin {
         return new ModelAndView("registrar", model);
     }
 
+//    @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
+//    public ModelAndView registrarme(@ModelAttribute("nuevoUsuario") Usuario usuario, HttpServletRequest request) {
+//        ModelMap model = new ModelMap();
+//
+//        String confirmPassword = request.getParameter("confirmPassword");
+//
+//        if (!usuario.getPassword().equals(confirmPassword)) {
+//            model.put("error", "Las contraseñas no coinciden");
+//            return new ModelAndView("registrar", model);
+//        }
+//
+//        try {
+//            servicioLogin.registrar(usuario);
+//        } catch (UsuarioExistente e) {
+//            model.put("error", "El usuario ya existe");
+//            return new ModelAndView("registrar", model);
+//        } catch (Exception e) {
+//            model.put("error", "Error al registrar el nuevo usuario");
+//            return new ModelAndView("registrar", model);
+//        }
+//
+//        return new ModelAndView("redirect:/login");
+//    }
+
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("nuevoUsuario") Usuario usuario, HttpServletRequest request) {
         ModelMap model = new ModelMap();
+
+        Usuario usuarioExistente = servicioLogin.consultarUsuarioSoloPorEmail(usuario.getEmail());
+        if (usuarioExistente != null) {
+            model.put("error", "Correo electrónico ya está registrado");
+            return new ModelAndView("registrar", model);
+        }
 
         String confirmPassword = request.getParameter("confirmPassword");
 
